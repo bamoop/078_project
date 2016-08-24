@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "E:\\john_work\\MV_078\\videoJjlibrary1\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-mdpi-v4\\ic_launcher.png",
+        "source": "E:\\john_work\\MV_078\\videoJjlibrary1\\build\\intermediates\\bundles\\debug\\res\\drawable-mdpi-v4\\ic_launcher.png"
+    },
+    {
+        "merged": "E:\\john_work\\MV_078\\videoJjlibrary1\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-mdpi-v4\\venvy_sdk_media_controller_pause_bg.png",
+        "source": "E:\\john_work\\MV_078\\videoJjlibrary1\\build\\intermediates\\bundles\\debug\\res\\drawable-mdpi-v4\\venvy_sdk_media_controller_pause_bg.png"
+    },
+    {
+        "merged": "E:\\john_work\\MV_078\\videoJjlibrary1\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-mdpi-v4\\venvy_sdk_media_controller_play_bg.png",
+        "source": "E:\\john_work\\MV_078\\videoJjlibrary1\\build\\intermediates\\bundles\\debug\\res\\drawable-mdpi-v4\\venvy_sdk_media_controller_play_bg.png"
+    }
+]
