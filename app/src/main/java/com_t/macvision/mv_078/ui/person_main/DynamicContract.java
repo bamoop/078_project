@@ -1,4 +1,4 @@
-package com_t.macvision.mv_078.ui.VideoList;/**
+package com_t.macvision.mv_078.ui.person_main;/**
  * Created by bzmoop on 2016/8/11 0011.
  */
 
@@ -11,7 +11,7 @@ import com_t.macvision.mv_078.model.entity.VideoEntity;
  * 邮箱：liangxiong.sz@foxmail.com
  * QQ  ：294894105
  */
-public interface VideoContract {
+public interface DynamicContract {
     interface View extends BaseView<Presenter> {
         /**
          * 显示数据

@@ -40,7 +40,7 @@
         </activity>
         <activity
             android:name="com_t.macvision.mv_078.ui.VideoDetail.VideoDetails_Activiey"
-            android:configChanges="orientation|screenSize|smallestScreenSize|keyboard|keyboardHidden|navigation"></activity>
+            android:configChanges="orientation|screenSize|smallestScreenSize|keyboard|keyboardHidden|navigation" />
         <activity
             android:name="com_t.macvision.mv_078.base.BaseActivity"
             android:configChanges="orientation|screenSize|smallestScreenSize|keyboard|keyboardHidden|navigation"
@@ -49,7 +49,9 @@
             android:name="com_t.macvision.mv_078.ui.Upload.UploadActivity"
             android:configChanges="orientation|screenSize|smallestScreenSize|keyboard|keyboardHidden|navigation"
             android:screenOrientation="portrait" />
-        <activity android:name="com_t.macvision.mv_078.ui.Device.StreamPlayerActivity"></activity>
+        <activity android:name="com_t.macvision.mv_078.ui.Device.StreamPlayerActivity" />
+        <activity android:name="com_t.macvision.mv_078.ui.Device.SDFile_Activity" />
+        <activity android:name="com_t.macvision.mv_078.ui.person_main.PersionHome_Activity"></activity>
     </application>
 
 </manifest>

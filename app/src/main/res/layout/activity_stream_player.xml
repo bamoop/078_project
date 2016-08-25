@@ -1,30 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/theme_fragment_bgColor"
-    tools:context="com_t.macvision.mv_078.ui.Device.StreamPlayerActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context="com_t.macvision.mv_078.ui.Device.StreamPlayerActivity">
 
     <include
         android:id="@+id/toolbar"
-        layout="@layout/layout_toolbar" />
+        layout="@layout/layout_toolbar">
+
+    </include>
 
     <RelativeLayout
         android:id="@+id/stream_layout"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_below="@+id/toolbar"
+        android:background="@color/black"
         android:gravity="center_horizontal|center_vertical"
-        android:paddingTop="5dp"
-        android:background="@color/black">
-    <SurfaceView
-        android:id="@+id/player_surface"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        />
+        android:paddingTop="5dp">
+
+        <SurfaceView
+            android:id="@+id/player_surface"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
     </RelativeLayout>
 
     <LinearLayout
@@ -32,46 +35,45 @@
         android:layout_width="match_parent"
         android:layout_height="74dp"
         android:layout_below="@id/stream_layout"
-        android:orientation="horizontal"
         android:background="@color/white"
-      >
+        android:orientation="horizontal">
 
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center_vertical|center_horizontal">
+
             <Button
                 android:id="@+id/btn_video"
-                android:layout_marginTop="4dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="记录仪视频"
-                android:textSize="12sp"
-                android:textColor="#000000"
-                android:inputType="text|none"
+                android:layout_marginTop="4dp"
+                android:background="@color/white"
                 android:drawableTop="@mipmap/ic_launcher"
-                android:background="@color/white">
-            </Button>
+                android:inputType="text|none"
+                android:text="记录仪视频"
+                android:textColor="#000000"
+                android:textSize="12sp"></Button>
         </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:gravity="center_vertical|center_horizontal" >
+            android:gravity="center_vertical|center_horizontal">
+
             <Button
                 android:id="@+id/btn_photo"
-                android:layout_marginTop="4dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="照片"
-                android:textSize="12sp"
-                android:textColor="#000000"
-                android:inputType="text|none"
+                android:layout_marginTop="4dp"
+                android:background="@color/white"
                 android:drawableTop="@mipmap/ic_launcher"
-                android:background="@color/white">
-            </Button>
+                android:inputType="text|none"
+                android:text="照片"
+                android:textColor="#000000"
+                android:textSize="12sp"></Button>
         </RelativeLayout>
     </LinearLayout>
 
@@ -79,18 +81,17 @@
         android:id="@+id/vp_streamPlay"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
         android:layout_marginTop="10dp"
-        />
+        android:layout_weight="1" />
+
     <android.support.design.widget.TabLayout
         android:id="@+id/tab_selector"
-        app:tabTextColor="@color/fileTable_textColor"
-        app:tabSelectedTextColor="@color/fileTable_selectedTextColor"
-        app:tabIndicatorColor="@color/fileTable_tabIndicatorColor"
-        app:tabBackground="@color/fileTable_bgColor"
         android:layout_width="match_parent"
         android:layout_height="@dimen/FileList_TabLayout_Height"
-        app:tabIndicatorHeight="3dp"
         android:layout_below="@id/file_layout"
-        />
+        app:tabBackground="@color/fileTable_bgColor"
+        app:tabIndicatorColor="@color/fileTable_tabIndicatorColor"
+        app:tabIndicatorHeight="3dp"
+        app:tabSelectedTextColor="@color/fileTable_selectedTextColor"
+        app:tabTextColor="@color/fileTable_textColor" />
 </LinearLayout>

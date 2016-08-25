@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:id="@+id/person_parent_layout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/theme_fragment_bgColor"
+    tools:context="com_t.macvision.mv_078.ui.person_main.PersionHome_Activity">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/layout_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp" />
+
+    <com_t.macvision.mv_078.ui.customView.OverScrollableScrollView
+        android:id="@+id/scroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar"
+        android:background="@color/white">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:id="@+id/hand_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="20dp">
+
+                <com_t.macvision.mv_078.util.CircleImageView
+                    android:id="@+id/image_hand"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/ic_launcher" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="64dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="70dp"
+                    android:layout_toRightOf="@id/image_hand"
+                    android:gravity="center_vertical"
+                    android:text="个性签名个性签名个性签名个性签名个性签名个性签名名个性签名"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:orientation="vertical">
+
+                    <Button
+                        android:id="@+id/btn_Focus"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:text="关注" />
+                </LinearLayout>
+            </RelativeLayout>
+
+            <include
+                android:id="@+id/persion_count_layout"
+                layout="@layout/persion_count_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/hand_layout"></include>
+
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tab_selector"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/FileList_TabLayout_Height"
+                android:layout_below="@id/persion_count_layout"
+                android:layout_marginBottom="@dimen/FileList_Item_paddingTop"
+                android:layout_marginTop="@dimen/FileList_Item_paddingTop"
+                app:tabBackground="@color/theme_fragment_bgColor"
+                app:tabIndicatorColor="@color/fileTable_tabIndicatorColor"
+                app:tabIndicatorHeight="3dp"
+                app:tabSelectedTextColor="@color/fileTable_selectedTextColor"
+                app:tabTextColor="@color/fileTable_textColor" />
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/vp_file"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_below="@id/tab_selector"
+                android:layout_weight="1" />
+        </RelativeLayout>
+
+    </com_t.macvision.mv_078.ui.customView.OverScrollableScrollView>
+</RelativeLayout>

@@ -20,9 +20,7 @@ public class Constant {
     public static final String videoCaption = "videoCaption";
     public static final String videoType = "videoType";
     public static final String token = "token";
-
     public static final String CITY = "CITY";
-
 
     /**
      * 以下是行车记录仪相关
@@ -32,7 +30,7 @@ public class Constant {
     public static final String DEFAULT_DIR = "DCIM";
     private String m_dir = "dir";
     private String m_reardir = "reardir";//后路
-    private String m_DCIM = "m_DCIM";
+    public final static String m_DCIM = "m_DCIM";
     private String m_Event = "Event";
     private String m_Photo = "Photo";
 

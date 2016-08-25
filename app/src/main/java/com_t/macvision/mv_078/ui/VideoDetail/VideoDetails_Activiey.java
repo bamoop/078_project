@@ -104,7 +104,6 @@ public class VideoDetails_Activiey extends BaseActivity implements VideoDetailCo
         showRefresh();
         PlayVideoView.setMediaController(new UsetMediaContoller(this));
 
-
     }
 
     /**

@@ -10,13 +10,5 @@
     app:theme="@style/ToolbarColoredBackArrow"
     app:titleTextColor="@color/black">
 
-    <TextView
-        android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_centerInParent="true"
-    android:layout_gravity="center"
-    android:text="www.dastorm.com"
-    android:textColor="@android:color/white"
-    android:textSize="20sp"
-    android:textStyle="bold" />
+
 </android.support.v7.widget.Toolbar>

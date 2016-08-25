@@ -91,7 +91,7 @@ public class FragmentTab1 extends BaseFragment implements VideoContract.View,Mai
                 showRefresh();
                 mPresenter.start(currentPage, type, false);
                  mHasMoreData = true;
-                Logger.i("onRefresh: 下拉刷新");
+
             }
         });
         rv_mainvideo.addOnScrollListener(new RecyclerView.OnScrollListener() {

@@ -12,7 +12,6 @@ import android.net.wifi.WifiManager;
  * QQ  ：294894105
  */
 public class NetworkUtil {
-    String s;
 
     public static String getIP(Context context) {
         String mIp = null;

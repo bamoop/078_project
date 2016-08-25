@@ -53,14 +53,14 @@ public class UploadActivity extends BaseActivity implements UploadContract.View 
     private LinearLayout btn_upload;
 
     private Button btn_againLocation;
-    private Button btn_type1;
+    private TextView btn_type1;
     private EditText ed_state;
-
 
     @Override
     public void onCreate(Bundle savedInstanceStat) {
         super.onCreate(savedInstanceStat);
         setContentView(R.layout.activity_upload);
+
         initData();
         initView();
         initVideo();
@@ -110,7 +110,7 @@ public class UploadActivity extends BaseActivity implements UploadContract.View 
 
             }
         });
-        btn_type1=(Button)findViewById(R.id.btn_type1);
+        btn_type1=(TextView)findViewById(R.id.btn_type1);
         btn_type1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

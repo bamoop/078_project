@@ -1,6 +1,4 @@
-package com_t.macvision.mv_078.ui.File;/**
- * Created by bzmoop on 2016/8/15 0015.
- */
+package com_t.macvision.mv_078.ui.Device;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -11,36 +9,40 @@ import android.view.View;
 import android.widget.CheckBox;
 
 import com.macvision.mv_078.R;
-import com_t.macvision.mv_078.base.BaseFragment;
-import com_t.macvision.mv_078.core.MainActivity;
-import com_t.macvision.mv_078.model.entity.FileEntity;
-import com_t.macvision.mv_078.presenter.FilePresenter;
-import com_t.macvision.mv_078.ui.Upload.UploadActivity;
-import com_t.macvision.mv_078.ui.adapter.FileListAdapter;
-import com_t.macvision.mv_078.ui.adapter.RecycleViewDivider;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
+import com_t.macvision.mv_078.base.BaseFragment;
+import com_t.macvision.mv_078.core.MainActivity;
+import com_t.macvision.mv_078.model.DeviceModle.FileNode;
+import com_t.macvision.mv_078.model.entity.FileEntity;
+import com_t.macvision.mv_078.presenter.FilePresenter;
+import com_t.macvision.mv_078.presenter.SDFilePresenter;
+import com_t.macvision.mv_078.ui.File.FileContract;
+import com_t.macvision.mv_078.ui.File.FileFragment;
+import com_t.macvision.mv_078.ui.File.MenuClickListener;
+import com_t.macvision.mv_078.ui.adapter.FileListAdapter;
+import com_t.macvision.mv_078.ui.adapter.RecycleViewDivider;
 
 /**
  * 作者：LiangXiong on 2016/8/15 0015 16:59
  * 邮箱：liangxiong.sz@foxmail.com
  * QQ  ：294894105
  */
-public class FileChildFragment extends BaseFragment implements FileContract.View, MenuClickListener, FileListAdapter.IClickMainItem {
+public class SDFileChildFragment extends BaseFragment implements SDFileContract.View, MenuClickListener, FileListAdapter.IClickMainItem {
     @Bind(R.id.rv_filelist)
     RecyclerView rv_filelist;
     private List<FileEntity> mFileList = new ArrayList<FileEntity>();
-    private FilePresenter mPresenter;
+    private SDFilePresenter mPresenter;
     private FileListAdapter mFileAdapter;
     private LinearLayoutManager layoutManager;
     private List<FileEntity> selectList = new ArrayList<>();
     private Activity mActivity;
 
-    public static FileChildFragment Tab1Instance(Bundle bundle) {
-        FileChildFragment tab1Fragment = new FileChildFragment();
+    public static SDFileChildFragment Tab1Instance(Bundle bundle) {
+        SDFileChildFragment tab1Fragment = new SDFileChildFragment();
         tab1Fragment.setArguments(bundle);
         return tab1Fragment;
     }
@@ -53,8 +55,8 @@ public class FileChildFragment extends BaseFragment implements FileContract.View
 
     @Override
     protected void initView(View view) {
-        mPresenter = new FilePresenter(this);
-        mPresenter.start("", getActivity());
+        mPresenter = new SDFilePresenter(this);
+        mPresenter.getData("", currentContext,0);
         mFileAdapter = new FileListAdapter(getActivity(), mFileList);
         mFileAdapter.setClickItem(this);
         layoutManager = new LinearLayoutManager(getActivity());
@@ -68,7 +70,8 @@ public class FileChildFragment extends BaseFragment implements FileContract.View
     }
 
     private void initData() {
-        mPresenter.start("", getActivity());
+        mPresenter.getData("", currentContext,0);
+
     }
 
     @Override
@@ -76,14 +79,30 @@ public class FileChildFragment extends BaseFragment implements FileContract.View
         new FileFragment().setMenuClickListener(this);
     }
 
+
+
     @Override
-    public void fillData(List<FileEntity> entity) {
-        mFileList.addAll(entity);
-        mFileAdapter.updateWithClear(entity);
+    public void fillData(List<FileNode> nodeList) {
+
+    }
+
+    @Override
+    public void hasNoMoreData() {
+
+    }
+
+    @Override
+    public void appendMoreDataToView(List<FileNode> nodeList) {
+
     }
 
     @Override
     public void getDataFinish() {
+
+    }
+
+    @Override
+    public void getDatafail() {
 
     }
 
@@ -118,13 +137,13 @@ public class FileChildFragment extends BaseFragment implements FileContract.View
 
     @Override
     public void onClickItemVideo(CheckBox mCheckBox, FileEntity entity) {
-        if (FileFragment.mIsEditState)
+        if (Fragment_SDFile.mIsEditState)
             mCheckBox.setChecked(!mCheckBox.isChecked());
         else {
-            Log.i("moop2", "onClickItemVideo: 点击无效" + mActivity);
+            Log.i("moop3", "onClickItemVideo: 点击无效" + mActivity);
             Bundle bundle = new Bundle();
             bundle.putSerializable("FileEntity", entity);
-            MainActivity.startActivity(getMyActivity(), bundle, UploadActivity.class);
         }
     }
+
 }

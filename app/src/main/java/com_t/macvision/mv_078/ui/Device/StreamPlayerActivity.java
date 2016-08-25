@@ -1,5 +1,6 @@
 package com_t.macvision.mv_078.ui.Device;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.PixelFormat;
 import android.media.AudioManager;
@@ -7,7 +8,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,13 +15,13 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.macvision.mv_078.R;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import com_t.macvision.mv_078.base.BaseActivity;
-import com_t.macvision.mv_078.ui.adapter.FragmentTableAdapter;
 import com_t.macvision.mv_078.ui.adapter.ViewPager_View_Adapter;
 import com_t.macvision.mv_078.util.ScreenUtils;
 
@@ -58,6 +58,8 @@ public class StreamPlayerActivity extends BaseActivity implements SurfaceHolder.
     ViewPager mViewPager;
     @Bind(R.id.tab_selector)
     TabLayout mTableLayout;
+    @Bind(R.id.btn_video)
+    Button btn_video;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,7 +69,6 @@ public class StreamPlayerActivity extends BaseActivity implements SurfaceHolder.
 
         initView();
         initVlc();
-
 
     }
 
@@ -83,6 +84,14 @@ public class StreamPlayerActivity extends BaseActivity implements SurfaceHolder.
         mTableLayout.setupWithViewPager(mViewPager);
         mViewPager.setOffscreenPageLimit(1);
         mTableLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+
+        btn_video.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(StreamPlayerActivity.this, SDFile_Activity.class);
+                startActivity(intent);
+            }
+        });
 
     }
 
@@ -100,7 +109,7 @@ public class StreamPlayerActivity extends BaseActivity implements SurfaceHolder.
 
         this.setVolumeControlStream(AudioManager.STREAM_MUSIC);
         mSurfaceView.setKeepScreenOn(true);
-        mLibVLC.playMRL("http://7xr5j6.com1.z0.glb.clouddn.com/hunantv0129.mp4?v=3");
+//        mLibVLC.playMRL("http://7xr5j6.com1.z0.glb.clouddn.com/hunantv0129.mp4?v=3");
     }
 
     @Override
