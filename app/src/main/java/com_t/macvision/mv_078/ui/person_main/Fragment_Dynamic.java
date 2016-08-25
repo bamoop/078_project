@@ -8,6 +8,8 @@ import android.view.View;
 
 import com.macvision.mv_078.R;
 
+import java.util.List;
+
 import butterknife.Bind;
 import com_t.macvision.mv_078.base.BaseFragment;
 import com_t.macvision.mv_078.model.entity.VideoEntity;
@@ -21,6 +23,16 @@ public class Fragment_Dynamic extends BaseFragment implements DynamicContract.Vi
     @Bind(R.id.rv_dynamic)
     RecyclerView rv_dynamic;
     LinearLayoutManager layoutManager;
+
+    /**
+     * 是否有更多数据
+     **/
+    private boolean mHasMoreData = true;
+
+    public  int currentPage = 1;
+
+    private List<VideoEntity.VideolistEntity> mDataList;
+
 
     @Override
     protected int getLayout() {
@@ -54,6 +66,11 @@ public class Fragment_Dynamic extends BaseFragment implements DynamicContract.Vi
 
     @Override
     public void getDataFinish() {
+
+    }
+
+    @Override
+    public void getDataFail() {
 
     }
 }

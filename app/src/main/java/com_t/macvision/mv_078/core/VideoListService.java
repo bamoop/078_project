@@ -52,6 +52,7 @@ public interface VideoListService {
      */
     @POST("video/findAllType")
     Observable<String> getAllType();
+
     /**
      * 视频详情
      *
@@ -93,5 +94,27 @@ public interface VideoListService {
             @Field("videoId") int videoId,
             @Field("page") int page,
             @Field("pageSize") int pageSize);
+
+    /**
+     * 评论
+     **/
+    @POST("comment/save")
+    Observable<String> saveComment(
+            @Field("token") String token,
+            @Field("cmContent") String cmContent,
+            @Field("cmUserId") int cmUserId,
+            @Field("cmVideoId") String cmVideoId,
+            @Field("beReplyUserId") String beReplyUserId);
+
+    /**
+     * 查询用户动态列表
+     **/
+    @POST("video/findReleaseByUId")
+    @FormUrlEncoded
+    Observable<String> getDynamicList(
+            @Field("userId") int userId,
+            @Field("page") int page,
+            @Field("token") int pageSize
+    );
 
 }

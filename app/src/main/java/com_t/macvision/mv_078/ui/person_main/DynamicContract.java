@@ -32,11 +32,15 @@ public interface DynamicContract {
          * 数据加载完成
          */
         void getDataFinish();
+
+        /**
+         * 数据加载失败
+         */
+        void getDataFail();
     }
 
     interface Presenter extends BasePresenter {
-        void start(int page, int type, boolean isgetDataMore);
-
+        void getData(int userId, int page, boolean isgetDataMore);
     }
 
 }

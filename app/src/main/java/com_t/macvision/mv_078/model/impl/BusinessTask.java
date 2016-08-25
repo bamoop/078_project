@@ -13,12 +13,13 @@ import rx.schedulers.Schedulers;
 public class BusinessTask {
 
     public void getVideoList(Subscriber<String> subscriber, int currentPage, int pageSize, int type) {
-        HttpUtils.getInstance().initRetrofit().create(VideoListService.class).getVideoListData(currentPage,pageSize, type)
+        HttpUtils.getInstance().initRetrofit().create(VideoListService.class).getVideoListData(currentPage, pageSize, type)
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
+
     public void getVideoDetail(Subscriber<String> subscriber, int videoID) {
         HttpUtils.getInstance().initRetrofit().create(VideoListService.class).getVideoDetail(videoID)
                 .subscribeOn(Schedulers.io())
@@ -26,15 +27,25 @@ public class BusinessTask {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
-    public void getVideoCommentList(Subscriber<String> subscriber, int videoID,int page,int pageSize) {
-        HttpUtils.getInstance().initRetrofit().create(VideoListService.class).getCommentList(videoID,page,pageSize)
+
+    public void getVideoCommentList(Subscriber<String> subscriber, int videoID, int page, int pageSize) {
+        HttpUtils.getInstance().initRetrofit().create(VideoListService.class).getCommentList(videoID, page, pageSize)
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
+
     public void getType(Subscriber<String> subscriber) {
         HttpUtils.getInstance().initRetrofit().create(VideoListService.class).getAllType()
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    public void getDynamicList(Subscriber<String> subscriber, int userId, int page, int pageSize) {
+        HttpUtils.getInstance().initRetrofit().create(VideoListService.class).getDynamicList(userId, page, pageSize)
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

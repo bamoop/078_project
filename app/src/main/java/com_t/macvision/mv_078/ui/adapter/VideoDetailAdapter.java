@@ -11,9 +11,11 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.macvision.mv_078.R;
+
 import com_t.macvision.mv_078.model.entity.CommentEntity;
 import com_t.macvision.mv_078.model.entity.VideoEntity;
 import com_t.macvision.mv_078.util.CircleImageView;
+
 import com.orhanobut.logger.Logger;
 
 
@@ -34,7 +36,7 @@ public class VideoDetailAdapter extends RecyclerView.Adapter<VideoDetailAdapter.
     VideoEntity.VideolistEntity mVideoList;
 
     private Context context;
-    int viewTyPe;
+    int viewType;
     public static int position;
 
     public VideoDetailAdapter(Context context, List<CommentEntity.DataBean> mCommentEntity, VideoEntity.VideolistEntity mVideoList) {
@@ -56,7 +58,7 @@ public class VideoDetailAdapter extends RecyclerView.Adapter<VideoDetailAdapter.
 
     @Override
     public int getItemViewType(int position) {
-        viewTyPe = position;
+        viewType = position;
         if (position == 0) {
             return position;
         } else
@@ -78,7 +80,7 @@ public class VideoDetailAdapter extends RecyclerView.Adapter<VideoDetailAdapter.
     @Override
     public void onBindViewHolder(ViewHolderItem holder, int position) {
         this.position = position;
-        if (viewTyPe == 0)
+        if (viewType == 0)
             holder.bindItem(context, null, mVideoList);
         else
             holder.bindItem(context, mCommentEntity.get(position - 1), null);

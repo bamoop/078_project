@@ -40,7 +40,7 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/tv_count"
+                        android:id="@+id/tv_PlayCount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="36666"
@@ -55,12 +55,21 @@
                         android:textSize="@dimen/videoList_Item_tv_play_size" />
                 </LinearLayout>
             </RelativeLayout>
-
+    <RelativeLayout
+        android:id="@+id/video_view_layout"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_below="@id/detail_handLayout">
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+               />
             <cn.com.video.venvy.param.JjVideoRelativeLayout
                 android:id="@+id/jjlayout"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:layout_below="@id/detail_handLayout">
+                >
 
                 <cn.com.video.venvy.param.JjVideoView
                     android:id="@+id/video"
@@ -84,11 +93,12 @@
                     android:layout_centerVertical="true"
                     android:visibility="gone" />
             </cn.com.video.venvy.param.JjVideoRelativeLayout>
+    ></RelativeLayout>
 
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/jjlayout">
+                android:layout_below="@id/video_view_layout">
 
 
                 <android.support.v4.widget.SwipeRefreshLayout

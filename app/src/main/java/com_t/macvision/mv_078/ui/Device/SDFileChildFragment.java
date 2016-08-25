@@ -140,7 +140,7 @@ public class SDFileChildFragment extends BaseFragment implements SDFileContract.
         if (Fragment_SDFile.mIsEditState)
             mCheckBox.setChecked(!mCheckBox.isChecked());
         else {
-            Log.i("moop3", "onClickItemVideo: 点击无效" + mActivity);
+            Log.i("moop3", "onClickItemDetail: 点击无效" + mActivity);
             Bundle bundle = new Bundle();
             bundle.putSerializable("FileEntity", entity);
         }

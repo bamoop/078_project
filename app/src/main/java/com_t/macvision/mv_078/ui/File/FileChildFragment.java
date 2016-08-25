@@ -121,7 +121,7 @@ public class FileChildFragment extends BaseFragment implements FileContract.View
         if (FileFragment.mIsEditState)
             mCheckBox.setChecked(!mCheckBox.isChecked());
         else {
-            Log.i("moop2", "onClickItemVideo: 点击无效" + mActivity);
+            Log.i("moop2", "onClickItemDetail: 点击无效" + mActivity);
             Bundle bundle = new Bundle();
             bundle.putSerializable("FileEntity", entity);
             MainActivity.startActivity(getMyActivity(), bundle, UploadActivity.class);

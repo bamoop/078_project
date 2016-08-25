@@ -8,6 +8,7 @@
     android:background="@color/white">
 
     <RelativeLayout
+        android:id="@+id/title_layout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/videoList_Item_ly_headLayout_height"
         android:orientation="horizontal"
@@ -42,7 +43,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/tv_count"
+                android:id="@+id/tv_PlayCount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/videoList_textColor"
@@ -108,11 +109,10 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/details_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-    </LinearLayout>
-
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
     <View
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
@@ -143,6 +143,6 @@
             android:textColor="@color/videoList_Tag_textColor"
             android:textSize="@dimen/videoList_Item_tv_count_size"/>
     </LinearLayout>
-
+    </LinearLayout>
 
 </LinearLayout>

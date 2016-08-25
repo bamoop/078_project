@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
+import com_t.macvision.mv_078.ui.person_main.PersionHome_Activity;
 
 /**
  * 作者：LiangXiong on 2016/8/3 0003 19:33
@@ -171,9 +172,31 @@ public class FragmentTab1 extends BaseFragment implements VideoContract.View,Mai
 
 
     @Override
-    public void onClickItemVideo(View view, VideoEntity.VideolistEntity videoEntity) {
+    public void onClickItemDetail(View view, VideoEntity.VideolistEntity videoEntity) {
         Bundle bundle = new Bundle();
         bundle.putSerializable("VideoEntity", videoEntity);
         MainActivity.startActivity(currentContext,bundle,VideoDetails_Activiey.class);
+    }
+
+    @Override
+    public void onClickTitle(View view, VideoEntity.VideolistEntity videoEntity) {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("VideoEntity", videoEntity);
+        MainActivity.startActivity(currentContext,bundle,PersionHome_Activity.class);
+    }
+
+    @Override
+    public void onClickZan(View view, VideoEntity.VideolistEntity videoEntity) {
+
+    }
+
+    @Override
+    public void onClickPing(View view, VideoEntity.VideolistEntity videoEntity) {
+
+    }
+
+    @Override
+    public void onClickFen(View view, VideoEntity.VideolistEntity videoEntity) {
+
     }
 }

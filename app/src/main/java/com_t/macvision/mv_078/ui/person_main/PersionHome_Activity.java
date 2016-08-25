@@ -5,6 +5,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
+import android.widget.TextView;
 
 import com.macvision.mv_078.R;
 
@@ -22,6 +23,12 @@ public class PersionHome_Activity extends BaseActivity {
     TabLayout mTableLayout;
     @Bind(R.id.vp_file)
     ViewPager mViewPager;
+    @Bind(R.id.tv_vReleaseNumber)
+    TextView tv_vReleaseNumber;
+    @Bind(R.id.tv_followNumber)
+    TextView tv_followNumber;
+    @Bind(R.id.tv_fansNumber)
+    TextView tv_fansNumber;
 
     public static final String TAG = "PersionHome_Activity";
     private OverScrollableScrollView mScrollView;

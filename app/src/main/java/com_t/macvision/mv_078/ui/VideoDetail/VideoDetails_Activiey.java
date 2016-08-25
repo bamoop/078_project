@@ -8,11 +8,16 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import cn.com.videopls.venvy.f.V;
 import com_t.macvision.mv_078.Constant;
+
+import com.bumptech.glide.Glide;
 import com.macvision.mv_078.R;
+
 import com_t.macvision.mv_078.base.BaseActivity;
 import com_t.macvision.mv_078.model.entity.CommentEntity;
 import com_t.macvision.mv_078.model.entity.VideoDetailEntity;
@@ -20,6 +25,7 @@ import com_t.macvision.mv_078.model.entity.VideoEntity;
 import com_t.macvision.mv_078.presenter.VideoDetailPresenter;
 import com_t.macvision.mv_078.ui.adapter.VideoDetailAdapter;
 import com_t.macvision.mv_078.util.CircleImageView;
+
 import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
@@ -34,6 +40,7 @@ import cn.com.video.venvy.param.OnJjOpenStartListener;
 import cn.com.video.venvy.param.OnJjOpenSuccessListener;
 import cn.com.video.venvy.param.OnJjOutsideLinkClickListener;
 import cn.com.video.venvy.widget.UsetMediaContoller;
+import com_t.macvision.mv_078.util.ScreenUtils;
 
 public class VideoDetails_Activiey extends BaseActivity implements VideoDetailContract.View {
     String videoLocation;
@@ -54,11 +61,12 @@ public class VideoDetails_Activiey extends BaseActivity implements VideoDetailCo
     VideoDetailAdapter mVideoDetailAdapter;
     List<CommentEntity.DataBean> mCommentEntity = new ArrayList<>();
     VideoEntity.VideolistEntity videolistEntity;
+    ImageView image;
 
     TextView tv_username;
     TextView tv_count;
     CircleImageView image_head;
-
+    JjVideoRelativeLayout mJjVideoRelativeLayout;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,7 +75,8 @@ public class VideoDetails_Activiey extends BaseActivity implements VideoDetailCo
 //        ButterKnife.bind(this);
         initData();
         initView();
-        initVideo();
+        if (!videolistEntity.getCategory().equals("image"))
+            initVideo();
 
     }
 
@@ -90,19 +99,21 @@ public class VideoDetails_Activiey extends BaseActivity implements VideoDetailCo
         mLoadView = findViewById(R.id.sdk_ijk_progress_bar_layout);
         mLoadBufferTextView = (TextView) findViewById(R.id.sdk_sdk_ijk_load_buffer_text);
         mLoadText = (TextView) findViewById(R.id.sdk_ijk_progress_bar_text);
+        mJjVideoRelativeLayout = (JjVideoRelativeLayout) findViewById(R.id.jjlayout);
+
         mVideoDetailAdapter = new VideoDetailAdapter(this, mCommentEntity, videolistEntity);
         recyclerView = (RecyclerView) findViewById(R.id.rv_videoDetail);
+        image = (ImageView) findViewById(R.id.image);
         layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         detail_handLayout = (RelativeLayout) findViewById(R.id.detail_handLayout);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(mVideoDetailAdapter);
         tv_username = (TextView) findViewById(R.id.tv_username);
-        tv_count = (TextView) findViewById(R.id.tv_count);
+        tv_count = (TextView) findViewById(R.id.tv_PlayCount);
         tv_count.setText(videolistEntity.getVideoViewNumber());
         tv_username.setText(videolistEntity.getUserId());
         initSwipeLayout();
         showRefresh();
-        PlayVideoView.setMediaController(new UsetMediaContoller(this));
 
     }
 
@@ -111,19 +122,19 @@ public class VideoDetails_Activiey extends BaseActivity implements VideoDetailCo
      */
     public void initVideo() {
 
-        PlayVideoView .setOnJjOutsideLinkClickListener(new OnJjOutsideLinkClickListener() {
+        PlayVideoView.setOnJjOutsideLinkClickListener(new OnJjOutsideLinkClickListener() {
 
-                    @Override
-                    public void onJjOutsideLinkClick(String arg0) {
-                        // TODO Auto-generated method stub
-                    }
+            @Override
+            public void onJjOutsideLinkClick(String arg0) {
+                // TODO Auto-generated method stub
+            }
 
-                    @Override
-                    public void onJjOutsideLinkClose() {
-                        // TODO Auto-generated method stub
+            @Override
+            public void onJjOutsideLinkClose() {
+                // TODO Auto-generated method stub
 
-                    }
-                });
+            }
+        });
         PlayVideoView.setMediaBufferingView(mLoadBufferView);
         PlayVideoView.setOnJjOpenStart(new OnJjOpenStartListener() {
 
@@ -179,16 +190,17 @@ public class VideoDetails_Activiey extends BaseActivity implements VideoDetailCo
         PlayVideoView.setVideoJjSaveExitTime(false);
 
         RelativeLayout details_parent_layout = (RelativeLayout) findViewById(R.id.details_parent_layout);
-        JjVideoRelativeLayout mJjVideoRelativeLayout = (JjVideoRelativeLayout) findViewById(R.id.jjlayout);
         mJjVideoRelativeLayout.setJjToFront(details_parent_layout);// 设置此方法
+        PlayVideoView.setMediaController(new UsetMediaContoller(this));
+
     }
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        if (detail_handLayout.getVisibility()==View.GONE){
+        if (detail_handLayout.getVisibility() == View.GONE) {
             detail_handLayout.setVisibility(View.VISIBLE);
-        }else
+        } else
             detail_handLayout.setVisibility(View.GONE);
 
         Log.i("moop", "onConfigurationChanged: ");
@@ -246,7 +258,18 @@ public class VideoDetails_Activiey extends BaseActivity implements VideoDetailCo
     @Override
     protected void onResume() {
         super.onResume();
-        PlayVideoView.setResourceVideo(videoURL);
+        if (videolistEntity.getCategory().equals("image")) {
+            image.setVisibility(View.VISIBLE);
+            Glide.with(this).load(Constant.BaseVideoPlayUrl + videolistEntity.getVideoLocation()).
+                    override(ScreenUtils.getScreenWidth(this), ScreenUtils.getScreenHeight(this) / 3).centerCrop().into(image);
+            mJjVideoRelativeLayout.setVisibility(View.GONE);
+        } else{
+            mJjVideoRelativeLayout.setVisibility(View.VISIBLE);
+            image.setVisibility(View.GONE);
+            PlayVideoView.setResourceVideo(videoURL);
+
+        }
+
     }
 
     @Override
