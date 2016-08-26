@@ -3,6 +3,7 @@ package com_t.macvision.mv_078.presenter;/**
  */
 
 import android.text.TextUtils;
+import android.util.Log;
 
 import com_t.macvision.mv_078.model.entity.VideoEntity;
 import com_t.macvision.mv_078.model.impl.BusinessTask;
@@ -49,11 +50,13 @@ public class DynamicPresenter implements DynamicContract.Presenter {
 
             @Override
             public void onError(Throwable e) {
+                Log.i("moop12", "onError: "+e);
 
             }
 
             @Override
             public void onNext(String s) {
+                Log.i("moop12", "onNext: "+s);
                 if (!TextUtils.isEmpty(s)) {
                     if (ifgetDataMore)
                         mView.appendMoreDataToView(GsonUtil.changeGsonToBean(s, VideoEntity.class));
@@ -65,7 +68,7 @@ public class DynamicPresenter implements DynamicContract.Presenter {
                 }
                 mView.getDataFinish();
             }
-        }, userId, page, pageSize);
+        }, userId, page, pageSize,null);
     }
 
 

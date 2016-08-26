@@ -14,7 +14,9 @@
         layout="@layout/layout_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp" />
+        android:layout_marginBottom="10dp"
+        android:visibility="visible"
+        />
 
     <com_t.macvision.mv_078.ui.customView.OverScrollableScrollView
         android:id="@+id/scroll"
@@ -23,10 +25,12 @@
         android:layout_below="@id/toolbar"
         android:background="@color/white">
 
-        <RelativeLayout
+        <LinearLayout
+            android:id="@+id/heard_layout"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:orientation="horizontal">
+            android:orientation="vertical"
+            >
 
             <RelativeLayout
                 android:id="@+id/hand_layout"
@@ -97,10 +101,9 @@
             <android.support.v4.view.ViewPager
                 android:id="@+id/vp_file"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_below="@id/tab_selector"
-                android:layout_weight="1" />
-        </RelativeLayout>
+                android:layout_height="match_parent"
+                android:layout_below="@id/tab_selector" />
+        </LinearLayout>
 
     </com_t.macvision.mv_078.ui.customView.OverScrollableScrollView>
 </RelativeLayout>

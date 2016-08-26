@@ -16,6 +16,10 @@ import java.util.List;
  * 未婚：QQ294894105
  */
 public class FragmentTableAdapter extends FragmentStatePagerAdapter {
+
+    public static final int TAB_PARAMS_INDEX = 0;
+    public static final int TAB_DETAILS_INDEX = 1;
+    public static final int TAB_REVIEWS_INDEX = 2;
     private ArrayList<Fragment> mFragmentList;
     private String[] mTitle = null;
     private List<String> mTitlelist = new ArrayList<>();

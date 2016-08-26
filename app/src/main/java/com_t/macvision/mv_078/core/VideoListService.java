@@ -29,7 +29,6 @@ public interface VideoListService {
     @POST("user/findUserById")
     @FormUrlEncoded
     Observable<String> userDetail(
-            @Field("token") String token,
             @Field("userId") int userId);
 
     /**
@@ -114,7 +113,8 @@ public interface VideoListService {
     Observable<String> getDynamicList(
             @Field("userId") int userId,
             @Field("page") int page,
-            @Field("token") int pageSize
+            @Field("pageSize") int pageSize,
+            @Field("category") String category
     );
 
 }

@@ -57,7 +57,6 @@ public class VideoDetailPresenter implements VideoDetailContract.Presenter {
                     mVideoView.fillData(GsonUtil.changeGsonToBean(s, VideoDetailEntity.class));
                 }
                 Logger.i("moop", "评论列表数据:" + s);
-
             }
         }, videoID);
         mVideoView.getDataFinish();
