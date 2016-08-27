@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -40,6 +41,7 @@ import cn.com.video.venvy.param.OnJjOpenStartListener;
 import cn.com.video.venvy.param.OnJjOpenSuccessListener;
 import cn.com.video.venvy.param.OnJjOutsideLinkClickListener;
 import cn.com.video.venvy.widget.UsetMediaContoller;
+import com_t.macvision.mv_078.util.ImageFromFileCache;
 import com_t.macvision.mv_078.util.ScreenUtils;
 
 public class VideoDetails_Activiey extends BaseActivity implements VideoDetailContract.View {
@@ -62,21 +64,22 @@ public class VideoDetails_Activiey extends BaseActivity implements VideoDetailCo
     List<CommentEntity.DataBean> mCommentEntity = new ArrayList<>();
     VideoEntity.VideolistEntity videolistEntity;
     ImageView image;
-
+    Toolbar toobar;
     TextView tv_username;
     TextView tv_count;
     CircleImageView image_head;
     JjVideoRelativeLayout mJjVideoRelativeLayout;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_details);
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
-//        ButterKnife.bind(this);
         initData();
         initView();
         if (!videolistEntity.getCategory().equals("image"))
             initVideo();
+        toobar.setTitle(videolistEntity.getVideoTitle());
 
     }
 
@@ -86,7 +89,6 @@ public class VideoDetails_Activiey extends BaseActivity implements VideoDetailCo
         videoLocation = videolistEntity.getVideoLocation();
         videoID = Integer.parseInt(videolistEntity.getVideoId());
         videoURL = Constant.BaseVideoPlayUrl + videoLocation;
-
         mPresenter = new VideoDetailPresenter(this);
         mPresenter.getVideoDetail(videoID);
         mPresenter.getComment(videoID, currentPage, false);
@@ -94,6 +96,7 @@ public class VideoDetails_Activiey extends BaseActivity implements VideoDetailCo
     }
 
     public void initView() {
+        toobar = (Toolbar) findViewById(R.id.toolbar);
         PlayVideoView = (JjVideoView) findViewById(R.id.video);
         mLoadBufferView = findViewById(R.id.sdk_load_layout);
         mLoadView = findViewById(R.id.sdk_ijk_progress_bar_layout);
@@ -258,12 +261,14 @@ public class VideoDetails_Activiey extends BaseActivity implements VideoDetailCo
     @Override
     protected void onResume() {
         super.onResume();
-        if (videolistEntity.getCategory().equals("image")) {
+        if (videolistEntity.getCategory().equals("")) {
             image.setVisibility(View.VISIBLE);
             Glide.with(this).load(Constant.BaseVideoPlayUrl + videolistEntity.getVideoLocation()).
                     override(ScreenUtils.getScreenWidth(this), ScreenUtils.getScreenHeight(this) / 3).centerCrop().into(image);
+//            Glide.with(this).load( ImageFromFileCache.base64ToBitmap(videolistEntity.getAvatarLocation())).into(image);
+
             mJjVideoRelativeLayout.setVisibility(View.GONE);
-        } else{
+        } else {
             mJjVideoRelativeLayout.setVisibility(View.VISIBLE);
             image.setVisibility(View.GONE);
             PlayVideoView.setResourceVideo(videoURL);

@@ -3,6 +3,7 @@ package com_t.macvision.mv_078.ui.Device;/**
  */
 
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 
@@ -20,7 +21,8 @@ import butterknife.Bind;
 public class FragmentMenu3 extends BaseFragment {
     @Bind(R.id.play_stream)
     Button play_stream;
-
+    @Bind(R.id.toolbar)
+    Toolbar toolbar;
     @Override
     protected int getLayout() {
         return R.layout.fragment_menu3;
@@ -33,6 +35,7 @@ public class FragmentMenu3 extends BaseFragment {
 
     @Override
     protected void initView(View view) {
+        toolbar.setTitle("连接记录仪");
         play_stream.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

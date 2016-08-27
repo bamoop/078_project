@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.SurfaceHolder;
@@ -60,6 +61,8 @@ public class StreamPlayerActivity extends BaseActivity implements SurfaceHolder.
     TabLayout mTableLayout;
     @Bind(R.id.btn_video)
     Button btn_video;
+    @Bind(R.id.toolbar)
+    Toolbar toolbar;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,6 +76,7 @@ public class StreamPlayerActivity extends BaseActivity implements SurfaceHolder.
     }
 
     private void initView() {
+        toolbar.setTitle("记录仪");
         View view1= LayoutInflater.from(this).inflate(R.layout.psi_layout, null);
         View view2= LayoutInflater.from(this).inflate(R.layout.device_shoot, null);
         viewList.add(view1);

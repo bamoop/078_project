@@ -5,12 +5,15 @@
     android:layout_height="match_parent"
     android:background="@color/theme_fragment_bgColor"
     android:orientation="vertical">
-
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/layout_toolbar"></include>
             <RelativeLayout
                 android:id="@+id/detail_handLayout"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/videoList_Item_ly_headLayout_height"
-                android:paddingLeft="@dimen/videoList_Item_paddingLeft">
+                android:paddingLeft="@dimen/videoList_Item_paddingLeft"
+                android:layout_below="@id/toolbar">
 
                 <com_t.macvision.mv_078.util.CircleImageView
                     android:id="@+id/image_head"

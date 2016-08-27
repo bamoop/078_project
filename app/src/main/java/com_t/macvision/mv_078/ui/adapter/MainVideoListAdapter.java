@@ -6,7 +6,9 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -20,6 +22,7 @@ import com.macvision.mv_078.R;
 
 import com_t.macvision.mv_078.Constant;
 import com_t.macvision.mv_078.model.entity.VideoEntity;
+import com_t.macvision.mv_078.util.CircleImageView;
 import com_t.macvision.mv_078.util.ImageFromFileCache;
 import com_t.macvision.mv_078.util.ScreenUtils;
 import com_t.macvision.mv_078.util.TaskUtils;
@@ -83,8 +86,8 @@ public class MainVideoListAdapter extends RecyclerView.Adapter<MainVideoListAdap
 //            view = LayoutInflater.from(mContext).inflate(R.layout.mainlist_image_item, parent, false);
 //            return new ViewHolderItemVideo(view);
 //        } else {
-            view = LayoutInflater.from(mContext).inflate(R.layout.mainlist_video_item, parent, false);
-            return new ViewHolderItemVideo(view);
+        view = LayoutInflater.from(mContext).inflate(R.layout.mainlist_video_item, parent, false);
+        return new ViewHolderItemVideo(view);
 //        }
     }
 
@@ -93,7 +96,7 @@ public class MainVideoListAdapter extends RecyclerView.Adapter<MainVideoListAdap
 //        if (viewType == 1)
 //            holder.bindItem(mContext, mVideoList.get(position));
 //        else
-            holder.bindItem(mContext, mVideoList.get(position));
+        holder.bindItem(mContext, mVideoList.get(position));
 
     }
 
@@ -157,6 +160,9 @@ public class MainVideoListAdapter extends RecyclerView.Adapter<MainVideoListAdap
         Button btn_ping;
         @Bind(R.id.btn_fen)
         Button btn_fen;
+        @Bind(R.id.image_head)
+        CircleImageView image_head;
+
         public ViewHolderItemVideo(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
@@ -169,11 +175,13 @@ public class MainVideoListAdapter extends RecyclerView.Adapter<MainVideoListAdap
             tv_username.setText(videoEntity.getUserName());
             tv_pingCount.setText(videoEntity.getVideoCommentNumber());
             tv_zanCount.setText(videoEntity.getVideoLikesNumber());
-            if(videoEntity.getCategory().equals("image"))
-                Glide.with(mContext).load(Constant.BaseVideoPlayUrl+videoEntity.getVideoLocation()).
+            Glide.with(mContext).load(ImageFromFileCache.base64ToBitmap(videoEntity.getAvatarLocation())).into(image_head);
+
+            if (videoEntity.getCategory().equals("image"))
+                Glide.with(mContext).load(Constant.BaseVideoPlayUrl + videoEntity.getVideoLocation()).
                         override(ScreenUtils.getScreenWidth(mContext), ScreenUtils.getScreenHeight(mContext) / 3).centerCrop().into(image_thumb);
             else
-                Glide.with(mContext).load(Constant.BaseVideoPlayUrl+videoEntity.getFirstFrameLocation()).
+                Glide.with(mContext).load(Constant.BaseVideoPlayUrl + videoEntity.getFirstFrameLocation()).
                         override(ScreenUtils.getScreenWidth(mContext), ScreenUtils.getScreenHeight(mContext) / 3).centerCrop().into(image_thumb);
 
             btn_zan.setOnClickListener(new View.OnClickListener() {
@@ -183,12 +191,59 @@ public class MainVideoListAdapter extends RecyclerView.Adapter<MainVideoListAdap
 
                 }
             });
-            details_layout.setOnClickListener(new View.OnClickListener() {
+
+            details_layout.setOnTouchListener(new View.OnTouchListener() {
+//                float DownX, DownY;
+//                int moveX, moveY;
+//                Long currentMS;
+//                boolean is = true;
+//
                 @Override
-                public void onClick(View v) {
-                    mIClickItem.onClickItemDetail(v, videoEntity);
+                public boolean onTouch(View v, MotionEvent event) {
+//                    switch (event.getAction()) {
+//                        case MotionEvent.ACTION_DOWN:
+//                            DownX = event.getX();//float DownX
+//                            DownY = event.getY();//float DownY
+//                            moveX = 0;
+//                            moveY = 0;
+//                            currentMS = System.currentTimeMillis();//long currentMS     获取系统时间
+//                            break;
+//                        case MotionEvent.ACTION_MOVE:
+//                            Log.i("onclickli", " ACTION_MOVE");
+//
+//                            moveX += Math.abs(event.getX() - DownX);//X轴距离
+//                            moveY += Math.abs(event.getY() - DownY);//y轴距离
+//                            DownX = event.getX();
+//                            DownY = event.getY();
+//                            break;
+//                        case MotionEvent.ACTION_UP:
+//                            long moveTime = System.currentTimeMillis() - currentMS;//移动时间
+//                            //判断是否继续传递信号
+//                            Log.i("onclickli", " ACTION_UP");
+//                            if (moveTime > 200 && (moveX > 20 || moveY > 20)) {
+//                                is=false;
+//                                return false; //不再执行后面的事件，在这句前可写要执行的触摸相关代码。点击事件是发生在触摸弹起后
+//                            } else {
+//                                Log.i("onclickli", " 点击");
+//                                is=true;
+//                                mIClickItem.onClickItemDetail(v, videoEntity);
+//                                return true;
+//                            }
+//
+//                    }
+//                    Log.i("onclickli", "跳出来: ");
+//                    if (is)
+//                        return true;//继续执行后面的代码
+//                    else
+                        return false;
                 }
             });
+//            details_layout.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    mIClickItem.onClickItemDetail(v, videoEntity);
+//                }
+//            });
             title_layout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -233,9 +288,13 @@ public class MainVideoListAdapter extends RecyclerView.Adapter<MainVideoListAdap
 
     public interface IClickMainItem {
         void onClickItemDetail(View view, VideoEntity.VideolistEntity videoEntity);
+
         void onClickTitle(View view, VideoEntity.VideolistEntity videoEntity);
+
         void onClickZan(View view, VideoEntity.VideolistEntity videoEntity);
+
         void onClickPing(View view, VideoEntity.VideolistEntity videoEntity);
+
         void onClickFen(View view, VideoEntity.VideolistEntity videoEntity);
     }
 

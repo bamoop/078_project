@@ -6,8 +6,10 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
+import com.macvision.mv_078.R;
 import com.orhanobut.logger.Logger;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
 
 /**
@@ -16,12 +18,13 @@ import butterknife.ButterKnife;
  * QQ  ：294894105
  */
 public class BaseActivity extends AppCompatActivity {
-    protected Toolbar mToolbar;
 
     @Override
     public void onCreate(Bundle savedInstanceStat ) {
         super.onCreate(savedInstanceStat);
         Logger.init(this.getClass().getCanonicalName());
+
+
 //        getSupportActionBar().hide();
 //        setSupportActionBar(mToolbar);
     }
@@ -31,4 +34,6 @@ public class BaseActivity extends AppCompatActivity {
         super.onDestroy();
         ButterKnife.unbind(this);
     }
+
+
 }

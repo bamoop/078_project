@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AbsListView;
 
@@ -19,16 +20,17 @@ import com_t.macvision.mv_078.base.BaseFragment;
 import com_t.macvision.mv_078.model.entity.VideoEntity;
 import com_t.macvision.mv_078.presenter.DynamicPresenter;
 import com_t.macvision.mv_078.ui.adapter.MainVideoListAdapter;
-import com_t.macvision.mv_078.ui.customView.OverScrollableScrollView.OverScrollController;
+import com_t.macvision.mv_078.ui.customView.OverRecyclerView;
+
 
 /**
  * 作者：LiangXiong on 2016/8/25 0025 15:32
  * 邮箱：liangxiong.sz@foxmail.com
  * QQ  ：294894105
  */
-public class Fragment_Dynamic extends BaseFragment implements DynamicContract.View, OverScrollController {
-    @Bind(R.id.rv_dynamic)
-    RecyclerView rv_dynamic;
+public class Fragment_Dynamic extends BaseFragment implements DynamicContract.View {
+//    @Bind(R.id.rv_dynamic)
+    OverRecyclerView rv_dynamic;
     LinearLayoutManager layoutManager;
     DynamicPresenter mPresenter;
     MainVideoListAdapter mainVideoListAdapter;
@@ -57,6 +59,7 @@ public class Fragment_Dynamic extends BaseFragment implements DynamicContract.Vi
 
     @Override
     protected void initView(View view) {
+        rv_dynamic = (OverRecyclerView) view.findViewById(R.id.rv_dynamic);
         mPresenter = new DynamicPresenter(this);
         mPresenter.getData(Integer.parseInt(PersionHome_Activity.userId), currentPage, false);
         mDataList = new ArrayList<>();
@@ -83,6 +86,7 @@ public class Fragment_Dynamic extends BaseFragment implements DynamicContract.Vi
                     mCanScrollUp = true;
             }
         });
+
 
     }
 
@@ -121,8 +125,4 @@ public class Fragment_Dynamic extends BaseFragment implements DynamicContract.Vi
 
     }
 
-    @Override
-    public boolean canScrollUp() {
-        return mCanScrollUp;
-    }
 }
