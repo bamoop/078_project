@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
@@ -34,6 +35,7 @@ import com_t.macvision.mv_078.model.entity.UserEntity;
 import com_t.macvision.mv_078.model.entity.VideoEntity;
 import com_t.macvision.mv_078.presenter.PersonHomePresenter;
 import com_t.macvision.mv_078.ui.adapter.FragmentTableAdapter;
+import com_t.macvision.mv_078.ui.customView.StickyNavLayout;
 import com_t.macvision.mv_078.util.CircleImageView;
 import com_t.macvision.mv_078.util.ImageFromFileCache;
 
@@ -61,6 +63,8 @@ public class PersionHome_Activity extends BaseActivity implements PersonHomeCont
     private View mRoot;
     @Bind(R.id.toolbar)
     Toolbar mToolbar;
+//    @Bind(R.id.mStickyNavLayout)
+//    StickyNavLayout mStickyNavLayout;
     public static final String TAG = "PersionHome_Activity";
     ArrayList<Fragment> fragmentArrayList = new ArrayList<>();
     FragmentTableAdapter mFragmentTableAdapter;
@@ -103,12 +107,6 @@ public class PersionHome_Activity extends BaseActivity implements PersonHomeCont
         mTableLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         mTableLayout.setupWithViewPager(mViewPager);
         mViewPager.setOffscreenPageLimit(1);
-
-
-    }
-
-    private void initScrollView() {
-
 
     }
 

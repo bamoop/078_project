@@ -42,7 +42,6 @@ public class SDFilePresenter implements SDFileContract.Presenter {
     public void getData(String dir, Activity context, int from) {
         String url = "http://" + Constant.IP + Constant.DEFAULT_PATH + "?action=dir&property=" +
                 Constant.m_DCIM + "&format=all&count=" + MAXCOUNT + "&from=" + from;
-        Log.i("moopreq", "getData: " + url);
         OkHttpUtils
                 .get()
                 .url(url)

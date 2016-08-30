@@ -42,14 +42,13 @@ public class PersonHomePresenter implements PersonHomeContract.Presenter {
 
             @Override
             public void onError(Throwable e) {
-                Log.i("moop815", "onError: " + e);
+                Logger.i("onError: " + e);
 
             }
 
             @Override
             public void onNext(String s) {
-                Log.i("moop815", "onNext: " + s);
-                Logger.i(s);
+                Logger.i( "onNext: " + s);
                 if (!TextUtils.isEmpty(s)) {
                     mView.fillData(GsonUtil.changeGsonToBean(s, UserEntity.class));
                 }

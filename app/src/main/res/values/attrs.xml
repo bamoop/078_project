@@ -3,4 +3,16 @@
         <attr name="border_width" format="dimension" />
         <attr name="border_color" format="color" />
     </declare-styleable>
+    <declare-styleable name="LinkBuilder">
+        <attr name="defaultLinkColor" format="color" />
+    </declare-styleable>
+    <attr name="linkBuilderStyle" format="reference" />
+    <!--TextViewLabel-->
+    <declare-styleable name="TagCloudLayout">
+        <attr name="lineSpacing" format="dimension" />
+        <attr name="tagSpacing" format="dimension" />
+        <!-- 是否是固定布局 -->
+        <attr name="isFixed" format="boolean" />
+        <attr name="columnSize" format="integer" />
+    </declare-styleable>
 </resources>

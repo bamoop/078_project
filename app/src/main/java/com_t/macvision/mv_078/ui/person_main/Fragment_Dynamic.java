@@ -34,7 +34,6 @@ public class Fragment_Dynamic extends BaseFragment implements DynamicContract.Vi
     LinearLayoutManager layoutManager;
     DynamicPresenter mPresenter;
     MainVideoListAdapter mainVideoListAdapter;
-    private boolean mCanScrollUp = false;
 
     public static Fragment_Dynamic DynamicInstance(Bundle bundle) {
         Fragment_Dynamic tab1Fragment = new Fragment_Dynamic();
@@ -67,26 +66,6 @@ public class Fragment_Dynamic extends BaseFragment implements DynamicContract.Vi
         layoutManager = new LinearLayoutManager(getActivity());
         rv_dynamic.setLayoutManager(layoutManager);
         rv_dynamic.setAdapter(mainVideoListAdapter);
-        rv_dynamic.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            boolean isShowBottom = false;
-
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-
-            }
-
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                if (layoutManager.findFirstCompletelyVisibleItemPosition() == 0) {
-                    mCanScrollUp = false;
-                    Log.i("listview1", "onScrolled: " + true);
-                } else
-                    mCanScrollUp = true;
-            }
-        });
-
 
     }
 
@@ -125,4 +104,5 @@ public class Fragment_Dynamic extends BaseFragment implements DynamicContract.Vi
 
     }
 
+  
 }

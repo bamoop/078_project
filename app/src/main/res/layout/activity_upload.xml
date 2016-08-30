@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="@color/theme_fragment_bgColor"
     android:id="@+id/upload_parent_layout">
@@ -42,11 +43,29 @@
     </cn.com.video.venvy.param.JjVideoRelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/UPMassage_layout"
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:padding="15dp"
         android:layout_below="@id/jjlayout">
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="视频标题:"/>
         <EditText
+            android:layout_toRightOf="@id/tv_title"
+            android:id="@+id/edit_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/transparency"
+            android:textSize="14sp"
+            android:layout_marginLeft="5dp"
+            android:textColor="@color/black"
+            android:hint="这里是标题"/>
+        <EditText
+            android:layout_marginTop="5dp"
+            android:layout_below="@id/edit_title"
             android:id="@+id/ed_state"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -81,10 +100,18 @@
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="130dp"
-        android:layout_above="@id/btn_upload"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/UPMassage_layout"
         android:padding="15dp"
-        android:orientation="horizontal">
+        android:orientation="vertical"
+        android:background="@color/theme_fragment_bgColor">
+        <com_t.macvision.mv_078.util.TextView_tagcloud.TagCloudLayout
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:tagSpacing="15dp"
+            app:lineSpacing="10dp"/>
+
         <TextView
             android:id="@+id/btn_type1"
             android:layout_width="wrap_content"
@@ -103,5 +130,9 @@
             android:layout_height="wrap_content"
             android:text="重新定位"/>
     </LinearLayout>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
+</LinearLayout>
 </RelativeLayout>

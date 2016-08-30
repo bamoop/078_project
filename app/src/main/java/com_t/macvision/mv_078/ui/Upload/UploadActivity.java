@@ -4,6 +4,8 @@ package com_t.macvision.mv_078.ui.Upload;/**
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.util.Linkify;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,16 +14,21 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com_t.macvision.mv_078.Constant;
+
 import com.macvision.mv_078.R;
+
 import com_t.macvision.mv_078.base.BaseActivity;
 import com_t.macvision.mv_078.model.entity.FileEntity;
 import com_t.macvision.mv_078.presenter.UploadPresenter;
+import com_t.macvision.mv_078.ui.VideoList.FragmentMenu1;
 import com_t.macvision.mv_078.util.LocationUtils;
 import com_t.macvision.mv_078.util.SharedPreferencesUtils;
 
 import com.orhanobut.logger.Logger;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import cn.com.video.venvy.param.JjVideoRelativeLayout;
@@ -33,6 +40,8 @@ import cn.com.video.venvy.param.OnJjOpenStartListener;
 import cn.com.video.venvy.param.OnJjOpenSuccessListener;
 import cn.com.video.venvy.param.OnJjOutsideLinkClickListener;
 import cn.com.video.venvy.widget.UsetMediaContoller;
+import com_t.macvision.mv_078.util.TextView_tagcloud.TagBaseAdapter;
+import com_t.macvision.mv_078.util.TextView_tagcloud.TagCloudLayout;
 
 /**
  * 作者：LiangXiong on 2016/8/18 0018 21:32
@@ -56,6 +65,10 @@ public class UploadActivity extends BaseActivity implements UploadContract.View 
     private TextView btn_type1;
     private EditText ed_state;
 
+    private TagCloudLayout mContainer;
+    private TagBaseAdapter mAdapter;
+    private List<String> mList = new ArrayList<>();
+
     @Override
     public void onCreate(Bundle savedInstanceStat) {
         super.onCreate(savedInstanceStat);
@@ -77,10 +90,10 @@ public class UploadActivity extends BaseActivity implements UploadContract.View 
         fileEntity = (FileEntity) intent.getSerializableExtra("FileEntity");
         mPresenter = new UploadPresenter(this);
 
-        upMap.put(Constant.userId, (String) SharedPreferencesUtils.getParam(this, Constant.userId,""));
-        upMap.put("videoTitle","狂暴酷炫叼炸天" );
-        upMap.put("videoReleaseAddress", (String)SharedPreferencesUtils.getParam(this,Constant.CITY,""));
-        upMap.put("videoCaption","66666" );
+        upMap.put(Constant.userId, (String) SharedPreferencesUtils.getParam(this, Constant.userId, ""));
+        upMap.put("videoTitle", "狂暴酷炫叼炸天");
+        upMap.put("videoReleaseAddress", (String) SharedPreferencesUtils.getParam(this, Constant.CITY, ""));
+        upMap.put("videoCaption", "66666");
 
     }
 
@@ -90,16 +103,29 @@ public class UploadActivity extends BaseActivity implements UploadContract.View 
         mLoadView = findViewById(R.id.sdk_ijk_progress_bar_layout);
         mLoadBufferTextView = (TextView) findViewById(R.id.sdk_sdk_ijk_load_buffer_text);
         mLoadText = (TextView) findViewById(R.id.sdk_ijk_progress_bar_text);
-        ed_state= (EditText) findViewById(R.id.ed_state);
+        ed_state = (EditText) findViewById(R.id.ed_state);
 
         PlayVideoView.setMediaController(new UsetMediaContoller(this));
-
+        btn_type1 = (TextView) findViewById(R.id.btn_type1);
+        mContainer = (TagCloudLayout) findViewById(R.id.container);
+        for (int i = 0; i < FragmentMenu1.entity.getData().size(); i++) {
+            mList.add("#"+FragmentMenu1.entity.getData().get(i).getVTypeName());
+            Logger.d("type=" + FragmentMenu1.entity.getData().get(i).getVTypeName());
+        }
+        mAdapter = new TagBaseAdapter(this, mList);
+        mContainer.setAdapter(mAdapter);
+        mContainer.setItemClickListener(new TagCloudLayout.TagItemClickListener() {
+            @Override
+            public void itemClick(int position) {
+                Logger.i("itemClick: " + mList.get(position));
+            }
+        });
         btn_upload = (LinearLayout) findViewById(R.id.btn_upload);
         btn_upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                mPresenter.upload(upMap,fileEntity);
+                mPresenter.upload(upMap, fileEntity);
             }
         });
         btn_againLocation = (Button) findViewById(R.id.btn_againLocation);
@@ -110,7 +136,8 @@ public class UploadActivity extends BaseActivity implements UploadContract.View 
 
             }
         });
-        btn_type1=(TextView)findViewById(R.id.btn_type1);
+
+        Linkify.addLinks(btn_type1, Linkify.WEB_URLS | Linkify.EMAIL_ADDRESSES);
         btn_type1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

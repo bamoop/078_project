@@ -2,6 +2,7 @@ package com_t.macvision.mv_078.ui.VideoList;/**
  * Created by bzmoop on 2016/8/3 0003.
  */
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -199,4 +200,12 @@ public class FragmentTab1 extends BaseFragment implements VideoContract.View,Mai
     public void onClickFen(View view, VideoEntity.VideolistEntity videoEntity) {
 
     }
+
+    @Override
+    public void onClickLinks(View view, VideoEntity.VideolistEntity videolistEntity) {
+        Intent intent=new Intent(getActivity(),TypeVideoList_Activity.class);
+        intent.putExtra("type", videolistEntity.getVideoType());
+        startActivity(intent);
+    }
+
 }

@@ -3,17 +3,16 @@
     android:id="@+id/linear_parent"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
     android:layout_marginTop="10dp"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:orientation="vertical">
 
     <RelativeLayout
         android:id="@+id/title_layout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/videoList_Item_ly_headLayout_height"
         android:orientation="horizontal"
-        android:paddingLeft="@dimen/videoList_Item_paddingLeft"
-        >
+        android:paddingLeft="@dimen/videoList_Item_paddingLeft">
 
         <com_t.macvision.mv_078.util.CircleImageView
             android:id="@+id/image_head"
@@ -27,10 +26,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_toRightOf="@id/image_head"
-            android:textColor="@color/videoList_textColor"
-            android:text="用户名"
             android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@id/image_head"
+            android:text="用户名"
+            android:textColor="@color/videoList_textColor"
             android:textSize="@dimen/videoList_Item_tv_userName_size" />
 
         <LinearLayout
@@ -46,8 +45,8 @@
                 android:id="@+id/tv_PlayCount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/videoList_textColor"
                 android:text="36666"
+                android:textColor="@color/videoList_textColor"
                 android:textSize="@dimen/videoList_Item_tv_playCount_size" />
 
             <TextView
@@ -69,8 +68,7 @@
         android:layout_height="@dimen/videoList_Item_ly_middle_Layout_height"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:paddingLeft="@dimen/videoList_Item_paddingLeft"
-        >
+        android:paddingLeft="@dimen/videoList_Item_paddingLeft">
 
         <Button
             android:id="@+id/btn_ping"
@@ -112,37 +110,37 @@
         android:id="@+id/details_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="@color/VideoList_linearBgColor"
-        />
+        android:orientation="vertical"
+        android:padding="@dimen/videoList_Item_paddingLeft">
 
-    <TextView
-        android:id="@+id/tv_videoid"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="详情详情详情详情详情详情详情详情详情详情\n详情详情详情详情"
-        android:paddingLeft="@dimen/videoList_Item_paddingLeft"
-        android:textColor="@color/videoList_textColor"
-        android:textSize="@dimen/videoList_Item_tv_count_size"
-        android:layout_marginTop="10dp"
-        />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="right"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="16dp">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/VideoList_linearBgColor" />
+
         <TextView
-            android:layout_width="wrap_content"
+            android:id="@+id/tv_videoid"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="#tag1"
-            android:textColor="@color/videoList_Tag_textColor"
-            android:textSize="@dimen/videoList_Item_tv_count_size"/>
-    </LinearLayout>
+            android:text="详情详情详情详情详情详情详情详情详情详情\n详情详情详情详情"
+            android:textColor="@color/videoList_textColor"
+            android:textSize="@dimen/videoList_Item_tv_count_size" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:gravity="right"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="#tag1"
+                android:textColor="@color/videoList_Tag_textColor"
+                android:textSize="@dimen/videoList_Item_tv_count_size" />
+        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>

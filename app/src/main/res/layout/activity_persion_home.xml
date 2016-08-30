@@ -17,6 +17,7 @@
 
         />
     <com_t.macvision.mv_078.ui.customView.StickyNavLayout
+        android:id="@+id/mStickyNavLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="48dp">

@@ -4,6 +4,8 @@ package com_t.macvision.mv_078.ui.adapter;/**
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -22,6 +24,8 @@ import com.macvision.mv_078.R;
 
 import com_t.macvision.mv_078.Constant;
 import com_t.macvision.mv_078.model.entity.VideoEntity;
+import com_t.macvision.mv_078.ui.VideoList.FragmentMenu1;
+import com_t.macvision.mv_078.ui.VideoList.FragmentTab1;
 import com_t.macvision.mv_078.util.CircleImageView;
 import com_t.macvision.mv_078.util.ImageFromFileCache;
 import com_t.macvision.mv_078.util.ScreenUtils;
@@ -35,6 +39,8 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import com_t.macvision.mv_078.util.link_builder.Link;
+import com_t.macvision.mv_078.util.link_builder.LinkBuilder;
 
 /**
  * 作者：LiangXiong on 2016/8/4 0004 21:49
@@ -45,17 +51,12 @@ public class MainVideoListAdapter extends RecyclerView.Adapter<MainVideoListAdap
     private List<VideoEntity.VideolistEntity> mVideoList;
     private Context mContext;
     private static IClickMainItem mIClickItem;
-    private String imageCache = null;
-    private LruCache lruCache;
-    int viewType;
 
     public MainVideoListAdapter(Context mContext, List<VideoEntity.VideolistEntity> mVideoList) {
         this.mContext = mContext;
         mVideoList = new ArrayList<>();
         this.mVideoList = mVideoList;
-        lruCache = new LruCache(mContext);
-        int maxMemory = (int) Runtime.getRuntime().maxMemory();
-        int cacheSize = maxMemory / 8;
+
     }
 
     public void update(List<VideoEntity.VideolistEntity> data) {
@@ -162,10 +163,13 @@ public class MainVideoListAdapter extends RecyclerView.Adapter<MainVideoListAdap
         Button btn_fen;
         @Bind(R.id.image_head)
         CircleImageView image_head;
+        @Bind(R.id.tv_type)
+        TextView tv_type;
 
         public ViewHolderItemVideo(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+
         }
 
         @Override
@@ -175,6 +179,8 @@ public class MainVideoListAdapter extends RecyclerView.Adapter<MainVideoListAdap
             tv_username.setText(videoEntity.getUserName());
             tv_pingCount.setText(videoEntity.getVideoCommentNumber());
             tv_zanCount.setText(videoEntity.getVideoLikesNumber());
+            tv_type.setText("#" + FragmentMenu1.entity.getData().get(Integer.parseInt(videoEntity.getVideoType()) - 1).getVTypeName());
+
             Glide.with(mContext).load(ImageFromFileCache.base64ToBitmap(videoEntity.getAvatarLocation())).into(image_head);
 
             if (videoEntity.getCategory().equals("image"))
@@ -192,58 +198,12 @@ public class MainVideoListAdapter extends RecyclerView.Adapter<MainVideoListAdap
                 }
             });
 
-            details_layout.setOnTouchListener(new View.OnTouchListener() {
-//                float DownX, DownY;
-//                int moveX, moveY;
-//                Long currentMS;
-//                boolean is = true;
-//
+            details_layout.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public boolean onTouch(View v, MotionEvent event) {
-//                    switch (event.getAction()) {
-//                        case MotionEvent.ACTION_DOWN:
-//                            DownX = event.getX();//float DownX
-//                            DownY = event.getY();//float DownY
-//                            moveX = 0;
-//                            moveY = 0;
-//                            currentMS = System.currentTimeMillis();//long currentMS     获取系统时间
-//                            break;
-//                        case MotionEvent.ACTION_MOVE:
-//                            Log.i("onclickli", " ACTION_MOVE");
-//
-//                            moveX += Math.abs(event.getX() - DownX);//X轴距离
-//                            moveY += Math.abs(event.getY() - DownY);//y轴距离
-//                            DownX = event.getX();
-//                            DownY = event.getY();
-//                            break;
-//                        case MotionEvent.ACTION_UP:
-//                            long moveTime = System.currentTimeMillis() - currentMS;//移动时间
-//                            //判断是否继续传递信号
-//                            Log.i("onclickli", " ACTION_UP");
-//                            if (moveTime > 200 && (moveX > 20 || moveY > 20)) {
-//                                is=false;
-//                                return false; //不再执行后面的事件，在这句前可写要执行的触摸相关代码。点击事件是发生在触摸弹起后
-//                            } else {
-//                                Log.i("onclickli", " 点击");
-//                                is=true;
-//                                mIClickItem.onClickItemDetail(v, videoEntity);
-//                                return true;
-//                            }
-//
-//                    }
-//                    Log.i("onclickli", "跳出来: ");
-//                    if (is)
-//                        return true;//继续执行后面的代码
-//                    else
-                        return false;
+                public void onClick(View v) {
+                    mIClickItem.onClickItemDetail(v, videoEntity);
                 }
             });
-//            details_layout.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    mIClickItem.onClickItemDetail(v, videoEntity);
-//                }
-//            });
             title_layout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -265,19 +225,12 @@ public class MainVideoListAdapter extends RecyclerView.Adapter<MainVideoListAdap
                     mIClickItem.onClickFen(v, videoEntity);
                 }
             });
-
-//            Bitmap bitmap=null;
-//            Picasso.with(mContext)
-//                    .load("http://192.168.1.124/default.jpg")
-////                    .placeholder(R.mipmap.zan_normal)
-//                    .resize(ScreenUtils.getScreenWidth(mContext),ScreenUtils.getScreenHeight(mContext)/3)
-//                    .error(R.mipmap.zan_pressed)
-//                    .into(image_thumb);
-//            //显示图片来源标记
-
-//            Picasso.with(mContext).load("http://192.168.1.124/aaaa/zm.mp4").into(image_thumb);
-//            Picasso.with(mContext).load(String.valueOf(createVideoThumbnail("http://192.168.1.124/aaaa/zm.mp4",60,60))).into(image_thumb);
-//            cacheImage(Constant.BaseVideoListUrl+videoEntity.getVideoLocation(),image_thumb);
+            tv_type.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mIClickItem.onClickLinks(v, videoEntity);
+                }
+            });
         }
 
     }
@@ -296,31 +249,6 @@ public class MainVideoListAdapter extends RecyclerView.Adapter<MainVideoListAdap
         void onClickPing(View view, VideoEntity.VideolistEntity videoEntity);
 
         void onClickFen(View view, VideoEntity.VideolistEntity videoEntity);
+        void onClickLinks(View view,VideoEntity.VideolistEntity  videolistEntity);
     }
-
-    private void cacheImage(final String url, ImageView image) {
-        TaskUtils.executeAsyncTask(new AsyncTask<String, Void, Bitmap>() {
-            @Override
-            protected Bitmap doInBackground(String... params) {
-                Bitmap bmp = ImageFromFileCache.getImage(url);
-                if (bmp == null) {
-                    ImageFromFileCache.createVideoThumbnail(url, 80, 80);
-                }
-                if (bmp == null) {
-                    return bmp;
-                }
-                return bmp;
-            }
-
-            @Override
-            protected void onPostExecute(Bitmap result) {
-                super.onPostExecute(result);
-                if (result != null) {
-                    image.setImageBitmap(result);
-                }
-            }
-        });
-    }
-
-
 }

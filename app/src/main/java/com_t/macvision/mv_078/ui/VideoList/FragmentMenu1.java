@@ -43,7 +43,7 @@ public class FragmentMenu1 extends BaseFragment {
 
         for (int i = 0; i < entityList.size(); i++) {
             Bundle bundle = new Bundle();
-            bundle.putInt("type", i );
+            bundle.putInt("type", i +1);
             mTitle.add(entityList.get(i).getVTypeName());
             mFragmentlist.add(FragmentTab1.Tab1Instance(bundle));
         }

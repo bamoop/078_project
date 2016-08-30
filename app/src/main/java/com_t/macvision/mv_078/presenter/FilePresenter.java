@@ -53,8 +53,6 @@ public class FilePresenter implements FileContract.Presenter {
                         file.setPath(mCursor.getString(mCursor.getColumnIndexOrThrow(MediaStore.Video.Media.DATA)));
 //                        file.setSize(mCursor.getString(mCursor.getColumnIndexOrThrow(MediaStore.Video.Media.SIZE)));
                         mlist.add(file);
-                        Log.i("moop", "fileName: " + file.getNaame());
-                        Log.i("moop", "filePath: " + file.getPath());
                     } while (mCursor.moveToNext());
                 }
                 if(Integer.parseInt(Build.VERSION.SDK) < 11)

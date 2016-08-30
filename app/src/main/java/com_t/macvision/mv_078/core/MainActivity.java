@@ -200,7 +200,6 @@ public class MainActivity extends BaseActivity {
         Intent intent=new Intent(context,cls);
         intent.putExtras(bundle);
         context.startActivity(intent);
-
     }
 
 }

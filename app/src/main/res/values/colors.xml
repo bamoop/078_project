@@ -38,6 +38,9 @@
     <color name="fileList_tv_timeColor">#FF999999</color>
     <color name="fileList_tv_nameColor">#FF222222</color>
 
+    <!--textTag-->
+    <color name="primary">#F44336</color>
+    <color name="divider">#B6B6B6</color>
 
 
 </resources>

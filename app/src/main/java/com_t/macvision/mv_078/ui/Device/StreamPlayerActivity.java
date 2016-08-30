@@ -12,6 +12,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
@@ -24,6 +25,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import com_t.macvision.mv_078.base.BaseActivity;
 import com_t.macvision.mv_078.ui.adapter.ViewPager_View_Adapter;
+import com_t.macvision.mv_078.ui.customView.StickyNavLayout;
 import com_t.macvision.mv_078.util.ScreenUtils;
 
 import org.videolan.libvlc.EventHandler;
@@ -63,6 +65,7 @@ public class StreamPlayerActivity extends BaseActivity implements SurfaceHolder.
     Button btn_video;
     @Bind(R.id.toolbar)
     Toolbar toolbar;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

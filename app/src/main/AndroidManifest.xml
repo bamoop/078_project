@@ -51,7 +51,8 @@
             android:screenOrientation="portrait" />
         <activity android:name="com_t.macvision.mv_078.ui.Device.StreamPlayerActivity" />
         <activity android:name="com_t.macvision.mv_078.ui.Device.SDFile_Activity" />
-        <activity android:name="com_t.macvision.mv_078.ui.person_main.PersionHome_Activity"></activity>
+        <activity android:name="com_t.macvision.mv_078.ui.person_main.PersionHome_Activity" />
+        <activity android:name="com_t.macvision.mv_078.ui.VideoList.TypeVideoList_Activity"></activity>
     </application>
 
 </manifest>
