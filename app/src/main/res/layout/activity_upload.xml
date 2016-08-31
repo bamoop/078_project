@@ -105,20 +105,16 @@
         android:padding="15dp"
         android:orientation="vertical"
         android:background="@color/theme_fragment_bgColor">
-        <com_t.macvision.mv_078.util.TextView_tagcloud.TagCloudLayout
+        <com_t.macvision.mv_078.ui.customView.TagCloudView
             android:id="@+id/container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:tagSpacing="15dp"
-            app:lineSpacing="10dp"/>
+            app:lineSpacing="10dp" />
+
 
         <TextView
-            android:id="@+id/btn_type1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="# tag1"
-            android:textSize="12sp"/>
-        <TextView
+            android:id="@+id/tv_cityName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="# tag2"

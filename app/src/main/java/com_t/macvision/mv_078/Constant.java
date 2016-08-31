@@ -2,6 +2,8 @@ package com_t.macvision.mv_078;/**
  * Created by bzmoop on 2016/8/11 0011.
  */
 
+import com_t.macvision.mv_078.model.entity.FileEntity;
+
 /**
  * 作者：LiangXiong on 2016/8/11 0011 11:42
  * 邮箱：liangxiong.sz@foxmail.com

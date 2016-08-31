@@ -5,6 +5,7 @@ package com_t.macvision.mv_078.util;/**
 import android.util.Log;
 
 import com_t.macvision.mv_078.Constant;
+
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
@@ -22,13 +23,12 @@ import okhttp3.Request;
  */
 public class UploadUtil {
     private static final String TAG = "UploadUtil";
-
+    UploadStatu mUploadStatus;
     public class MyStringCallback extends StringCallback {
         @Override
         public void onBefore(Request request, int id) {
 //            setTitle("loading...");
             Log.i(TAG, "onBefore: 上传中");
-
         }
 
         @Override
@@ -50,6 +50,7 @@ public class UploadUtil {
         public void onResponse(String response, int id) {
 //            Log.e(TAG, "onResponse：complete");
 //            mTv.setText("onResponse:" + response);
+            Log.i(TAG, "上传响应" + response);
 
             switch (id) {
                 case 100:
@@ -68,23 +69,26 @@ public class UploadUtil {
         }
     }
 
-    public void uploadFile(File file, Map<String, String> map,String url) {
-        if (map.get(Constant.userId) == null) {
-            Log.i(TAG, "uploadFile: userID为空，上传失败");
+    public void uploadFile(File file, HashMap<String, String> map, String url) {
+        Log.i(TAG, (map.get(Constant.userId) == "") + "-" + Constant.userId + "-" + map.get(Constant.videoTitle) + "---" + map.get(Constant.videoReleaseAddress) + "====" + map.get(Constant.userId) + "======" + (map.get(Constant.userId) == ""));
+
+        if (map.get(Constant.userId) == "" || map.get(Constant.userId) == null) {
             map.put(Constant.userId, "7000001");
+            Log.i(TAG, "uploadFile: userID为空，上传失败");
         }
-        if (map.get(Constant.videoTitle) == null)
+        if (map.get(Constant.videoTitle) == "" || map.get(Constant.videoTitle) == null)
             map.put(Constant.videoTitle, "默认标题");
 
-        if (map.get(Constant.videoReleaseAddress) == null)
+        if (map.get(Constant.videoReleaseAddress) == "" || map.get(Constant.videoReleaseAddress) == null)
             map.put(Constant.videoReleaseAddress, "默认地址");
 
-        if (map.get(Constant.videoCaption) == null)
+        if (map.get(Constant.videoCaption) == "" || map.get(Constant.videoCaption) == null)
             map.put(Constant.videoReleaseAddress, "这人很懒，什么都没说");
 
-        if (map.get(Constant.videoType) == null)
+        if (map.get(Constant.videoType) == "" || map.get(Constant.videoType) == null)
             map.put(Constant.videoType, "1");
 
+            map.put("token","abcdefghijklmn");
         if (!file.exists()) {
             //文件不存在
             Log.i(TAG, "uploadFile: 文件不存在");
@@ -101,5 +105,15 @@ public class UploadUtil {
                 .headers(headers)//
                 .build()//
                 .execute(new MyStringCallback());
+    }
+
+    interface UploadStatu {
+        void UploadStart();
+        /**上传成功**/
+        void UploadSucceed();
+        /**上传失败**/
+        void UploadFail(Exception e);
+        /**上传进度**/
+        void UploadProgress(float progress, long total, int id);
     }
 }

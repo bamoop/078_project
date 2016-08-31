@@ -2,6 +2,7 @@ package com_t.macvision.mv_078.ui.Upload;/**
  * Created by bzmoop on 2016/8/18 0018.
  */
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.util.Linkify;
@@ -11,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TableLayout;
 import android.widget.TextView;
 
 import com_t.macvision.mv_078.Constant;
@@ -18,9 +20,11 @@ import com_t.macvision.mv_078.Constant;
 import com.macvision.mv_078.R;
 
 import com_t.macvision.mv_078.base.BaseActivity;
+import com_t.macvision.mv_078.base.OnItemClickListener;
 import com_t.macvision.mv_078.model.entity.FileEntity;
 import com_t.macvision.mv_078.presenter.UploadPresenter;
 import com_t.macvision.mv_078.ui.VideoList.FragmentMenu1;
+import com_t.macvision.mv_078.ui.customView.TagCloudView;
 import com_t.macvision.mv_078.util.LocationUtils;
 import com_t.macvision.mv_078.util.SharedPreferencesUtils;
 
@@ -40,8 +44,6 @@ import cn.com.video.venvy.param.OnJjOpenStartListener;
 import cn.com.video.venvy.param.OnJjOpenSuccessListener;
 import cn.com.video.venvy.param.OnJjOutsideLinkClickListener;
 import cn.com.video.venvy.widget.UsetMediaContoller;
-import com_t.macvision.mv_078.util.TextView_tagcloud.TagBaseAdapter;
-import com_t.macvision.mv_078.util.TextView_tagcloud.TagCloudLayout;
 
 /**
  * 作者：LiangXiong on 2016/8/18 0018 21:32
@@ -52,7 +54,7 @@ public class UploadActivity extends BaseActivity implements UploadContract.View 
 
     private FileEntity fileEntity;
     private UploadContract.Presenter mPresenter;
-    private Map<String, String> upMap = new HashMap<>();
+    private HashMap<String, String> upMap = new HashMap<>();
 
     private JjVideoView PlayVideoView;
     private View mLoadBufferView;
@@ -60,20 +62,21 @@ public class UploadActivity extends BaseActivity implements UploadContract.View 
     private TextView mLoadBufferTextView;
     private TextView mLoadText;
     private LinearLayout btn_upload;
+    private Activity mContext;
 
     private Button btn_againLocation;
-    private TextView btn_type1;
-    private EditText ed_state;
+    private EditText ed_state, edit_title;
+    private TextView tv_cityName;
 
-    private TagCloudLayout mContainer;
-    private TagBaseAdapter mAdapter;
+    private TagCloudView mContainer;
     private List<String> mList = new ArrayList<>();
+    private HashMap<Integer, Boolean> map = new HashMap<>(0);//记录选择的位置
 
     @Override
     public void onCreate(Bundle savedInstanceStat) {
         super.onCreate(savedInstanceStat);
         setContentView(R.layout.activity_upload);
-
+        mContext = this;
         initData();
         initView();
         initVideo();
@@ -90,11 +93,6 @@ public class UploadActivity extends BaseActivity implements UploadContract.View 
         fileEntity = (FileEntity) intent.getSerializableExtra("FileEntity");
         mPresenter = new UploadPresenter(this);
 
-        upMap.put(Constant.userId, (String) SharedPreferencesUtils.getParam(this, Constant.userId, ""));
-        upMap.put("videoTitle", "狂暴酷炫叼炸天");
-        upMap.put("videoReleaseAddress", (String) SharedPreferencesUtils.getParam(this, Constant.CITY, ""));
-        upMap.put("videoCaption", "66666");
-
     }
 
     private void initView() {
@@ -104,27 +102,38 @@ public class UploadActivity extends BaseActivity implements UploadContract.View 
         mLoadBufferTextView = (TextView) findViewById(R.id.sdk_sdk_ijk_load_buffer_text);
         mLoadText = (TextView) findViewById(R.id.sdk_ijk_progress_bar_text);
         ed_state = (EditText) findViewById(R.id.ed_state);
+        edit_title = (EditText) findViewById(R.id.edit_title);
+        tv_cityName = (TextView) findViewById(R.id.tv_cityName);
 
         PlayVideoView.setMediaController(new UsetMediaContoller(this));
-        btn_type1 = (TextView) findViewById(R.id.btn_type1);
-        mContainer = (TagCloudLayout) findViewById(R.id.container);
+
+        Logger.i(LocationUtils.getCNBylocation(UploadActivity.this));
+        if (SharedPreferencesUtils.getParam(mContext, Constant.CITY, "") != null) {
+            LocationUtils.getCNBylocation(UploadActivity.this);
+            SharedPreferencesUtils.setParam(mContext, Constant.CITY, LocationUtils.getCNBylocation(UploadActivity.this));
+        }
+        tv_cityName.setText((CharSequence) SharedPreferencesUtils.getParam(mContext,Constant.CITY,""));
+        mContainer = (TagCloudView) findViewById(R.id.container);
         for (int i = 0; i < FragmentMenu1.entity.getData().size(); i++) {
-            mList.add("#"+FragmentMenu1.entity.getData().get(i).getVTypeName());
+            mList.add("#" + FragmentMenu1.entity.getData().get(i).getVTypeName());
+            map.put(i, false);
             Logger.d("type=" + FragmentMenu1.entity.getData().get(i).getVTypeName());
         }
-        mAdapter = new TagBaseAdapter(this, mList);
-        mContainer.setAdapter(mAdapter);
-        mContainer.setItemClickListener(new TagCloudLayout.TagItemClickListener() {
+        mContainer.setOnTagClickListener(new TagCloudView.OnTagClickListener() {
             @Override
-            public void itemClick(int position) {
-                Logger.i("itemClick: " + mList.get(position));
+            public void onTagClick(int position) {
+                bindPositionView(position);
+                upMap.put(Constant.videoType, String.valueOf(position + 1));
             }
         });
         btn_upload = (LinearLayout) findViewById(R.id.btn_upload);
         btn_upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                upMap.put(Constant.userId, (String) SharedPreferencesUtils.getParam(mContext, Constant.userId, ""));
+                upMap.put(Constant.videoTitle, edit_title.getText().toString());
+                upMap.put(Constant.videoReleaseAddress, (String) SharedPreferencesUtils.getParam(mContext, Constant.CITY, ""));
+                upMap.put(Constant.videoCaption, ed_state.getText().toString());
                 mPresenter.upload(upMap, fileEntity);
             }
         });
@@ -132,18 +141,13 @@ public class UploadActivity extends BaseActivity implements UploadContract.View 
         btn_againLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LocationUtils.getCNBylocation(UploadActivity.this);
-
+                SharedPreferencesUtils.setParam(mContext, Constant.CITY, LocationUtils.getCNBylocation(UploadActivity.this));
+                tv_cityName.setText((CharSequence) SharedPreferencesUtils.getParam(mContext, Constant.CITY, ""));
             }
         });
 
-        Linkify.addLinks(btn_type1, Linkify.WEB_URLS | Linkify.EMAIL_ADDRESSES);
-        btn_type1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                upMap.put("videoType", "1");
-            }
-        });
+        bindPositionView(0);
+
     }
 
 
@@ -230,5 +234,33 @@ public class UploadActivity extends BaseActivity implements UploadContract.View 
     @Override
     public void uploadDataFail() {
 
+    }
+
+    /**
+     * 定点标签记录和view变化
+     **/
+    private void bindPositionView(int position) {
+        for (int i = 0; i < mList.size(); i++) {
+            if (i == position) {
+//                if (map.get(i)) {
+//                    map.put(i, false);
+//                } else {
+                map.put(i, true);
+//                }
+            } else {
+//                if (map.get(i)) {
+//                    map.put(i, true);
+//                } else {
+                map.put(i, false);
+//                }
+            }
+        }
+
+        mContainer.setTagsByPosition(map, mList);
+        for (int i = 0; i < mList.size(); i++) {
+            if (map.get(i)) {
+                mContainer.getChildAt(i).setBackgroundResource(R.drawable.edit_style_yellow);
+            }
+        }
     }
 }

@@ -8,6 +8,7 @@ import com_t.macvision.mv_078.ui.Upload.UploadContract;
 import com_t.macvision.mv_078.util.UploadUtil;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -28,7 +29,7 @@ public class UploadPresenter implements UploadContract.Presenter {
     }
 
     @Override
-    public void upload(Map<String, String> map, FileEntity fileEntity) {
+    public void upload(HashMap<String, String> map, FileEntity fileEntity) {
         new UploadUtil().uploadFile(new File(fileEntity.getPath()),map, Constant.UploadUrl);
     }
 }

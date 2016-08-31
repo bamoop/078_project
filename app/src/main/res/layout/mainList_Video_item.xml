@@ -31,6 +31,17 @@
             android:text="用户名"
             android:textColor="@color/videoList_textColor"
             android:textSize="@dimen/videoList_Item_tv_userName_size" />
+          <TextView
+            android:id="@+id/tv_ReleaseAddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+              android:layout_below="@id/tv_username"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@id/image_head"
+            android:text="深圳"
+            android:textColor="#666666"
+            android:textSize="12sp" />
 
         <LinearLayout
             android:layout_width="wrap_content"

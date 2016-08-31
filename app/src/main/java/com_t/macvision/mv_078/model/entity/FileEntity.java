@@ -15,6 +15,8 @@ public class FileEntity implements Serializable {
     String size;
     String format;
     String createTime;
+    boolean mSelected;
+
     private boolean isChecked;
 
     public String getNaame() {

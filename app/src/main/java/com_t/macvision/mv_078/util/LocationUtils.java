@@ -40,7 +40,7 @@ public class LocationUtils {
      *
      * @param context
      */
-    public static void getCNBylocation(Context context) {
+    public static String getCNBylocation(Context context) {
 
         geocoder = new Geocoder(context);
         //用于获取Location对象，以及其他
@@ -67,7 +67,7 @@ public class LocationUtils {
             //                                          int[] grantResults)
             // to handle the case where the user grants the permission. See the documentation
             // for ActivityCompat#requestPermissions for more details.
-            return;
+            return cityName;
         }
         Location location = locationManager.getLastKnownLocation(provider);
 
@@ -85,6 +85,7 @@ public class LocationUtils {
                 locationListener);
         //移除监听器，在只有一个widget的时候，这个还是适用的
         locationManager.removeUpdates(locationListener);
+        return cityName;
     }
 
     /**

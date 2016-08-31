@@ -9,7 +9,7 @@ public class MainFactory {
     /**
      * 数据主机地址
     * */
-    public static final String HOST = "http://192.168.1.124";
+    public static final String HOST = "http://192.168.1.123";
 //    public static final String HOST = "http://gank.io/api";
     private static VideoListService mVideolistService;
     protected static final Object monitor = new Object();

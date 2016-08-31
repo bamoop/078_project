@@ -9,8 +9,11 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.macvision.mv_078.R;
+
 import com_t.macvision.mv_078.base.BaseFragment;
 import com_t.macvision.mv_078.core.MainActivity;
 import com_t.macvision.mv_078.model.entity.FileEntity;
@@ -32,6 +35,12 @@ import butterknife.Bind;
 public class FileChildFragment extends BaseFragment implements FileContract.View, MenuClickListener, FileListAdapter.IClickMainItem {
     @Bind(R.id.rv_filelist)
     RecyclerView rv_filelist;
+    @Bind(R.id.file_menu_layout)
+    LinearLayout file_menu_layout;
+    @Bind(R.id.image_save)
+    ImageView image_save;
+    @Bind(R.id.image_delete)
+    ImageView image_delete;
     private List<FileEntity> mFileList = new ArrayList<FileEntity>();
     private FilePresenter mPresenter;
     private FileListAdapter mFileAdapter;
@@ -96,13 +105,13 @@ public class FileChildFragment extends BaseFragment implements FileContract.View
     @Override
     public void onClickCancel() {
         mFileAdapter.openItemAnimation();
-
+        file_menu_layout.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void onClickEdit() {
         mFileAdapter.closeItemAnimation();
-
+        file_menu_layout.setVisibility(View.GONE);
     }
 
     @Override
@@ -118,13 +127,16 @@ public class FileChildFragment extends BaseFragment implements FileContract.View
 
     @Override
     public void onClickItemVideo(CheckBox mCheckBox, FileEntity entity) {
-        if (FileFragment.mIsEditState)
+
+        if (FileFragment.mIsEditState) {
+            entity.setChecked(!mCheckBox.isChecked());
             mCheckBox.setChecked(!mCheckBox.isChecked());
-        else {
+        } else {
             Log.i("moop2", "onClickItemDetail: 点击无效" + mActivity);
             Bundle bundle = new Bundle();
             bundle.putSerializable("FileEntity", entity);
-            MainActivity.startActivity(getMyActivity(), bundle, UploadActivity.class);
+//            MainActivity.startActivity(getMyActivity(), bundle, UploadActivity.class);
         }
     }
+
 }

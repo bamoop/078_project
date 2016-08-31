@@ -165,7 +165,8 @@ public class MainVideoListAdapter extends RecyclerView.Adapter<MainVideoListAdap
         CircleImageView image_head;
         @Bind(R.id.tv_type)
         TextView tv_type;
-
+        @Bind(R.id.tv_ReleaseAddress)
+        TextView tv_ReleaseAddress;
         public ViewHolderItemVideo(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
@@ -179,6 +180,7 @@ public class MainVideoListAdapter extends RecyclerView.Adapter<MainVideoListAdap
             tv_username.setText(videoEntity.getUserName());
             tv_pingCount.setText(videoEntity.getVideoCommentNumber());
             tv_zanCount.setText(videoEntity.getVideoLikesNumber());
+            tv_ReleaseAddress.setText(videoEntity.getVideoReleaseAddress());
             tv_type.setText("#" + FragmentMenu1.entity.getData().get(Integer.parseInt(videoEntity.getVideoType()) - 1).getVTypeName());
 
             Glide.with(mContext).load(ImageFromFileCache.base64ToBitmap(videoEntity.getAvatarLocation())).into(image_head);
@@ -187,7 +189,7 @@ public class MainVideoListAdapter extends RecyclerView.Adapter<MainVideoListAdap
                 Glide.with(mContext).load(Constant.BaseVideoPlayUrl + videoEntity.getVideoLocation()).
                         override(ScreenUtils.getScreenWidth(mContext), ScreenUtils.getScreenHeight(mContext) / 3).centerCrop().into(image_thumb);
             else
-                Glide.with(mContext).load(Constant.BaseVideoPlayUrl + videoEntity.getFirstFrameLocation()).
+                Glide.with(mContext).load(Constant.BaseVideoPlayUrl + videoEntity.getVideoLocation()).
                         override(ScreenUtils.getScreenWidth(mContext), ScreenUtils.getScreenHeight(mContext) / 3).centerCrop().into(image_thumb);
 
             btn_zan.setOnClickListener(new View.OnClickListener() {

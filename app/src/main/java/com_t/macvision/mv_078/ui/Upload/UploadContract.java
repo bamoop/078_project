@@ -7,6 +7,7 @@ import com_t.macvision.mv_078.base.BaseView;
 import com_t.macvision.mv_078.model.entity.FileEntity;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -30,6 +31,6 @@ public interface UploadContract {
 
     interface Presenter extends BasePresenter {
         void getData(File file);
-        void upload(Map<String,String> map,FileEntity fileEntity);
+        void upload(HashMap<String,String> map, FileEntity fileEntity);
     }
 }

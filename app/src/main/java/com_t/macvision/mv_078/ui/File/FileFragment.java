@@ -66,7 +66,7 @@ public class FileFragment extends BaseFragment {
         mViewPager.setAdapter(mFragmentTableAdapter);
         mTableLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         mTableLayout.setupWithViewPager(mViewPager);
-        mViewPager.setOffscreenPageLimit(1);
+        mViewPager.setOffscreenPageLimit(3);
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {

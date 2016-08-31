@@ -39,8 +39,11 @@
     <color name="fileList_tv_nameColor">#FF222222</color>
 
     <!--textTag-->
-    <color name="primary">#F44336</color>
+    <color name="tag_primary">#DBDBDF</color>
+    <color name="tag_pitch">#3B43A8</color>
     <color name="divider">#B6B6B6</color>
+    <color name="tag_textColor">#666666</color>
+
 
 
 </resources>
