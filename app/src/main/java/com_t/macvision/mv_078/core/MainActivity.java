@@ -3,6 +3,7 @@ package com_t.macvision.mv_078.core;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -12,6 +13,8 @@ import android.widget.RadioButton;
 
 
 import com.macvision.mv_078.R;
+import com.orhanobut.logger.Logger;
+
 import com_t.macvision.mv_078.base.BaseActivity;
 import com_t.macvision.mv_078.ui.VideoList.FragmentMenu1;
 import com_t.macvision.mv_078.ui.CloudDog.FragmentMenu2;
@@ -19,6 +22,7 @@ import com_t.macvision.mv_078.ui.Device.FragmentMenu3;
 import com_t.macvision.mv_078.ui.File.FileFragment;
 import com_t.macvision.mv_078.ui.Person.FragmentMenu5;
 
+import java.io.File;
 import java.util.List;
 
 import butterknife.Bind;
@@ -29,7 +33,15 @@ public class MainActivity extends BaseActivity {
     private static final String TAG = "MainActivity";
     private long touchTime = 0;
     private static final long DOUBLE_CLICK_INTEVAL = 2 * 1000;
+    public static String sAppDir = "";
 
+    public static File getAppDir() {
+        File appDir = new File(sAppDir);
+        if (!appDir.exists()) {
+            appDir.mkdir();
+        }
+        return appDir;
+    }
 
     @Bind({R.id.tab_community, R.id.tab_clouddog, R.id.tab_device, R.id.tab_file, R.id.tab_person})
     List<RadioButton> mTabs;
@@ -45,6 +57,9 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         setSelect(0);
+        sAppDir = Environment.getExternalStorageDirectory().getPath() + File.separator + "069";
+        Logger.i("sAPPDir="+sAppDir);
+        getAppDir();
     }
 
     @OnClick({R.id.tab_community, R.id.tab_clouddog, R.id.tab_device, R.id.tab_file, R.id.tab_person})
@@ -196,8 +211,8 @@ public class MainActivity extends BaseActivity {
         Log.i(TAG, "onResume: ");
     }
 
-    public static void startActivity(Context context,Bundle bundle, Class<?> cls) {
-        Intent intent=new Intent(context,cls);
+    public static void startActivity(Context context, Bundle bundle, Class<?> cls) {
+        Intent intent = new Intent(context, cls);
         intent.putExtras(bundle);
         context.startActivity(intent);
     }

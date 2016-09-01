@@ -136,7 +136,7 @@ public class SDFileChildFragment extends BaseFragment implements SDFileContract.
 
 
     @Override
-    public void onClickItemVideo(CheckBox mCheckBox, FileEntity entity) {
+    public void onClickItemVideo(CheckBox mCheckBox, FileEntity entity,int position) {
         if (Fragment_SDFile.mIsEditState)
             mCheckBox.setChecked(!mCheckBox.isChecked());
         else {

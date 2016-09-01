@@ -3,6 +3,8 @@ package com_t.macvision.mv_078.ui.File;/**
  */
 
 import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,7 +15,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.macvision.mv_078.R;
+import com.orhanobut.logger.Logger;
 
+import butterknife.OnClick;
 import com_t.macvision.mv_078.base.BaseFragment;
 import com_t.macvision.mv_078.core.MainActivity;
 import com_t.macvision.mv_078.model.entity.FileEntity;
@@ -22,6 +26,7 @@ import com_t.macvision.mv_078.ui.Upload.UploadActivity;
 import com_t.macvision.mv_078.ui.adapter.FileListAdapter;
 import com_t.macvision.mv_078.ui.adapter.RecycleViewDivider;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,13 +44,10 @@ public class FileChildFragment extends BaseFragment implements FileContract.View
     LinearLayout file_menu_layout;
     @Bind(R.id.image_save)
     ImageView image_save;
-    @Bind(R.id.image_delete)
-    ImageView image_delete;
     private List<FileEntity> mFileList = new ArrayList<FileEntity>();
     private FilePresenter mPresenter;
     private FileListAdapter mFileAdapter;
     private LinearLayoutManager layoutManager;
-    private List<FileEntity> selectList = new ArrayList<>();
     private Activity mActivity;
 
     public static FileChildFragment Tab1Instance(Bundle bundle) {
@@ -63,7 +65,7 @@ public class FileChildFragment extends BaseFragment implements FileContract.View
     @Override
     protected void initView(View view) {
         mPresenter = new FilePresenter(this);
-        mPresenter.start("", getActivity());
+        mPresenter.start(MainActivity.sAppDir, getActivity());
         mFileAdapter = new FileListAdapter(getActivity(), mFileList);
         mFileAdapter.setClickItem(this);
         layoutManager = new LinearLayoutManager(getActivity());
@@ -73,11 +75,38 @@ public class FileChildFragment extends BaseFragment implements FileContract.View
                 currentContext, LinearLayoutManager.VERTICAL, 1,
                 getResources().getColor(R.color.theme_fragment_bgColor)));
         initData();
+        image_save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mFileAdapter.clickSelectAll();
+            }
+        });
 
     }
 
+    @OnClick(R.id.image_delete)
+    void delete() {
+        int size = mFileList.size() - 1;
+        int x = 0;
+        for (int i = size; i > -1; i--) {
+            if (mFileList.get(i).isChecked()) {
+                File file = new File(mFileList.get(i).getPath());
+                if (file.exists()) {
+                    mFileAdapter.removeData(i);
+                    Logger.i("删除=" + file.getPath() + "删除结果=" + file.delete() + "数组长度=" + mFileList.size());
+
+                } else Logger.i("文件不存在");
+
+            }
+            x++;
+//                i++;
+//            }while (i<size);
+        }
+        Logger.i("循环了=" + x);
+//        mFileAdapter.cleanSelectAdd();
+    }
+
     private void initData() {
-        mPresenter.start("", getActivity());
     }
 
     @Override
@@ -126,12 +155,11 @@ public class FileChildFragment extends BaseFragment implements FileContract.View
 
 
     @Override
-    public void onClickItemVideo(CheckBox mCheckBox, FileEntity entity) {
+    public void onClickItemVideo(CheckBox mCheckBox, FileEntity entity, int position) {
 
         if (FileFragment.mIsEditState) {
             entity.setChecked(!mCheckBox.isChecked());
             mCheckBox.setChecked(!mCheckBox.isChecked());
-        } else {
             Log.i("moop2", "onClickItemDetail: 点击无效" + mActivity);
             Bundle bundle = new Bundle();
             bundle.putSerializable("FileEntity", entity);

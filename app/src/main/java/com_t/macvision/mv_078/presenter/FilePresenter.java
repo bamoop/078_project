@@ -9,6 +9,9 @@ import android.os.Build;
 import android.provider.MediaStore;
 import android.util.Log;
 
+import com.orhanobut.logger.Logger;
+
+import com_t.macvision.mv_078.core.MainActivity;
 import com_t.macvision.mv_078.model.entity.FileEntity;
 import com_t.macvision.mv_078.ui.File.FileContract;
 import com_t.macvision.mv_078.util.TaskUtils;
@@ -32,34 +35,48 @@ public class FilePresenter implements FileContract.Presenter {
 
     @Override
     public void start(String dir, Activity context) {
-        TaskUtils.executeAsyncTask(new AsyncTask<String, Void, Cursor>() {
+        TaskUtils.executeAsyncTask(new AsyncTask<String, Void, File[]>() {
             @Override
-            protected Cursor doInBackground(String... params) {
+            protected File[] doInBackground(String... params) {
                 @SuppressWarnings("deprecation")
-                final Cursor mCursor = context.managedQuery(
-                        MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
-                        new String[]{MediaStore.Images.Media.DISPLAY_NAME, MediaStore.Video.Media.DATA}, null, null,
-                        "LOWER(" + MediaStore.Images.Media.TITLE + ") ASC");
-                return mCursor;
+                File file = MainActivity.getAppDir();
+                File[] files = file.listFiles();
+
+                Logger.i("传递过来的文件路径="+dir+"目录下文件个数="+files.length);
+
+//                final Cursor mCursor = context.managedQuery(
+//                        MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
+//                        new String[]{MediaStore.Images.Media.DISPLAY_NAME, MediaStore.Video.Media.DATA}, null, null,
+//                        "LOWER(" + MediaStore.Images.Media.TITLE + ") ASC");
+                return files;
             }
 
             @Override
-            protected void onPostExecute(Cursor mCursor) {
-                super.onPostExecute(mCursor);
-                if (mCursor.moveToFirst()) {
-                    do {
+            protected void onPostExecute(File[] files) {
+                super.onPostExecute(files);
+                if (files.length != 0)
+                    for (int i = 0; i < files.length; i++) {
                         FileEntity file = new FileEntity();
-                        file.setNaame(mCursor.getString(mCursor.getColumnIndexOrThrow(MediaStore.Video.Media.DISPLAY_NAME)));
-                        file.setPath(mCursor.getString(mCursor.getColumnIndexOrThrow(MediaStore.Video.Media.DATA)));
-//                        file.setSize(mCursor.getString(mCursor.getColumnIndexOrThrow(MediaStore.Video.Media.SIZE)));
+                        file.setNaame(files[i].getName());
+                        file.setPath(files[i].getPath());
+                        file.setSize(String.valueOf(files[i].length()));
                         mlist.add(file);
-                    } while (mCursor.moveToNext());
-                }
-                if(Integer.parseInt(Build.VERSION.SDK) < 11)
-                {
-                    mCursor.close();
+                    }
 
-                }
+//                if (mCursor.moveToFirst()) {
+//                    do {
+//                        FileEntity file = new FileEntity();
+//                        file.setNaame(mCursor.getString(mCursor.getColumnIndexOrThrow(MediaStore.Video.Media.DISPLAY_NAME)));
+//                        file.setPath(mCursor.getString(mCursor.getColumnIndexOrThrow(MediaStore.Video.Media.DATA)));
+////                        file.setSize(mCursor.getString(mCursor.getColumnIndexOrThrow(MediaStore.Video.Media.SIZE)));
+//                        mlist.add(file);
+//                    } while (mCursor.moveToNext());
+//                }
+//                if(Integer.parseInt(Build.VERSION.SDK) < 11)
+//                {
+//                    mCursor.close();
+//
+//                }
                 mFileView.getDataFinish();
                 mFileView.fillData(mlist);
             }

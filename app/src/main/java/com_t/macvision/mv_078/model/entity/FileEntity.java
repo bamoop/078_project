@@ -16,6 +16,7 @@ public class FileEntity implements Serializable {
     String format;
     String createTime;
     boolean mSelected;
+    int position;
 
     private boolean isChecked;
 
@@ -65,5 +66,13 @@ public class FileEntity implements Serializable {
 
     public void setChecked(boolean checked) {
         isChecked = checked;
+    }
+
+    public int getPosition() {
+        return position;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
     }
 }

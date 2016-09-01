@@ -15,10 +15,12 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.macvision.mv_078.R;
+
 import com_t.macvision.mv_078.model.entity.FileEntity;
 import com_t.macvision.mv_078.util.ImageFromFileCache;
 import com_t.macvision.mv_078.util.SlideRelativeLayout;
 import com_t.macvision.mv_078.util.TaskUtils;
+
 import com.orhanobut.logger.Logger;
 
 import java.io.File;
@@ -74,6 +76,27 @@ public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.ViewHo
         }
     }
 
+    public void clickSelectAll() {
+        if (!mFileList.isEmpty()) {
+            for (FileEntity fileEntity : mFileList)
+                fileEntity.setChecked(true);
+        }
+        selectList.addAll(mFileList);
+        notifyDataSetChanged();
+    }
+    public void cleanSelectAdd(){
+        if (!mFileList.isEmpty()) {
+            for (FileEntity fileEntity : mFileList)
+                fileEntity.setChecked(false);
+        }
+        notifyDataSetChanged();
+    }
+
+    public void removeData(int position) {
+        mFileList.remove(position);
+        notifyItemRemoved(position);
+    }
+
     @Override
     public FileListAdapter.ViewHolderItem onCreateViewHolder(ViewGroup parent, int viewType) {
         View view;
@@ -85,7 +108,7 @@ public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(ViewHolderItem holder, int position) {
-        holder.bindItem(mContext, mFileList.get(position));
+        holder.bindItem(mContext, mFileList.get(position),position);
     }
 
 
@@ -99,7 +122,7 @@ public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.ViewHo
             super(itemView);
         }
 
-        abstract void bindItem(Context context, FileEntity fileEntity);
+        abstract void bindItem(Context context, FileEntity fileEntity,int position);
     }
 
     class ViewHolderItemVideo extends ViewHolderItem {
@@ -122,27 +145,21 @@ public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.ViewHo
             ButterKnife.bind(this, itemView);
             mSlideRelativeLayout = (SlideRelativeLayout) itemView.findViewById(R.id.item_root);
             mCheckBox = (CheckBox) itemView.findViewById(R.id.item_checkbox);
+
         }
 
         @Override
-        void bindItem(Context context, FileEntity fileEntity) {
+        void bindItem(Context context, FileEntity fileEntity,int position) {
             tv_name.setText(fileEntity.getNaame());
             tv_time.setText(fileEntity.getCreateTime());
-//            tv_size.setText((int) ((new File(fileEntity.getPath()).length())*1024*1024));
-            String path = ImageFromFileCache.getPath(fileEntity.getPath());
             Glide.with(mContext).load(new File(fileEntity.getPath())).centerCrop().into(image_thumb);
-//            Picasso.with(mContext).load(new File(fileEntity.getPath())).resize(80,80).centerCrop().into(image_thumb);
 
-//            if (path != null) {
-//                Glide.with(mContext).load(new File(path)).centerCrop().into(image_thumb);
-//            } else
-//                cacheImage(fileEntity.getPath(), image_thumb);
 
             mCheckBox.setChecked(fileEntity.isChecked());
             slideRelativeLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mIClickItem.onClickItemVideo(mCheckBox,fileEntity);
+                    mIClickItem.onClickItemVideo(mCheckBox, fileEntity,position);
                     selectList.add(fileEntity);
                 }
             });
@@ -163,9 +180,13 @@ public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.ViewHo
 
         public void closeItemAnimation() {
             mSlideRelativeLayout.closeAnimation();
-            for (FileEntity fileEntity: selectList) {
+            for (FileEntity fileEntity : selectList) {
+                fileEntity.setChecked(false);
                 mCheckBox.setChecked(fileEntity.isChecked());
+
             }
+//            notifyDataSetChanged();
+
         }
 
         public void setCheckBox() {
@@ -199,6 +220,6 @@ public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.ViewHo
     }
 
     public interface IClickMainItem {
-        void onClickItemVideo(CheckBox mCheckBox,FileEntity entity);
+        void onClickItemVideo(CheckBox mCheckBox, FileEntity entity,int position);
     }
 }

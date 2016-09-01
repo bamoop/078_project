@@ -39,13 +39,13 @@ public class FileFragment extends BaseFragment {
     protected static boolean mIsEditState = false;
 
     ArrayList<Fragment> fragmentArrayList = new ArrayList<>();
-//    private String[] mTitle;
+    //    private String[] mTitle;
     FragmentTableAdapter mFragmentTableAdapter;
     LinearLayoutManager layoutManager;
     protected Toolbar mToolbar;
     static MenuClickListener menuClickListener;
     public MenuItem items;
-    List<String> mTitle=new ArrayList<>();
+    List<String> mTitle = new ArrayList<>();
 
     @Override
     protected int getLayout() {
@@ -67,6 +67,7 @@ public class FileFragment extends BaseFragment {
         mTableLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         mTableLayout.setupWithViewPager(mViewPager);
         mViewPager.setOffscreenPageLimit(3);
+
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -74,9 +75,10 @@ public class FileFragment extends BaseFragment {
 
             @Override
             public void onPageSelected(int position) {
-                mIsEditState = false;
-                if (items != null)
+                if (items != null) {
+                    mIsEditState = false;
                     updateMenuTitle(items);
+                }
                 Log.i("moop2", "onPageSelected: " + position + "---" + mIsEditState);
 
             }

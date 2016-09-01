@@ -84,7 +84,6 @@ public class ImageFromFileCache {
 
             return cachePath;
         }
-        Log.i("moop", "getPath: =null");
 
         return null;
     }
