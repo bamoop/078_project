@@ -13,20 +13,8 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import cn.com.videopls.venvy.f.V;
-import com_t.macvision.mv_078.Constant;
-
 import com.bumptech.glide.Glide;
 import com.macvision.mv_078.R;
-
-import com_t.macvision.mv_078.base.BaseActivity;
-import com_t.macvision.mv_078.model.entity.CommentEntity;
-import com_t.macvision.mv_078.model.entity.VideoDetailEntity;
-import com_t.macvision.mv_078.model.entity.VideoEntity;
-import com_t.macvision.mv_078.presenter.VideoDetailPresenter;
-import com_t.macvision.mv_078.ui.adapter.VideoDetailAdapter;
-import com_t.macvision.mv_078.util.CircleImageView;
-
 import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
@@ -41,7 +29,14 @@ import cn.com.video.venvy.param.OnJjOpenStartListener;
 import cn.com.video.venvy.param.OnJjOpenSuccessListener;
 import cn.com.video.venvy.param.OnJjOutsideLinkClickListener;
 import cn.com.video.venvy.widget.UsetMediaContoller;
-import com_t.macvision.mv_078.util.ImageFromFileCache;
+import com_t.macvision.mv_078.Constant;
+import com_t.macvision.mv_078.base.BaseActivity;
+import com_t.macvision.mv_078.model.entity.CommentEntity;
+import com_t.macvision.mv_078.model.entity.VideoDetailEntity;
+import com_t.macvision.mv_078.model.entity.VideoEntity;
+import com_t.macvision.mv_078.presenter.VideoDetailPresenter;
+import com_t.macvision.mv_078.ui.adapter.VideoDetailAdapter;
+import com_t.macvision.mv_078.util.CircleImageView;
 import com_t.macvision.mv_078.util.ScreenUtils;
 
 public class VideoDetails_Activiey extends BaseActivity implements VideoDetailContract.View {

@@ -1,13 +1,10 @@
-package com_t.macvision.mv_078.ui.VideoDetail;/**
- * Created by bzmoop on 2016/8/11 0011.
- */
+package com_t.macvision.mv_078.ui.VideoDetail;
 
 import com_t.macvision.mv_078.base.BasePresenter;
 import com_t.macvision.mv_078.base.BaseView;
 import com_t.macvision.mv_078.model.entity.CommentEntity;
 import com_t.macvision.mv_078.model.entity.VideoDetailEntity;
 import com_t.macvision.mv_078.ui.VideoList.VideoContract;
-import rx.Subscriber;
 
 /**
  * 作者：LiangXiong on 2016/8/11 0011 18:07
@@ -47,8 +44,10 @@ public interface VideoDetailContract {
 
         void getComment(int video, int page, Boolean isgetDataMore);
 
-        void saveComment(Subscriber<String> subscriber, String token, String cmContent, String userId, String cmVideoId, String beReplyUserId);
+        void saveComment( String token, String cmContent, String userId, String cmVideoId, String beReplyUserId);
 
-        void clickLike(Subscriber<String> subscriber, String videoId, String userId);
+        void clickLike( String videoId, String userId);
+
+        void shareVideo();
     }
 }

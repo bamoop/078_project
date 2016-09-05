@@ -4,18 +4,13 @@ package com_t.macvision.mv_078.ui.person_main;/**
 
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.AbsListView;
 
 import com.macvision.mv_078.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
 import com_t.macvision.mv_078.base.BaseFragment;
 import com_t.macvision.mv_078.model.entity.VideoEntity;
 import com_t.macvision.mv_078.presenter.DynamicPresenter;
@@ -29,7 +24,7 @@ import com_t.macvision.mv_078.ui.customView.OverRecyclerView;
  * QQ  ：294894105
  */
 public class Fragment_Dynamic extends BaseFragment implements DynamicContract.View {
-//    @Bind(R.id.rv_dynamic)
+    //    @Bind(R.id.rv_dynamic)
     OverRecyclerView rv_dynamic;
     LinearLayoutManager layoutManager;
     DynamicPresenter mPresenter;
@@ -104,5 +99,5 @@ public class Fragment_Dynamic extends BaseFragment implements DynamicContract.Vi
 
     }
 
-  
+
 }

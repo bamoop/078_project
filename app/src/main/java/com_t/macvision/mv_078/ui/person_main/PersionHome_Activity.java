@@ -95,7 +95,6 @@ public class PersionHome_Activity extends BaseActivity implements PersonHomeCont
         mTableLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         mTableLayout.setupWithViewPager(mViewPager);
         mViewPager.setOffscreenPageLimit(1);
-
     }
 
     @Override

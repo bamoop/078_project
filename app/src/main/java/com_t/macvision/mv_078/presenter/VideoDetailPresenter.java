@@ -5,14 +5,13 @@ package com_t.macvision.mv_078.presenter;/**
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.orhanobut.logger.Logger;
+
 import com_t.macvision.mv_078.model.entity.CommentEntity;
 import com_t.macvision.mv_078.model.entity.VideoDetailEntity;
 import com_t.macvision.mv_078.model.impl.BusinessTask;
 import com_t.macvision.mv_078.ui.VideoDetail.VideoDetailContract;
 import com_t.macvision.mv_078.util.GsonUtil;
-
-import com.orhanobut.logger.Logger;
-
 import rx.Subscriber;
 
 /**
@@ -41,7 +40,7 @@ public class VideoDetailPresenter implements VideoDetailContract.Presenter {
     }
 
     @Override
-    public void saveComment(Subscriber<String> subscriber, String token, String cmContent, String userId, String cmVideoId, String beReplyUserId) {
+    public void saveComment(String token, String cmContent, String userId, String cmVideoId, String beReplyUserId) {
         mVideoTask.saveComment(new Subscriber<String>() {
             @Override
             public void onCompleted() {
@@ -62,7 +61,12 @@ public class VideoDetailPresenter implements VideoDetailContract.Presenter {
     }
 
     @Override
-    public void clickLike(Subscriber<String> subscriber, String videoId, String userId) {
+    public void clickLike( String videoId, String userId) {
+
+    }
+
+    @Override
+    public void shareVideo() {
 
     }
 

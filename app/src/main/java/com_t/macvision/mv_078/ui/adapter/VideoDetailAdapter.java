@@ -8,23 +8,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.macvision.mv_078.R;
-
-import com_t.macvision.mv_078.model.entity.CommentEntity;
-import com_t.macvision.mv_078.model.entity.VideoEntity;
-import com_t.macvision.mv_078.ui.VideoList.FragmentMenu1;
-import com_t.macvision.mv_078.util.CircleImageView;
-
 import com.orhanobut.logger.Logger;
-
 
 import java.util.List;
 import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import com_t.macvision.mv_078.model.entity.CommentEntity;
+import com_t.macvision.mv_078.model.entity.VideoEntity;
+import com_t.macvision.mv_078.ui.VideoList.FragmentMenu1;
+import com_t.macvision.mv_078.util.CircleImageView;
 
 /**
  * 作者：LiangXiong on 2016/8/16 0016 13:54
@@ -35,6 +33,7 @@ public class VideoDetailAdapter extends RecyclerView.Adapter<VideoDetailAdapter.
     private Map<String, List> map;
     List<CommentEntity.DataBean> mCommentEntity;
     VideoEntity.VideolistEntity mVideoList;
+    ItemOnclick mItemOnclick;
 
     private Context context;
     int viewType;
@@ -143,8 +142,11 @@ public class VideoDetailAdapter extends RecyclerView.Adapter<VideoDetailAdapter.
         CircleImageView image_comment_head;
         @Bind(R.id.tv_comment_time)
         TextView tv_comment_time;
+        @Bind(R.id.comment_layout)
+        LinearLayout comment_layout;
 
         public ViewHolderItemComment(View itemView) {
+
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
@@ -158,5 +160,15 @@ public class VideoDetailAdapter extends RecyclerView.Adapter<VideoDetailAdapter.
             tv_name.setText(commentEntity.getUserName());
             tv_comment_time.setText(commentEntity.getCmCreateTime());
         }
+    }
+
+    public void setClickItem(ItemOnclick IClickItem) {
+        mItemOnclick = IClickItem;
+    }
+
+    interface ItemOnclick {
+        void onClick_comment();
+
+        void onClick_header();
     }
 }
