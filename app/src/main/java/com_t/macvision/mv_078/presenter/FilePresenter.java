@@ -42,12 +42,9 @@ public class FilePresenter implements FileContract.Presenter {
                 File file = MainActivity.getAppDir();
                 File[] files = file.listFiles();
 
-                Logger.i("传递过来的文件路径="+dir+"目录下文件个数="+files.length);
+                Logger.i("传递过来的文件路径=" + dir + "目录下文件个数=" + files.length);
 
-//                final Cursor mCursor = context.managedQuery(
-//                        MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
-//                        new String[]{MediaStore.Images.Media.DISPLAY_NAME, MediaStore.Video.Media.DATA}, null, null,
-//                        "LOWER(" + MediaStore.Images.Media.TITLE + ") ASC");
+
                 return files;
             }
 
@@ -61,6 +58,8 @@ public class FilePresenter implements FileContract.Presenter {
                         file.setPath(files[i].getPath());
                         file.setSize(String.valueOf(files[i].length()));
                         mlist.add(file);
+                        Logger.i("文件路径有=" + file.getPath());
+
                     }
 
 //                if (mCursor.moveToFirst()) {

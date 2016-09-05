@@ -10,6 +10,7 @@ import com_t.macvision.mv_078.model.entity.VideoDetailEntity;
 import com_t.macvision.mv_078.model.impl.BusinessTask;
 import com_t.macvision.mv_078.ui.VideoDetail.VideoDetailContract;
 import com_t.macvision.mv_078.util.GsonUtil;
+
 import com.orhanobut.logger.Logger;
 
 import rx.Subscriber;
@@ -35,8 +36,34 @@ public class VideoDetailPresenter implements VideoDetailContract.Presenter {
     }
 
     @Override
-    public void getComment(int videoid, int page,Boolean isgetDataMore) {
-        getCommentList(videoid, page,PAGESIZE,isgetDataMore);
+    public void getComment(int videoid, int page, Boolean isgetDataMore) {
+        getCommentList(videoid, page, PAGESIZE, isgetDataMore);
+    }
+
+    @Override
+    public void saveComment(Subscriber<String> subscriber, String token, String cmContent, String userId, String cmVideoId, String beReplyUserId) {
+        mVideoTask.saveComment(new Subscriber<String>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(String s) {
+
+            }
+        },token,cmContent,userId,cmVideoId,beReplyUserId);
+
+    }
+
+    @Override
+    public void clickLike(Subscriber<String> subscriber, String videoId, String userId) {
+
     }
 
     public void getVideoDetail(int videoID) {
@@ -62,29 +89,27 @@ public class VideoDetailPresenter implements VideoDetailContract.Presenter {
         mVideoView.getDataFinish();
     }
 
-    public void getCommentList(int videoId, int page, int pageSize,Boolean isgetDataMore) {
-        Log.i("comment", "getCommentList:" );
+    public void getCommentList(int videoId, int page, int pageSize, Boolean isgetDataMore) {
+        Log.i("comment", "getCommentList:");
         mVideoTask.getVideoCommentList(new Subscriber<String>() {
             @Override
             public void onCompleted() {
-                Log.i("comment", "onCompleted:" );
+                Log.i("comment", "onCompleted:");
             }
-
             @Override
             public void onError(Throwable e) {
-                Log.i("comment", "onError:" +e);
+                Log.i("comment", "onError:" + e);
                 mVideoView.getDataFinish();
             }
-
             @Override
             public void onNext(String s) {
-                Log.i("comment", "onError:" +s);
+                Log.i("comment", "onError:" + s);
                 if (!TextUtils.isEmpty(s)) {
                     if (isgetDataMore)
-                    mVideoView.appendMoreDataToView(GsonUtil.changeGsonToBean(s, CommentEntity.class));
+                        mVideoView.appendMoreDataToView(GsonUtil.changeGsonToBean(s, CommentEntity.class));
                     else
-                    mVideoView.fillCommentData(GsonUtil.changeGsonToBean(s, CommentEntity.class));
-                    if(GsonUtil.changeGsonToBean(s, CommentEntity.class).getData().size()<PAGESIZE){
+                        mVideoView.fillCommentData(GsonUtil.changeGsonToBean(s, CommentEntity.class));
+                    if (GsonUtil.changeGsonToBean(s, CommentEntity.class).getData().size() < PAGESIZE) {
                         mVideoView.hasNoMoreData();
                     }
                 }
@@ -93,4 +118,6 @@ public class VideoDetailPresenter implements VideoDetailContract.Presenter {
             }
         }, videoId, page, pageSize);
     }
+
+
 }

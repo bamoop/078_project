@@ -5,154 +5,150 @@
     android:layout_height="match_parent"
     android:background="@color/theme_fragment_bgColor"
     android:orientation="vertical">
+
     <include
         android:id="@+id/toolbar"
         layout="@layout/layout_toolbar"></include>
-            <RelativeLayout
-                android:id="@+id/detail_handLayout"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/videoList_Item_ly_headLayout_height"
-                android:paddingLeft="@dimen/videoList_Item_paddingLeft"
-                android:layout_below="@id/toolbar">
 
-                <com_t.macvision.mv_078.util.CircleImageView
-                    android:id="@+id/image_head"
-                    android:layout_width="@dimen/videoList_Item_im_headImage_width"
-                    android:layout_height="@dimen/videoList_Item__im_headImage_height"
-                    android:layout_centerVertical="true"
-                    android:src="@mipmap/ic_launcher" />
+    <RelativeLayout
+        android:id="@+id/detail_handLayout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/videoList_Item_ly_headLayout_height"
+        android:layout_below="@id/toolbar"
+        android:paddingLeft="@dimen/videoList_Item_paddingLeft">
 
-                <TextView
-                    android:id="@+id/tv_username"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="5dp"
-                    android:layout_toRightOf="@id/image_head"
-                    android:text="用户名"
-                    android:textColor="@color/videoList_textColor"
-                    android:textSize="@dimen/videoList_Item_tv_userName_size" />
+        <com_t.macvision.mv_078.util.CircleImageView
+            android:id="@+id/image_head"
+            android:layout_width="@dimen/videoList_Item_im_headImage_width"
+            android:layout_height="@dimen/videoList_Item__im_headImage_height"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/ic_launcher" />
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/videoList_Item_paddingRight"
-                    android:gravity="right"
-                    android:orientation="vertical">
+        <TextView
+            android:id="@+id/tv_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@id/image_head"
+            android:text="用户名"
+            android:textColor="@color/videoList_textColor"
+            android:textSize="@dimen/videoList_Item_tv_userName_size" />
 
-                    <TextView
-                        android:id="@+id/tv_PlayCount"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="36666"
-                        android:textColor="@color/videoList_textColor"
-                        android:textSize="@dimen/videoList_Item_tv_playCount_size" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/videoList_Item_paddingRight"
+            android:gravity="right"
+            android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/tv_play"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="播放"
-                        android:textSize="@dimen/videoList_Item_tv_play_size" />
-                </LinearLayout>
-            </RelativeLayout>
+            <TextView
+                android:id="@+id/tv_PlayCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="36666"
+                android:textColor="@color/videoList_textColor"
+                android:textSize="@dimen/videoList_Item_tv_playCount_size" />
+
+            <TextView
+                android:id="@+id/tv_play"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="播放"
+                android:textSize="@dimen/videoList_Item_tv_play_size" />
+        </LinearLayout>
+    </RelativeLayout>
+
     <RelativeLayout
         android:id="@+id/video_view_layout"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_below="@id/detail_handLayout">
-            <ImageView
-                android:id="@+id/image"
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="match_parent"
+            android:layout_height="200dp" />
+
+        <cn.com.video.venvy.param.JjVideoRelativeLayout
+            android:id="@+id/jjlayout"
+            android:layout_width="match_parent"
+            android:layout_height="200dp">
+
+            <cn.com.video.venvy.param.JjVideoView
+                android:id="@+id/video"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
-               />
-            <cn.com.video.venvy.param.JjVideoRelativeLayout
-                android:id="@+id/jjlayout"
+                android:layout_height="match_parent"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true" />
+
+            <include
+                android:id="@+id/sdk_ijk_progress_bar_layout"
+                layout="@layout/venvy_fragment_video_progress_bar_sdk"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
-                >
+                android:layout_height="match_parent" />
 
-                <cn.com.video.venvy.param.JjVideoView
-                    android:id="@+id/video"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true" />
-
-                <include
-                    android:id="@+id/sdk_ijk_progress_bar_layout"
-                    layout="@layout/venvy_fragment_video_progress_bar_sdk"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-
-                <include
-                    android:id="@+id/sdk_load_layout"
-                    layout="@layout/venvy_video_ijk_load_sdk"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
-                    android:visibility="gone" />
-            </cn.com.video.venvy.param.JjVideoRelativeLayout>
-    ></RelativeLayout>
-
-            <FrameLayout
-                android:layout_width="match_parent"
+            <include
+                android:id="@+id/sdk_load_layout"
+                layout="@layout/venvy_video_ijk_load_sdk"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/video_view_layout">
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:visibility="gone" />
+        </cn.com.video.venvy.param.JjVideoRelativeLayout>
+        >
+    </RelativeLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/video_view_layout">
 
 
-                <android.support.v4.widget.SwipeRefreshLayout
-                    android:id="@+id/swipe_refresh_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="44dp"
-                    android:background="@color/theme_fragment_bgColor">
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_refresh_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="44dp"
+            android:background="@color/theme_fragment_bgColor">
 
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/rv_videoDetail"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-                </android.support.v4.widget.SwipeRefreshLayout>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_videoDetail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </android.support.v4.widget.SwipeRefreshLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="44dp"
-                    android:layout_gravity="bottom"
-                    android:background="@color/white"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="15dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_gravity="bottom"
+            android:background="@color/white"
+            android:gravity="center_vertical|center_horizontal"
+            android:orientation="horizontal"
+            android:padding="5dp">
 
-                    <EditText
-                        android:layout_width="227dp"
-                        android:layout_height="34dp"
-                        android:background="@color/theme_fragment_bgColor" />
+            <EditText
+                android:id="@+id/edit_ping"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="12"
+                android:background="@color/theme_fragment_bgColor"
+                android:hint="说点什么吧..." />
 
-                    <Button
-                        android:layout_width="28dp"
-                        android:layout_height="28dp"
-                        android:layout_marginLeft="15dp"
-                        android:text="赞"
-                        android:textSize="14sp" />
+            <Button
+                android:id="@+id/btn_send"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_marginLeft="15dp"
+                android:layout_weight="1"
+                android:background="@color/checkbox_checked_color"
+                android:text="发送"
+                android:textSize="14sp" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:text="99"
-                        android:textSize="14sp" />
-
-                    <Button
-                        android:layout_width="28dp"
-                        android:layout_height="28dp"
-                        android:layout_marginLeft="15dp"
-                        android:text="赞"
-                        android:textSize="14sp" />
-                </LinearLayout>
-            </FrameLayout>
+        </LinearLayout>
+    </FrameLayout>
 
 </RelativeLayout>

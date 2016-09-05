@@ -69,8 +69,8 @@ public interface VideoListService {
     @POST("video/clickLike")
     @FormUrlEncoded
     Observable<String> clickLike(
-            @Field("videoId") int videoId,
-            @Field("userId") int userId);
+            @Field("videoId") String videoId,
+            @Field("userId") String userId);
 
     /**
      * 关注
@@ -79,9 +79,9 @@ public interface VideoListService {
     @FormUrlEncoded
     Observable<String> payAttention(
             @Field("token") String token,
-            @Field("myUserId") int myUserId,
-            @Field("attUserID") int attUserID,
-            @Field("operation") int operation);
+            @Field("myUserId") String myUserId,
+            @Field("attUserID") String attUserID,
+            @Field("operation") String operation);
 
 
     /**
@@ -101,7 +101,7 @@ public interface VideoListService {
     Observable<String> saveComment(
             @Field("token") String token,
             @Field("cmContent") String cmContent,
-            @Field("cmUserId") int cmUserId,
+            @Field("cmUserId") String cmUserId,
             @Field("cmVideoId") String cmVideoId,
             @Field("beReplyUserId") String beReplyUserId);
 

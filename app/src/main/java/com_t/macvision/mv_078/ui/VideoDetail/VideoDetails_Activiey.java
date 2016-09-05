@@ -90,7 +90,7 @@ public class VideoDetails_Activiey extends BaseActivity implements VideoDetailCo
         videoID = Integer.parseInt(videolistEntity.getVideoId());
         videoURL = Constant.BaseVideoPlayUrl + videoLocation;
         mPresenter = new VideoDetailPresenter(this);
-        mPresenter.getVideoDetail(videoID);
+//        mPresenter.getVideoDetail(videoID);
         mPresenter.getComment(videoID, currentPage, false);
         Logger.i("videoLocation: " + videoLocation);
     }

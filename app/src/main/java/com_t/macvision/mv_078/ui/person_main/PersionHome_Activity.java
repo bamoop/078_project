@@ -1,41 +1,30 @@
 package com_t.macvision.mv_078.ui.person_main;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.animation.GlideAnimation;
-import com.bumptech.glide.request.target.SimpleTarget;
 import com.macvision.mv_078.R;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import com_t.macvision.mv_078.Constant;
 import com_t.macvision.mv_078.base.BaseActivity;
 import com_t.macvision.mv_078.model.entity.UserEntity;
 import com_t.macvision.mv_078.model.entity.VideoEntity;
 import com_t.macvision.mv_078.presenter.PersonHomePresenter;
 import com_t.macvision.mv_078.ui.adapter.FragmentTableAdapter;
-import com_t.macvision.mv_078.ui.customView.StickyNavLayout;
 import com_t.macvision.mv_078.util.CircleImageView;
 import com_t.macvision.mv_078.util.ImageFromFileCache;
 
@@ -63,7 +52,7 @@ public class PersionHome_Activity extends BaseActivity implements PersonHomeCont
     private View mRoot;
     @Bind(R.id.toolbar)
     Toolbar mToolbar;
-//    @Bind(R.id.mStickyNavLayout)
+    //    @Bind(R.id.mStickyNavLayout)
 //    StickyNavLayout mStickyNavLayout;
     public static final String TAG = "PersionHome_Activity";
     ArrayList<Fragment> fragmentArrayList = new ArrayList<>();
@@ -101,7 +90,6 @@ public class PersionHome_Activity extends BaseActivity implements PersonHomeCont
 
     private void initView() {
         LinearLayout heard_layout = (LinearLayout) findViewById(R.id.hand_layout);
-
         mFragmentTableAdapter = new FragmentTableAdapter(getSupportFragmentManager(), fragmentArrayList, mTitle);
         mViewPager.setAdapter(mFragmentTableAdapter);
         mTableLayout.setTabGravity(TabLayout.GRAVITY_FILL);
@@ -126,7 +114,6 @@ public class PersionHome_Activity extends BaseActivity implements PersonHomeCont
         tv_followNumber.setText(entity.getData().getFollowNumber());
         tv_fansNumber.setText(entity.getData().getFansNumber());
         tv_userAutograph.setText(entity.getData().getUserAutograph());
-
-        Glide.with(this).load( ImageFromFileCache.base64ToBitmap(entity.getData().getAvatarLocation())).into(image_hand);
+        Glide.with(this).load(ImageFromFileCache.base64ToBitmap(entity.getData().getAvatarLocation())).into(image_hand);
     }
 }

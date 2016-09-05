@@ -216,12 +216,12 @@
         "source": "E:\\john_work\\MV_078\\videoJjlibrary1\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\venvy_iva_sdk_point_shop_bg.png"
     },
     {
-        "merged": "E:\\john_work\\MV_078\\videoJjlibrary1\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\venvy_iva_sdk_icon_good.png",
-        "source": "E:\\john_work\\MV_078\\videoJjlibrary1\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\venvy_iva_sdk_icon_good.png"
-    },
-    {
         "merged": "E:\\john_work\\MV_078\\videoJjlibrary1\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\venvy_sdk_media_controller_play_bg.png",
         "source": "E:\\john_work\\MV_078\\videoJjlibrary1\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\venvy_sdk_media_controller_play_bg.png"
+    },
+    {
+        "merged": "E:\\john_work\\MV_078\\videoJjlibrary1\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\venvy_iva_sdk_icon_good.png",
+        "source": "E:\\john_work\\MV_078\\videoJjlibrary1\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\venvy_iva_sdk_icon_good.png"
     },
     {
         "merged": "E:\\john_work\\MV_078\\videoJjlibrary1\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\venvy_iva_sdk_icon_googs.png",

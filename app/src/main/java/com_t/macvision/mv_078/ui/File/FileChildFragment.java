@@ -166,5 +166,4 @@ public class FileChildFragment extends BaseFragment implements FileContract.View
 //            MainActivity.startActivity(getMyActivity(), bundle, UploadActivity.class);
         }
     }
-
 }

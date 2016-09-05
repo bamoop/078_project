@@ -7,6 +7,7 @@ import com_t.macvision.mv_078.base.BaseView;
 import com_t.macvision.mv_078.model.entity.CommentEntity;
 import com_t.macvision.mv_078.model.entity.VideoDetailEntity;
 import com_t.macvision.mv_078.ui.VideoList.VideoContract;
+import rx.Subscriber;
 
 /**
  * 作者：LiangXiong on 2016/8/11 0011 18:07
@@ -44,6 +45,10 @@ public interface VideoDetailContract {
     interface Presenter extends BasePresenter {
         void getData(int videoID);
 
-        void getComment(int video, int page,Boolean isgetDataMore);
+        void getComment(int video, int page, Boolean isgetDataMore);
+
+        void saveComment(Subscriber<String> subscriber, String token, String cmContent, String userId, String cmVideoId, String beReplyUserId);
+
+        void clickLike(Subscriber<String> subscriber, String videoId, String userId);
     }
 }

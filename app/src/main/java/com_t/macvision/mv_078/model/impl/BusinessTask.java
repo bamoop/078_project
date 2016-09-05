@@ -44,16 +44,40 @@ public class BusinessTask {
                 .subscribe(subscriber);
     }
 
-    public void getDynamicList(Subscriber<String> subscriber, int userId, int page, int pageSize,String category) {
-        HttpUtils.getInstance().initRetrofit().create(VideoListService.class).getDynamicList(userId, page, pageSize,category)
+    public void getDynamicList(Subscriber<String> subscriber, int userId, int page, int pageSize, String category) {
+        HttpUtils.getInstance().initRetrofit().create(VideoListService.class).getDynamicList(userId, page, pageSize, category)
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
 
-    public void getPersonHome(Subscriber<String> subscriber,int  userId) {
+    public void getPersonHome(Subscriber<String> subscriber, int userId) {
         HttpUtils.getInstance().initRetrofit().create(VideoListService.class).userDetail(userId)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    public void saveComment(Subscriber<String> subscriber, String token, String cmContent, String userId, String cmVideoId, String beReplyUserId) {
+        HttpUtils.getInstance().initRetrofit().create(VideoListService.class).saveComment(token, cmContent, userId, cmVideoId, beReplyUserId)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    public void clickLike(Subscriber<String> subscriber, String videoId, String userId) {
+        HttpUtils.getInstance().initRetrofit().create(VideoListService.class).clickLike(videoId, userId)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    public void payAttention(Subscriber<String> subscriber, String token, String myUserId, String userId, String operation) {
+        HttpUtils.getInstance().initRetrofit().create(VideoListService.class).payAttention(token, myUserId, userId,operation)
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

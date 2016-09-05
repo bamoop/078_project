@@ -14,6 +14,7 @@ import com.macvision.mv_078.R;
 
 import com_t.macvision.mv_078.model.entity.CommentEntity;
 import com_t.macvision.mv_078.model.entity.VideoEntity;
+import com_t.macvision.mv_078.ui.VideoList.FragmentMenu1;
 import com_t.macvision.mv_078.util.CircleImageView;
 
 import com.orhanobut.logger.Logger;
@@ -128,7 +129,8 @@ public class VideoDetailAdapter extends RecyclerView.Adapter<VideoDetailAdapter.
             tv_zanCount.setText(mVideoList.getVideoLikesNumber());
             tv_videoState.setText(mVideoList.getVideoCaption());
             tv_pingCount2.setText(mVideoList.getVideoCommentNumber());
-            tv_type.setText(mVideoList.getVideoType());
+            tv_type.setText("#" + FragmentMenu1.entity.getData().get(Integer.parseInt(mVideoList.getVideoType()) - 1).getVTypeName());
+//            tv_type.setText(mVideoList.getVideoType());
         }
     }
 
