@@ -9,6 +9,7 @@
     <color name="theme_fragment_bgColor">#eeeef3</color>
     <color name="transparency">#00000000</color>
     <color name="red">#ff0000</color>
+    <color name="bg_toolbar">#009bfe</color>
 
     <!--底部菜单-->
     <color name="bottom_white">#FFFFFF</color>
@@ -18,9 +19,9 @@
     <color name="bottom_line_bg">#f0f0f0</color>
 
     <!--主页导航条-->
-    <color name="mainTable_textColor">#000000</color>
-    <color name="mainTable_selectedTextColor">#3d45a8</color>
-    <color name="mainTable_tabIndicatorColor">#c3c3c3</color>
+    <color name="mainTable_textColor">#8dd2fe</color>
+    <color name="mainTable_selectedTextColor">#FFFFFF</color>
+    <color name="mainTable_tabIndicatorColor">#0056a4</color>
     <color name="mainTable_bgColor">#fdfdfe</color>
 
     <!--视频列表-->

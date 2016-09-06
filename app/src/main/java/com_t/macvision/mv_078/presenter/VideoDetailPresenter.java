@@ -50,10 +50,14 @@ public class VideoDetailPresenter implements VideoDetailContract.Presenter {
             @Override
             public void onError(Throwable e) {
 
+                mVideoView.saveCommentFill(e);
+
             }
 
             @Override
             public void onNext(String s) {
+                mVideoView.saveCommentFinish();
+                Log.i("moop","评论成功返回=" + s);
 
             }
         },token,cmContent,userId,cmVideoId,beReplyUserId);
@@ -70,28 +74,6 @@ public class VideoDetailPresenter implements VideoDetailContract.Presenter {
 
     }
 
-    public void getVideoDetail(int videoID) {
-        mVideoTask.getVideoDetail(new Subscriber<String>() {
-            @Override
-            public void onCompleted() {
-
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                Logger.i("moop" + "视频详情请异常:" + e);
-            }
-
-            @Override
-            public void onNext(String s) {
-                if (!TextUtils.isEmpty(s)) {
-                    mVideoView.fillData(GsonUtil.changeGsonToBean(s, VideoDetailEntity.class));
-                }
-                Logger.i("moop", "评论列表数据:" + s);
-            }
-        }, videoID);
-        mVideoView.getDataFinish();
-    }
 
     public void getCommentList(int videoId, int page, int pageSize, Boolean isgetDataMore) {
         Log.i("comment", "getCommentList:");
@@ -102,12 +84,10 @@ public class VideoDetailPresenter implements VideoDetailContract.Presenter {
             }
             @Override
             public void onError(Throwable e) {
-                Log.i("comment", "onError:" + e);
                 mVideoView.getDataFinish();
             }
             @Override
             public void onNext(String s) {
-                Log.i("comment", "onError:" + s);
                 if (!TextUtils.isEmpty(s)) {
                     if (isgetDataMore)
                         mVideoView.appendMoreDataToView(GsonUtil.changeGsonToBean(s, CommentEntity.class));

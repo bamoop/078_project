@@ -31,7 +31,7 @@
                 android:id="@+id/image_save"
                 android:layout_width="44dp"
                 android:layout_height="44dp"
-                android:background="@drawable/ic_launcher"/>
+                android:background="@mipmap/local_file_save"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -49,7 +49,7 @@
                 android:id="@+id/image_delete"
                 android:layout_width="44dp"
                 android:layout_height="44dp"
-                android:background="@drawable/ic_launcher"/>
+                android:background="@mipmap/recorder_list_delete"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

@@ -37,6 +37,14 @@ public interface VideoDetailContract {
          * 数据加载完成
          */
         void getDataFinish();
+        /**
+         * 评论成功
+         */
+        void saveCommentFinish();
+        /**
+         * 评论失败
+         */
+        void saveCommentFill(Throwable e);
     }
 
     interface Presenter extends BasePresenter {

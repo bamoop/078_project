@@ -9,7 +9,7 @@
         app:tabTextColor="@color/mainTable_textColor"
         app:tabSelectedTextColor="@color/mainTable_selectedTextColor"
         app:tabIndicatorColor="@color/mainTable_tabIndicatorColor"
-        app:tabBackground="@color/mainTable_bgColor"
+        app:tabBackground="@color/bg_toolbar"
         app:tabIndicatorHeight="4dp"
         android:layout_width="match_parent"
         android:layout_height="48dp"

@@ -181,9 +181,10 @@ public class FragmentTab1 extends BaseFragment implements VideoContract.View,Mai
 
     @Override
     public void onClickTitle(View view, VideoEntity.VideolistEntity videoEntity) {
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("VideoEntity", videoEntity);
-        MainActivity.startActivity(currentContext,bundle,PersionHome_Activity.class);
+        Intent intent = new Intent(getMyActivity(), PersionHome_Activity.class);
+        intent.putExtra("userId",videoEntity.getUserId());
+        intent.putExtra("userName",videoEntity.getUserName());
+        currentContext.startActivity(intent);
     }
 
     @Override

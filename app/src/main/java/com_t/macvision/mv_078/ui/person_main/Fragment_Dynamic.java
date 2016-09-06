@@ -55,7 +55,7 @@ public class Fragment_Dynamic extends BaseFragment implements DynamicContract.Vi
     protected void initView(View view) {
         rv_dynamic = (OverRecyclerView) view.findViewById(R.id.rv_dynamic);
         mPresenter = new DynamicPresenter(this);
-        mPresenter.getData(Integer.parseInt(PersionHome_Activity.userId), currentPage, false);
+        mPresenter.getData(PersionHome_Activity.userId, currentPage, false);
         mDataList = new ArrayList<>();
         mainVideoListAdapter = new MainVideoListAdapter(currentContext, mDataList);
         layoutManager = new LinearLayoutManager(getActivity());

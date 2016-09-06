@@ -33,7 +33,7 @@ public class VideoDetailAdapter extends RecyclerView.Adapter<VideoDetailAdapter.
     private Map<String, List> map;
     List<CommentEntity.DataBean> mCommentEntity;
     VideoEntity.VideolistEntity mVideoList;
-    ItemOnclick mItemOnclick;
+    public static ItemOnclick mItemOnclick;
 
     private Context context;
     int viewType;
@@ -100,15 +100,15 @@ public class VideoDetailAdapter extends RecyclerView.Adapter<VideoDetailAdapter.
     }
 
     static class ViewHolderItemDetailHead extends ViewHolderItem {
-        @Bind(R.id.btn_ping_detail)
+        @Bind(R.id.btn_ping)
         Button btn_ping;
-        @Bind(R.id.tv_pingCount_detail)
+        @Bind(R.id.tv_pingCount)
         TextView tv_pingCount;
-        @Bind(R.id.btn_zan_detail)
+        @Bind(R.id.btn_zan)
         Button btn_zan;
-        @Bind(R.id.tv_zanCount_detail)
+        @Bind(R.id.tv_zanCount)
         TextView tv_zanCount;
-        @Bind(R.id.btn_fen_detail)
+        @Bind(R.id.btn_fen)
         Button btn_fen;
         @Bind(R.id.tv_videoState_detail)
         TextView tv_videoState;
@@ -124,6 +124,7 @@ public class VideoDetailAdapter extends RecyclerView.Adapter<VideoDetailAdapter.
         @Override
         void bindItem(Context context, CommentEntity.DataBean commentEntity, VideoEntity.VideolistEntity mVideoList) {
             ButterKnife.bind(this, itemView);
+
             tv_pingCount.setText(mVideoList.getVideoCommentNumber());
             tv_zanCount.setText(mVideoList.getVideoLikesNumber());
             tv_videoState.setText(mVideoList.getVideoCaption());
@@ -159,6 +160,20 @@ public class VideoDetailAdapter extends RecyclerView.Adapter<VideoDetailAdapter.
                 tv_comment.setText(commentEntity.getCmContent());
             tv_name.setText(commentEntity.getUserName());
             tv_comment_time.setText(commentEntity.getCmCreateTime());
+
+            comment_layout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mItemOnclick.onClick_comment(commentEntity);
+                }
+            });
+            image_comment_head.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mItemOnclick.onClick_header(commentEntity);
+                }
+            });
+
         }
     }
 
@@ -166,9 +181,9 @@ public class VideoDetailAdapter extends RecyclerView.Adapter<VideoDetailAdapter.
         mItemOnclick = IClickItem;
     }
 
-    interface ItemOnclick {
-        void onClick_comment();
+    public interface ItemOnclick {
+        void onClick_comment(CommentEntity.DataBean commentEntity);
 
-        void onClick_header();
+        void onClick_header(CommentEntity.DataBean commentEntity);
     }
 }

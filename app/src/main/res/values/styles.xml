@@ -36,4 +36,14 @@
         <attr name="tcvCanTagClick" format="boolean" />
         <attr name="tcvTagResId" format="reference" />
     </declare-styleable>
+    <!--底部导航条按钮-->
+
+    <style name="main_bottom_radioButtom">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textColor">@color/bottom_tab_text_bg</item>
+        <item name="android:gravity">center</item>
+    </style>
+
 </resources>

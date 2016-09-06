@@ -11,9 +11,9 @@
     <dimen name="videoList_Item_tv_playCount_size">14sp</dimen>
     <dimen name="videoList_Item_tv_userName_size">14sp</dimen>
     <dimen name="videoList_Item_ly_middle_Layout_height">52dp</dimen>
-    <dimen name="videoList_Item_btn_zan_width">60dp</dimen>
-    <dimen name="videoList_Item_btn_zan_height">40dp</dimen>
+    <dimen name="videoList_Item_btn_size">28dp</dimen>
     <dimen name="videoList_Item_tv_count_size">14sp</dimen>
+
     <dimen name="videoList_Item_paddingLeft">15dp</dimen>
     <dimen name="videoList_Item_paddingRight">10dp</dimen>
     <dimen name="videoList_Item_image_VideoThumb_height">200dp</dimen>
@@ -25,7 +25,8 @@
     <dimen name="fileList_Item_paddingWidth">15dp</dimen>
     <dimen name="fileList_Item_paddingHeight">10dp</dimen>
     <dimen name="fileList_Item_marginTop_time">32dp</dimen>
-    <dimen name="fileList_Item_img_thumb_HW">64dp</dimen>
+    <dimen name="fileList_Item_img_thumb_H">64dp</dimen>
+    <dimen name="fileList_Item_img_thumb_W">114dp</dimen>
     <dimen name="fileList_Item_tv_name_size">14sp</dimen>
     <dimen name="fileList_Item_tv_time_size">12sp</dimen>
 

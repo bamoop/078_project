@@ -98,6 +98,7 @@ public interface VideoListService {
      * 评论
      **/
     @POST("comment/save")
+    @FormUrlEncoded
     Observable<String> saveComment(
             @Field("token") String token,
             @Field("cmContent") String cmContent,

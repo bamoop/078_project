@@ -98,7 +98,8 @@ public class MainActivity extends BaseActivity {
                 } else {
                     transaction.show(mTab01);
                 }
-                mTabs.get(0).setCompoundDrawablesWithIntrinsicBounds(0, R.mipmap.tab_comprehensive_pressed_icon, 0, 0);
+//                mTabs.get(0).setCompoundDrawablesWithIntrinsicBounds(0, R.mipmap.tab_comprehensive_pressed_icon, 0, 0);
+                mTabs.get(0).setChecked(true);
                 break;
             case 1:
                 if (mTab02 == null) {
@@ -108,7 +109,9 @@ public class MainActivity extends BaseActivity {
                     transaction.show(mTab02);
 
                 }
-                mTabs.get(1).setCompoundDrawablesWithIntrinsicBounds(0, R.mipmap.tab_move_pressed_icon, 0, 0);
+//                mTabs.get(1).setCompoundDrawablesWithIntrinsicBounds(0, R.mipmap.tab_move_pressed_icon, 0, 0);
+                mTabs.get(1).setChecked(true);
+
                 break;
             case 2:
                 if (mTab03 == null) {
@@ -117,7 +120,9 @@ public class MainActivity extends BaseActivity {
                 } else {
                     transaction.show(mTab03);
                 }
-                mTabs.get(2).setCompoundDrawablesWithIntrinsicBounds(0, R.mipmap.tab_found_pressed_icon, 0, 0);
+//                mTabs.get(2).setCompoundDrawablesWithIntrinsicBounds(0, R.mipmap.tab_found_pressed_icon, 0, 0);
+                mTabs.get(2).setChecked(true);
+
                 break;
             case 3:
                 if (mTab04 == null) {
@@ -126,7 +131,9 @@ public class MainActivity extends BaseActivity {
                 } else {
                     transaction.show(mTab04);
                 }
-                mTabs.get(3).setCompoundDrawablesWithIntrinsicBounds(0, R.mipmap.tab_me_pressed_icon, 0, 0);
+//                mTabs.get(3).setCompoundDrawablesWithIntrinsicBounds(0, R.mipmap.tab_me_pressed_icon, 0, 0);
+                mTabs.get(3).setChecked(true);
+
                 break;
 
             case 4:
@@ -136,7 +143,8 @@ public class MainActivity extends BaseActivity {
                 } else {
                     transaction.show(mTab05);
                 }
-                mTabs.get(4).setCompoundDrawablesWithIntrinsicBounds(0, R.mipmap.tab_me_pressed_icon, 0, 0);
+//                mTabs.get(4).setCompoundDrawablesWithIntrinsicBounds(0, R.mipmap.tab_me_pressed_icon, 0, 0);
+                mTabs.get(4).setChecked(true);
                 break;
 
             default:
@@ -150,11 +158,11 @@ public class MainActivity extends BaseActivity {
      * 切换图片至暗色
      */
     private void resetImgs() {
-        mTabs.get(0).setCompoundDrawablesWithIntrinsicBounds(0, R.mipmap.tab_comprehensive_icon, 0, 0);
-        mTabs.get(1).setCompoundDrawablesWithIntrinsicBounds(0, R.mipmap.tab_move_icon, 0, 0);
-        mTabs.get(2).setCompoundDrawablesWithIntrinsicBounds(0, R.mipmap.tab_found_icon, 0, 0);
-        mTabs.get(3).setCompoundDrawablesWithIntrinsicBounds(0, R.mipmap.tab_me_icon, 0, 0);
-        mTabs.get(4).setCompoundDrawablesWithIntrinsicBounds(0, R.mipmap.tab_me_icon, 0, 0);
+        mTabs.get(0).setChecked(false);
+        mTabs.get(1).setChecked(false);
+        mTabs.get(2).setChecked(false);
+        mTabs.get(3).setChecked(false);
+        mTabs.get(4).setChecked(false);
     }
 
     private void hideFragment(FragmentTransaction transaction) {

@@ -1,0 +1,44 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/videoList_Item_ly_middle_Layout_height"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingLeft="@dimen/videoList_Item_paddingLeft">
+
+    <Button
+        android:id="@+id/btn_ping"
+        android:layout_width="@dimen/videoList_Item_btn_size"
+        android:layout_height="@dimen/videoList_Item_btn_size"
+        android:background="@drawable/selector_comment_" />
+
+    <TextView
+        android:id="@+id/tv_pingCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="99"
+        android:textSize="@dimen/videoList_Item_tv_count_size"
+        android:layout_marginLeft="5dp"/>
+
+    <Button
+        android:id="@+id/btn_zan"
+        android:layout_width="@dimen/videoList_Item_btn_size"
+        android:layout_height="@dimen/videoList_Item_btn_size"
+        android:layout_marginLeft="20dp"
+        android:background="@drawable/selector_like" />
+
+    <TextView
+        android:id="@+id/tv_zanCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="99"
+        android:textSize="@dimen/videoList_Item_tv_count_size"
+        android:layout_marginLeft="5dp"/>
+
+    <Button
+        android:id="@+id/btn_fen"
+        android:layout_width="@dimen/videoList_Item_btn_size"
+        android:layout_height="@dimen/videoList_Item_btn_size"
+        android:layout_marginLeft="20dp"
+        android:background="@drawable/selector_share"/>
+
+</LinearLayout>

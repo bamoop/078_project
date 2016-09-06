@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.macvision.mv_078.R;
+import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,7 +61,7 @@ public class PersionHome_Activity extends BaseActivity implements PersonHomeCont
     List<String> mTitle = new ArrayList<>();
     private PersonHomePresenter mPresenter;
     VideoEntity.VideolistEntity videolistEntity;
-    static String userId;
+    static int userId;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -81,11 +82,11 @@ public class PersionHome_Activity extends BaseActivity implements PersonHomeCont
             fragmentArrayList.add(i, Fragment_Dynamic.DynamicInstance(bundle));
         }
         Intent intent = this.getIntent();
-        videolistEntity = (VideoEntity.VideolistEntity) intent.getSerializableExtra("VideoEntity");
-        mToolbar.setTitle(videolistEntity.getUserName());
+        userId = intent.getIntExtra("userID",0);
+        Logger.i("userID="+intent.getStringExtra("userID")+"userName="+intent.getStringExtra("userName"));
+        mToolbar.setTitle(intent.getStringExtra("userName"));
         mPresenter = new PersonHomePresenter(this);
-        mPresenter.getData(Integer.parseInt(videolistEntity.getUserId()));
-        userId = videolistEntity.getUserId();
+        mPresenter.getData(userId);
     }
 
     private void initView() {

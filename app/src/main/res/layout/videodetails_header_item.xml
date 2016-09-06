@@ -7,48 +7,8 @@
     android:background="@color/white"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/videoList_Item_ly_middle_Layout_height"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:paddingLeft="@dimen/videoList_Item_paddingLeft">
-
-        <Button
-            android:id="@+id/btn_ping_detail"
-            android:layout_width="@dimen/videoList_Item_btn_zan_width"
-            android:layout_height="@dimen/videoList_Item_btn_zan_height"
-            android:text="评" />
-
-        <TextView
-            android:id="@+id/tv_pingCount_detail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="99"
-            android:textSize="@dimen/videoList_Item_tv_count_size" />
-
-        <Button
-            android:id="@+id/btn_zan_detail"
-            android:layout_width="@dimen/videoList_Item_btn_zan_width"
-            android:layout_height="@dimen/videoList_Item_btn_zan_height"
-            android:layout_marginLeft="20dp"
-            android:text="赞" />
-
-        <TextView
-            android:id="@+id/tv_zanCount_detail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="99"
-            android:textSize="@dimen/videoList_Item_tv_count_size" />
-
-        <Button
-            android:id="@+id/btn_fen_detail"
-            android:layout_width="@dimen/videoList_Item_btn_zan_width"
-            android:layout_height="@dimen/videoList_Item_btn_zan_height"
-            android:layout_marginLeft="20dp"
-            android:text="分享" />
-
-    </LinearLayout>
+    <include
+        android:id="@+id/function_mid_btn" layout="@layout/function_mid_layout"></include>
 
     <LinearLayout
         android:layout_width="match_parent"
