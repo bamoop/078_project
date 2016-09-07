@@ -147,7 +147,7 @@ public class VideoDetails_Activiey extends BaseActivity implements VideoDetailCo
             @Override
             public void onClick(View v) {
                 comment = edit_ping.getText().toString();
-                if (edit_ping.getText().toString().length()>3) {
+                if (edit_ping.getText().toString().length() > 3) {
                     mPresenter.saveComment("abcdefghijklmn", comment, "7000001", String.valueOf(videoID), beReplyUserId);
                     Logger.i("beReplyUserId=" + beReplyUserId);
                 }
@@ -165,7 +165,7 @@ public class VideoDetails_Activiey extends BaseActivity implements VideoDetailCo
                 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 if (imm != null) {
                     imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
-                    edit_ping.setHint("说点什么吧...");
+                    edit_ping.setHint(getString(R.string.comment_hint));
 //                    beReplyUserId = "";
                 }
             }
@@ -395,7 +395,7 @@ public class VideoDetails_Activiey extends BaseActivity implements VideoDetailCo
         mPresenter.getComment(videoID, currentPage, false);
         edit_ping.setText(null);
         edit_ping.clearFocus();
-        edit_ping.setHint("说点什么吧...");
+        edit_ping.setHint(getString(R.string.comment_hint));
     }
 
     @Override
@@ -413,7 +413,7 @@ public class VideoDetails_Activiey extends BaseActivity implements VideoDetailCo
 
     @Override
     public void onClick_comment(CommentEntity.DataBean commentEntity) {
-        edit_ping.setHint("回复" + commentEntity.getUserName());
+        edit_ping.setHint(getString(R.string.reply) + commentEntity.getUserName());
         beReplyUserId = String.valueOf(commentEntity.getCmUserId());
         Logger.i("beReplyUserId99=" + beReplyUserId);
 

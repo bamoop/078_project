@@ -14,6 +14,7 @@ import android.widget.RadioButton;
 
 import com.macvision.mv_078.R;
 import com.orhanobut.logger.Logger;
+import com.umeng.analytics.social.UMSocialService;
 
 import com_t.macvision.mv_078.base.BaseActivity;
 import com_t.macvision.mv_078.ui.VideoList.FragmentMenu1;
@@ -34,6 +35,7 @@ public class MainActivity extends BaseActivity {
     private long touchTime = 0;
     private static final long DOUBLE_CLICK_INTEVAL = 2 * 1000;
     public static String sAppDir = "";
+
 
     public static File getAppDir() {
         File appDir = new File(sAppDir);
@@ -98,7 +100,6 @@ public class MainActivity extends BaseActivity {
                 } else {
                     transaction.show(mTab01);
                 }
-//                mTabs.get(0).setCompoundDrawablesWithIntrinsicBounds(0, R.mipmap.tab_comprehensive_pressed_icon, 0, 0);
                 mTabs.get(0).setChecked(true);
                 break;
             case 1:
@@ -109,7 +110,6 @@ public class MainActivity extends BaseActivity {
                     transaction.show(mTab02);
 
                 }
-//                mTabs.get(1).setCompoundDrawablesWithIntrinsicBounds(0, R.mipmap.tab_move_pressed_icon, 0, 0);
                 mTabs.get(1).setChecked(true);
 
                 break;
@@ -120,7 +120,6 @@ public class MainActivity extends BaseActivity {
                 } else {
                     transaction.show(mTab03);
                 }
-//                mTabs.get(2).setCompoundDrawablesWithIntrinsicBounds(0, R.mipmap.tab_found_pressed_icon, 0, 0);
                 mTabs.get(2).setChecked(true);
 
                 break;
@@ -131,7 +130,6 @@ public class MainActivity extends BaseActivity {
                 } else {
                     transaction.show(mTab04);
                 }
-//                mTabs.get(3).setCompoundDrawablesWithIntrinsicBounds(0, R.mipmap.tab_me_pressed_icon, 0, 0);
                 mTabs.get(3).setChecked(true);
 
                 break;
@@ -143,7 +141,6 @@ public class MainActivity extends BaseActivity {
                 } else {
                     transaction.show(mTab05);
                 }
-//                mTabs.get(4).setCompoundDrawablesWithIntrinsicBounds(0, R.mipmap.tab_me_pressed_icon, 0, 0);
                 mTabs.get(4).setChecked(true);
                 break;
 
@@ -158,7 +155,7 @@ public class MainActivity extends BaseActivity {
      * 切换图片至暗色
      */
     private void resetImgs() {
-        mTabs.get(0).setChecked(false);
+        mTabs.get(0).setChecked(true);
         mTabs.get(1).setChecked(false);
         mTabs.get(2).setChecked(false);
         mTabs.get(3).setChecked(false);

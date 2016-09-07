@@ -82,8 +82,8 @@ public class PersionHome_Activity extends BaseActivity implements PersonHomeCont
             fragmentArrayList.add(i, Fragment_Dynamic.DynamicInstance(bundle));
         }
         Intent intent = this.getIntent();
-        userId = intent.getIntExtra("userID",0);
-        Logger.i("userID="+intent.getStringExtra("userID")+"userName="+intent.getStringExtra("userName"));
+        userId = intent.getIntExtra("userId",0);
+        Logger.i("userId="+intent.getIntExtra("userId",0)+"userName="+intent.getStringExtra("userName"));
         mToolbar.setTitle(intent.getStringExtra("userName"));
         mPresenter = new PersonHomePresenter(this);
         mPresenter.getData(userId);

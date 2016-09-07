@@ -18,8 +18,8 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="12"
-            android:background="@color/theme_fragment_bgColor"
-            android:hint="说点什么吧..." />
+            android:background="@drawable/input_comment_bg"
+            android:hint="@string/comment_hint" />
 
         <Button
             android:id="@+id/btn_send"
@@ -59,7 +59,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="5dp"
             android:layout_toRightOf="@id/image_head"
-            android:text="用户名"
+            android:text="@string/send"
             android:textColor="@color/videoList_textColor"
             android:textSize="@dimen/videoList_Item_tv_userName_size" />
 
@@ -84,7 +84,7 @@
                 android:id="@+id/tv_play"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="播放"
+                android:text="@string/play"
                 android:textSize="@dimen/videoList_Item_tv_play_size" />
         </LinearLayout>
     </RelativeLayout>

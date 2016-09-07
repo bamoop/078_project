@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "E:\\john_work\\MV_078\\videoJjlibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\ic_launcher.png",
+        "source": "E:\\john_work\\MV_078\\videoJjlibrary\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\ic_launcher.png"
+    },
+    {
+        "merged": "E:\\john_work\\MV_078\\videoJjlibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\venvy_sdk_media_controller_pause_bg.png",
+        "source": "E:\\john_work\\MV_078\\videoJjlibrary\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\venvy_sdk_media_controller_pause_bg.png"
+    },
+    {
+        "merged": "E:\\john_work\\MV_078\\videoJjlibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\venvy_sdk_media_controller_set_more_bg.png",
+        "source": "E:\\john_work\\MV_078\\videoJjlibrary\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\venvy_sdk_media_controller_set_more_bg.png"
+    },
+    {
+        "merged": "E:\\john_work\\MV_078\\videoJjlibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\venvy_sdk_media_controller_play_bg.png",
+        "source": "E:\\john_work\\MV_078\\videoJjlibrary\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\venvy_sdk_media_controller_play_bg.png"
+    }
+]

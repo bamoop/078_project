@@ -1,2 +1,2 @@
-include ':app'
-include ':videoJjlibrary1'
+include ':app', ':sharelib'
+include ':videoJjlibrary'

@@ -28,6 +28,8 @@ import android.content.res.Configuration;
 import android.content.res.Resources ;
 import android.preference.PreferenceManager;
 
+import com.umeng.socialize.PlatformConfig;
+
 public class VLCApplication extends Application {
     public final static String TAG = "VLC/VLCApplication";
     
@@ -72,5 +74,9 @@ public class VLCApplication extends Application {
         if(instance == null) return null;
         return instance.getResources();
     }
-
+    {
+        PlatformConfig.setWeixin("wx967daebe835fbeac", "5bb696d9ccd75a38c8a0bfe0675559b3");
+        PlatformConfig.setSinaWeibo("3921700954", "04b48b094faeb16683c32669824ebdad");
+        PlatformConfig.setQQZone("100424468", "c7394704798a158208a74ab60104f0ba");
+    }
 }

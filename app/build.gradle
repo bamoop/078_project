@@ -24,13 +24,11 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
-    compile project(':videoJjlibrary1')
-
+    compile project(':videoJjlibrary')
     //RxJava 适配器
     //RxJava + Retrofit需要使用这个
-
     compile 'com.android.support:appcompat-v7:23.4.0'
     compile 'com.android.support:recyclerview-v7:23.4.0'
     compile 'io.reactivex:rxandroid:1.2.1'
@@ -47,6 +45,9 @@ dependencies {
     compile 'com.squareup.okhttp3:logging-interceptor:3.0.1'
     compile 'com.zhy:okhttputils:2.6.2'
     compile 'com.bartoszlipinski.recyclerviewheader:library:1.2.0'
-
     compile 'com.github.bumptech.glide:glide:3.5.2'
+    compile 'com.umeng.analytics:analytics:latest.integration'
+    compile files('src/main/jniLibs/umeng_social_sdk.jar')
+    compile project(':sharelib')
+
 }

@@ -1085,8 +1085,4 @@ public class UsetMediaContoller extends JjMediaContoller {
 		mCompletiond = true;
 		show();
 	}
-
-
-
-
 }

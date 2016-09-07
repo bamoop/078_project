@@ -8,17 +8,21 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+
     <style name="ToolbarColoredBackArrow" parent="AppTheme">
         <item name="android:textColorSecondary">@color/white</item>
         <item name="actionMenuTextColor">#ec6060</item>
         <item name="actionMenuTextAppearance">@style/ToolbarMenuTextStyle</item>
     </style>
+
     <style name="ToolbarMenuTextStyle">
         <item name="android:textSize">14sp</item>
     </style>
+
     <style name="AppThemeNoo" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
     </style>
+
     <declare-styleable name="TagCloudView">
         <attr name="tcvBackground" format="reference" />
         <attr name="tcvSeclecTextColor" format="reference" />
@@ -44,6 +48,44 @@
         <item name="android:layout_weight">1</item>
         <item name="android:textColor">@color/bottom_tab_text_bg</item>
         <item name="android:gravity">center</item>
+    </style>
+
+    <style name="person_count_layout_title">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/textGrey</item>
+    </style>
+
+    <style name="person_count_layout_number">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+    <!--个人界面-->
+    <style name="person_item_layout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">44dp</item>
+        <item name="android:paddingLeft">15dp</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">8dp</item>
+        <item name="android:background">@color/white</item>
+    </style>
+<style name="person_item_icon_right">
+        <item name="android:layout_width">16dp</item>
+        <item name="android:layout_height">16dp</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:src">@mipmap/arrow_gray_small</item>
+    </style>
+<style name="person_item_text">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_marginLeft">10dp</item>
     </style>
 
 </resources>

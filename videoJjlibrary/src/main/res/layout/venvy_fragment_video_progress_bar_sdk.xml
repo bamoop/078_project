@@ -21,8 +21,7 @@
         android:layout_height="40dp"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:src="@drawable/venvy_sdk_progress_bar_bg"
-        />
+        android:src="@drawable/venvy_sdk_progress_bar_bg" />
 
     <TextView
         android:id="@+id/sdk_ijk_progress_bar_text"

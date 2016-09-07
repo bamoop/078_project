@@ -23,7 +23,7 @@
 
         <TextView
             android:id="@+id/tv_username"
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="5dp"
@@ -31,17 +31,18 @@
             android:text="用户名"
             android:textColor="@color/videoList_textColor"
             android:textSize="@dimen/videoList_Item_tv_userName_size" />
-          <TextView
+
+        <TextView
             android:id="@+id/tv_ReleaseAddress"
-            android:layout_width="wrap_content"
+            android:layout_width="30dp"
             android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/tv_username"
+            android:layout_below="@id/tv_username"
             android:layout_centerVertical="true"
-              android:layout_below="@id/tv_username"
-            android:layout_marginLeft="5dp"
-            android:layout_toRightOf="@id/image_head"
             android:text="深圳"
-            android:textColor="#666666"
-            android:textSize="12sp" />
+            android:gravity="center"
+            android:textColor="@color/textGrey"
+            android:textSize="10sp" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -76,18 +77,21 @@
 
     <include layout="@layout/function_mid_layout"></include>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/VideoList_linearBgColor" />
 
     <LinearLayout
         android:id="@+id/details_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="@dimen/videoList_Item_paddingLeft">
+        android:paddingBottom="15dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="8dp">
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="@color/VideoList_linearBgColor" />
 
         <TextView
             android:id="@+id/tv_videoid"

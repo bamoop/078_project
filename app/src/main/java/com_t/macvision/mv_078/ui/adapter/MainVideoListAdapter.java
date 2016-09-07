@@ -189,8 +189,7 @@ public class MainVideoListAdapter extends RecyclerView.Adapter<MainVideoListAdap
                 Glide.with(mContext).load(Constant.BaseVideoPlayUrl + videoEntity.getVideoLocation()).
                         override(ScreenUtils.getScreenWidth(mContext), ScreenUtils.getScreenHeight(mContext) / 3).centerCrop().into(image_thumb);
             else
-                Glide.with(mContext).load(Constant.BaseVideoPlayUrl + videoEntity.getFirstFrameLocation()).
-                        override(ScreenUtils.getScreenWidth(mContext), ScreenUtils.getScreenHeight(mContext) / 3).centerCrop().into(image_thumb);
+                Glide.with(mContext).load(Constant.BaseVideoPlayUrl + videoEntity.getFirstFrameLocation()).centerCrop().into(image_thumb);
 
             btn_zan.setOnClickListener(new View.OnClickListener() {
                 @Override

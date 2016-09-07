@@ -79,7 +79,6 @@ public class FileFragment extends BaseFragment {
                     mIsEditState = false;
                     updateMenuTitle(items);
                 }
-                Log.i("moop2", "onPageSelected: " + position + "---" + mIsEditState);
 
             }
 
@@ -91,7 +90,7 @@ public class FileFragment extends BaseFragment {
 
         mToolbar = (Toolbar) view.findViewById(R.id.toolbar);
         setHasOptionsMenu(true);
-        mToolbar.setTitle("本地文件");
+        mToolbar.setTitle(R.string.localFile);
         ((AppCompatActivity) getActivity()).setSupportActionBar(mToolbar);
         mToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
@@ -114,9 +113,9 @@ public class FileFragment extends BaseFragment {
 
     private void initData() {
 //        mTitle = new String[]{"前视频", "小视频", "照片"};
-        mTitle.add("前视频");
-        mTitle.add("小视频");
-        mTitle.add("照片");
+        mTitle.add(currentContext.getString(R.string.frontVideo));
+        mTitle.add(currentContext.getString(R.string.minVideo));
+        mTitle.add(currentContext.getString(R.string.photo));
         fragmentArrayList.clear();
         for (int i = 0; i < mTitle.size(); i++) {
             Bundle bundle = new Bundle();
@@ -136,10 +135,10 @@ public class FileFragment extends BaseFragment {
 
     protected void updateMenuTitle(MenuItem item) {
         if (mIsEditState) {
-            item.setTitle("取消");
+            item.setTitle(R.string.cancel);
             this.menuClickListener.onClickCancel();
         } else {
-            item.setTitle("编辑");
+            item.setTitle(R.string.edit);
             this.menuClickListener.onClickEdit();
         }
     }

@@ -4,7 +4,9 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/MV_078.iml" filepath="$PROJECT_DIR$/MV_078.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/videoJjlibrary1/videoJjlibrary1.iml" filepath="$PROJECT_DIR$/videoJjlibrary1/videoJjlibrary1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sharelib/sharelib.iml" filepath="$PROJECT_DIR$/sharelib/sharelib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/videoJjlibrary/videoJjlibrary.iml" filepath="$PROJECT_DIR$/videoJjlibrary/videoJjlibrary.iml" />
+      <module fileurl="file://$PROJECT_DIR$/videoJjlibrary/videoJjlibrary1.iml" filepath="$PROJECT_DIR$/videoJjlibrary/videoJjlibrary1.iml" />
     </modules>
   </component>
 </project>
