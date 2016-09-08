@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 
 import com.macvision.mv_078.R;
 import com_t.macvision.mv_078.base.BaseFragment;
@@ -20,7 +21,7 @@ import butterknife.Bind;
  */
 public class FragmentMenu3 extends BaseFragment {
     @Bind(R.id.play_stream)
-    Button play_stream;
+    RelativeLayout play_stream;
     @Bind(R.id.toolbar)
     Toolbar toolbar;
     @Override

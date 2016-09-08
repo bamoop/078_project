@@ -1,24 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/theme_fragment_bgColor">
+    android:background="@color/theme_fragment_bgColor"
+    android:orientation="vertical">
 
     <include
         android:id="@+id/toolbar"
         layout="@layout/layout_toolbar"></include>
+
     <TextView
-        android:layout_below="@id/toolbar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="已连接过记录仪的型号"
+        android:text="选择你的记录仪型号"
         android:textSize="12sp"
-        />
-    <Button
+        android:layout_marginLeft="15dp"/>
+
+
+    <RelativeLayout
         android:id="@+id/play_stream"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="视频预览"
-        android:layout_marginTop="20dp"
-        android:layout_below="@id/toolbar"/>
-</RelativeLayout>
+        android:layout_width="match_parent"
+        android:layout_height="74dp"
+        android:background="@color/white"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:layout_marginTop="10dp">
+
+        <ImageView
+            android:id="@+id/device_item_icon"
+            android:layout_width="54dp"
+            android:layout_height="54dp"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/icon_me_tips" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/device_item_icon"
+            android:text="记录仪型号"
+            android:textColor="@color/black"
+            android:textSize="16dp" />
+
+        <ImageView style="@style/person_item_icon_right" />
+    </RelativeLayout>
+</LinearLayout>

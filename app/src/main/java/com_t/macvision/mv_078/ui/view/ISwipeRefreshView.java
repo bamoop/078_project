@@ -1,4 +1,6 @@
-package com_t.macvision.mv_078.base;
+package com_t.macvision.mv_078.ui.view;
+
+import com_t.macvision.mv_078.base.BaseView;
 
 /**
  * ListVie列表刷新

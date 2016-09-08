@@ -9,11 +9,17 @@
     android:orientation="vertical"
     tools:context="com_t.macvision.mv_078.ui.Device.StreamPlayerActivity">
 
-    <include
+    <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
-        layout="@layout/layout_toolbar">
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/bg_toolbar"
+        android:minHeight="?attr/actionBarSize"
+        app:layout_scrollFlags="scroll|enterAlways"
+        app:theme="@style/ToolbarColoredBackArrow"
+        app:titleTextColor="@color/textWhite">
 
-    </include>
+    </android.support.v7.widget.Toolbar>
 
     <RelativeLayout
         android:id="@+id/stream_layout"
@@ -30,52 +36,28 @@
             android:layout_height="wrap_content" />
     </RelativeLayout>
 
-    <LinearLayout
-        android:id="@+id/file_layout"
-        android:layout_width="match_parent"
-        android:layout_height="74dp"
-        android:layout_below="@id/stream_layout"
-        android:background="@color/white"
-        android:orientation="horizontal">
+    <RelativeLayout
+        android:id="@+id/btn_video"
+        style="@style/person_item_layout"
+        android:layout_height="50dp"
+        android:layout_below="@id/stream_layout">
 
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center_vertical|center_horizontal">
+        <ImageView
+            android:id="@+id/icon_iLike"
+            android:layout_width="34dp"
+            android:layout_height="34dp"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/icon_video_pic_file" />
 
-            <Button
-                android:id="@+id/btn_video"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:background="@color/white"
-                android:drawableTop="@mipmap/ic_launcher"
-                android:inputType="text|none"
-                android:text="记录仪视频"
-                android:textColor="#000000"
-                android:textSize="12sp"></Button>
-        </RelativeLayout>
+        <TextView
+            style="@style/person_item_text"
+            android:layout_toRightOf="@id/icon_iLike"
+            android:text="记录仪视频/照片"
+            android:textColor="@color/textBlack"
+            android:textSize="14sp" />
 
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center_vertical|center_horizontal">
-
-            <Button
-                android:id="@+id/btn_photo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:background="@color/white"
-                android:drawableTop="@mipmap/ic_launcher"
-                android:inputType="text|none"
-                android:text="照片"
-                android:textColor="#000000"
-                android:textSize="12sp"></Button>
-        </RelativeLayout>
-    </LinearLayout>
+        <ImageView style="@style/person_item_icon_right" />
+    </RelativeLayout>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/vp_streamPlay"
@@ -88,7 +70,6 @@
         android:id="@+id/tab_selector"
         android:layout_width="match_parent"
         android:layout_height="@dimen/FileList_TabLayout_Height"
-        android:layout_below="@id/file_layout"
         app:tabBackground="@color/fileTable_bgColor"
         app:tabIndicatorColor="@color/fileTable_tabIndicatorColor"
         app:tabIndicatorHeight="3dp"

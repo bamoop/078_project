@@ -125,4 +125,13 @@
     <string name="version">版本信息</string>
     <string name="skill">小技巧</string>
     <string name="generalSetting">通用设置</string>
+    <string name="long_snapshot">远程抓拍</string>
+    <string name="setting">设置</string>
+    <string name="track">轨迹</string>
+    <string name="state">状态</string>
+    <string name="location">定位</string>
+    <string name="imei">IMEI</string>
+    <string name="connected">已连接</string>
+    <string name="ununited">未连接</string>
+    <string name="bluetooth">蓝牙</string>
 </resources>

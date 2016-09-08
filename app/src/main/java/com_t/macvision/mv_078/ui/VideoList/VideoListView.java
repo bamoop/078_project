@@ -1,6 +1,6 @@
 package com_t.macvision.mv_078.ui.VideoList;
 
-import com_t.macvision.mv_078.base.ISwipeRefreshView;
+import com_t.macvision.mv_078.ui.view.ISwipeRefreshView;
 import com_t.macvision.mv_078.model.entity.SoulEntity;
 
 import java.util.List;

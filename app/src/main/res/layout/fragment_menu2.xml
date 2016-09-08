@@ -2,6 +2,128 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorAccent">
+    android:background="@color/theme_fragment_bgColor"
+    android:orientation="vertical">
+
+    <include
+        android:id="@id/toolbar"
+        layout="@layout/layout_toolbar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="74dp"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/imei"
+                android:textSize="12sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="1234567890"
+                android:textColor="@color/textBlack"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="15dp"
+            android:background="@color/view_linear" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/state"
+                android:textSize="12sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/ununited"
+                android:textColor="@color/textBlack"
+                android:textSize="14sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="240dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/white">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <Button
+                style="@style/cloudDog_item_icon"
+                android:drawableTop="@mipmap/icon_location"
+                android:text="@string/location"
+                android:textColor="@color/textGrey" />
+
+            <Button
+                style="@style/cloudDog_item_icon"
+                android:drawableTop="@mipmap/icon_track"
+                android:text="@string/track"
+                android:textColor="@color/textGrey" />
+
+            <Button
+                style="@style/cloudDog_item_icon"
+                android:drawableTop="@mipmap/icon_remote_capture"
+                android:text="@string/long_snapshot"
+                android:textColor="@color/textGrey" />
+
+        </TableRow>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/view_linear" />
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <Button
+                style="@style/cloudDog_item_icon"
+                android:drawableTop="@mipmap/icon_setting"
+                android:text="@string/setting"
+                android:textColor="@color/textGrey" />
+
+            <Button
+                style="@style/cloudDog_item_icon"
+                android:textColor="@color/textGrey" />
+            <Button
+                style="@style/cloudDog_item_icon"
+
+                android:textColor="@color/textGrey" />
+        </TableRow>
+
+
+    </TableLayout>
 
 </LinearLayout>

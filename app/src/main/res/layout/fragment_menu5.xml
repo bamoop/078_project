@@ -9,82 +9,155 @@
         android:id="@id/toolbar"
         layout="@layout/layout_toolbar"></include>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="94dp"></LinearLayout>
+        android:layout_height="94dp"
+        android:background="@color/white"
+        android:paddingBottom="15dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="10dp"
+        android:paddingTop="15dp">
+
+        <com_t.macvision.mv_078.util.CircleImageView
+            android:id="@+id/image_hand"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:src="@mipmap/ic_launcher" />
+
+        <TextView
+            android:id="@+id/tv_userName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/image_hand"
+            android:text="用户昵称"
+            android:textColor="@color/textBlack"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_userAutograph"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/tv_userName"
+            android:layout_below="@id/tv_userName"
+            android:layout_marginRight="58dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center_vertical"
+            android:text="个性签名个性签名个性签名个性签名个性签名个性签名"
+            android:textColor="@color/textGrey"
+            android:textSize="12sp" />
+
+        <Button
+            android:id="@+id/btn_Focus"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+
+            android:background="@mipmap/arrow_gray_small" />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/theme_fragment_bgColor" />
 
     <include layout="@layout/person_count_layout" />
 
-    <RelativeLayout style="@style/person_item_layout"
+    <RelativeLayout
+        style="@style/person_item_layout"
         android:layout_marginTop="10dp">
+
         <ImageView
+            android:id="@+id/icon_massage"
             android:layout_width="28dp"
             android:layout_height="28dp"
             android:layout_centerVertical="true"
-            android:id="@+id/icon_massage"
             android:src="@mipmap/icon_me_message_center" />
+
         <TextView
             style="@style/person_item_text"
             android:layout_toRightOf="@id/icon_massage"
             android:text="@string/massageCenter" />
+
         <ImageView style="@style/person_item_icon_right" />
 
     </RelativeLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:background="@color/theme_fragment_bgColor"
-        android:layout_alignParentBottom="true"/>
+        android:layout_alignParentBottom="true"
+        android:background="@color/theme_fragment_bgColor" />
+
     <RelativeLayout style="@style/person_item_layout">
+
         <ImageView
+            android:id="@+id/icon_iLike"
             android:layout_width="28dp"
             android:layout_height="28dp"
             android:layout_centerVertical="true"
-            android:id="@+id/icon_iLike"
             android:src="@mipmap/icon_me_liked" />
+
         <TextView
             style="@style/person_item_text"
             android:layout_toRightOf="@id/icon_iLike"
             android:text="我赞过的" />
+
         <ImageView style="@style/person_item_icon_right" />
     </RelativeLayout>
-    <RelativeLayout style="@style/person_item_layout"
+
+    <RelativeLayout
+        style="@style/person_item_layout"
         android:layout_marginTop="10dp">
+
         <ImageView
+            android:id="@+id/icon_setting"
             android:layout_width="28dp"
             android:layout_height="28dp"
             android:layout_centerVertical="true"
-            android:id="@+id/icon_setting"
             android:src="@mipmap/icon_me_setting" />
+
         <TextView
             style="@style/person_item_text"
             android:layout_toRightOf="@id/icon_setting"
             android:text="@string/generalSetting" />
+
         <ImageView style="@style/person_item_icon_right" />
     </RelativeLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:background="@color/theme_fragment_bgColor"
-        android:layout_alignParentBottom="true"/>
+        android:layout_alignParentBottom="true"
+        android:background="@color/theme_fragment_bgColor" />
+
     <RelativeLayout style="@style/person_item_layout">
+
         <ImageView
+            android:id="@+id/icon_skill"
             android:layout_width="28dp"
             android:layout_height="28dp"
             android:layout_centerVertical="true"
-            android:id="@+id/icon_skill"
             android:src="@mipmap/icon_me_tips" />
+
         <TextView
             style="@style/person_item_text"
             android:layout_toRightOf="@id/icon_skill"
             android:text="@string/skill" />
+
         <ImageView style="@style/person_item_icon_right" />
     </RelativeLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:background="@color/theme_fragment_bgColor"
-        android:layout_alignParentBottom="true"/>
+        android:layout_alignParentBottom="true"
+        android:background="@color/theme_fragment_bgColor" />
+
     <RelativeLayout style="@style/person_item_layout">
 
         <ImageView

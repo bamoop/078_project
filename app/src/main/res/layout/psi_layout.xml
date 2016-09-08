@@ -16,7 +16,7 @@
             android:id="@+id/tv_bluetooth"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="蓝牙"
+            android:text="@string/bluetooth"
             android:textColor="@color/black"
             android:textSize="14sp" />
 
@@ -27,6 +27,7 @@
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@id/tv_bluetooth"
             android:text="已连接"
+            android:textColor="@color/textBlue"
             android:textSize="14sp" />
 
 
@@ -35,7 +36,7 @@
             android:layout_width="16dp"
             android:layout_height="16dp"
             android:layout_alignParentRight="true"
-            android:src="@mipmap/ic_launcher" />
+            android:src="@mipmap/air_quality_3" />
         <TextView
             android:id="@+id/tv_AQI"
             android:layout_width="wrap_content"

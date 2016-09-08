@@ -9,12 +9,14 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import com.macvision.mv_078.R;
 import com.orhanobut.logger.Logger;
 
+import com_t.macvision.mv_078.ui.view.ISwipeRefreshView;
+
 /**
  * 作者：LiangXiong on 2016/8/3 0003 16:08
  * 邮箱：liangxiong.sz@foxmail.com
  * QQ  ：294894105
  */
-public abstract class BaseSwipeRefreshAFragment<P extends BasePresenter> extends BaseFragment<P> implements ISwipeRefreshView{
+public abstract class BaseSwipeRefreshAFragment<P extends BasePresenter> extends BaseFragment<P> implements ISwipeRefreshView {
 
 //    @Bind(R.id.swipe_refresh_layout)
     protected SwipeRefreshLayout mSwipeRefreshLayout;

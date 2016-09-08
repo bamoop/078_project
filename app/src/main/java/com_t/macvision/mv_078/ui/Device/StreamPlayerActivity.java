@@ -18,6 +18,7 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 
 import com.macvision.mv_078.R;
 
@@ -62,7 +63,7 @@ public class StreamPlayerActivity extends BaseActivity implements SurfaceHolder.
     @Bind(R.id.tab_selector)
     TabLayout mTableLayout;
     @Bind(R.id.btn_video)
-    Button btn_video;
+    RelativeLayout btn_video;
     @Bind(R.id.toolbar)
     Toolbar toolbar;
 

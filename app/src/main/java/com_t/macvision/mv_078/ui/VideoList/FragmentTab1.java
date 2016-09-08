@@ -21,9 +21,11 @@ import com_t.macvision.mv_078.ui.adapter.MainVideoListAdapter;
 import com_t.macvision.mv_078.ui.adapter.RecycleViewDivider;
 
 import com.orhanobut.logger.Logger;
+import com.umeng.analytics.social.UMSocialService;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.media.QQShareContent;
 import com.umeng.socialize.media.UMImage;
 import com.umeng.socialize.media.UMVideo;
 import com.umeng.socialize.shareboard.SnsPlatform;
@@ -56,6 +58,7 @@ public class FragmentTab1 extends BaseFragment implements VideoContract.View, Ma
     MainVideoListAdapter mAdapter;
     private ShareUtils su;
     SHARE_MEDIA platform = null;
+
     /**
      * 有更多的数据
      */
@@ -218,9 +221,9 @@ public class FragmentTab1 extends BaseFragment implements VideoContract.View, Ma
         ShareModel model = new ShareModel();
         model.setTitle("互联视讯行车记录仪：" + videoEntity.getVideoTitle());
         model.setContent(videoEntity.getVideoCaption());
-//        model.setImageMedia(new UMImage(getMyActivity(), videoEntity.getVideoWebViewAddress()));
+        model.setImageMedia(new UMImage(getMyActivity(), videoEntity.getAvatarLocation()));
 //        model.setVideoMedia(new UMVideo( "http://192.168.1.124/demo/video/webView?videoId="+videoEntity.getVideoId()));
-        model.setVideoMedia(new UMVideo("http://wap.che.360.cn/share/h5/detail/273190"));
+        model.setTagUrl("http://192.168.1.124/demo/video/webView?videoId="+videoEntity.getVideoId());
         su.share(model, new IShareCallback() {
             @Override
             public void onSuccess() {

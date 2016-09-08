@@ -55,7 +55,7 @@
         <activity android:name="com_t.macvision.mv_078.ui.person_main.PersionHome_Activity" />
         <activity android:name="com_t.macvision.mv_078.ui.VideoList.TypeVideoList_Activity"></activity>
         <activity
-            android:name=".wxapi.WXEntryActivity"
+            android:name="com_t.macvision.mv_078.ui.WBShareActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
             android:screenOrientation="portrait"

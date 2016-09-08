@@ -10,11 +10,13 @@
     <color name="transparency">#00000000</color>
     <color name="red">#ff0000</color>
     <color name="bg_toolbar">#009bfe</color>
+    <color name="view_linear">#DBDBDF</color>
 
     <!--字体颜色-->
     <color name="textBlack">#000000</color>
     <color name="textGrey">#666666</color>
     <color name="textWhite">#FFFFFF</color>
+    <color name="textBlue">#006EB4</color>
 
     <!--底部菜单-->
     <color name="bottom_white">#FFFFFF</color>

@@ -3,7 +3,6 @@ package com_t.macvision.mv_078.ui.Person;/**
  */
 
 import android.view.View;
-
 import com.macvision.mv_078.R;
 import com_t.macvision.mv_078.base.BaseFragment;
 
