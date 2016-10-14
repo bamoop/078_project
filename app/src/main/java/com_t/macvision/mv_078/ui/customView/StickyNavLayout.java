@@ -19,10 +19,12 @@ import com.macvision.mv_078.R;
 
 public class StickyNavLayout extends LinearLayout implements NestedScrollingParent {
     private static final String TAG = "StickyNavLayout";
+    private boolean isTopPartlyHidden = false;//部分显示
 
     @Override
     public boolean onStartNestedScroll(View child, View target, int nestedScrollAxes) {
-        Log.e(TAG, "onStartNestedScroll");
+        Log.e(TAG, "onStartNestedScroll"+child+"----"+target);
+
         return true;
     }
 
@@ -41,6 +43,7 @@ public class StickyNavLayout extends LinearLayout implements NestedScrollingPare
         Log.e(TAG, "onNestedScroll");
     }
 
+    /*下拉*/
     @Override
     public void onNestedPreScroll(View target, int dx, int dy, int[] consumed) {
         Log.e(TAG, "onNestedPreScroll");
@@ -59,6 +62,7 @@ public class StickyNavLayout extends LinearLayout implements NestedScrollingPare
         return false;
     }
 
+    /*上拉*/
     @Override
     public boolean onNestedPreFling(View target, float velocityX, float velocityY) {
         Log.e(TAG, "onNestedPreFling");
@@ -161,6 +165,7 @@ public class StickyNavLayout extends LinearLayout implements NestedScrollingPare
         if (y != getScrollY()) {
             super.scrollTo(x, y);
         }
+        isTopPartlyHidden = getScrollY() < mTopViewHeight && getScrollY() > 0;
     }
 
     @Override

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.macvision.mv_078">
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -9,36 +9,34 @@
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <uses-permission android:name="android.permission.BROADCAST_STICKY" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.GET_TASKS" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:name="org.videolan.vlc.VLCApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/app_icon"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppThemeNoo">
+        android:theme="@style/AppThemeNoo"
+        tools:replace="android:icon">
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="0bbc5c96f086d8ae949f7f4ca8f5478c" />
 
         <activity
             android:name="com_t.macvision.mv_078.core.MainActivity"
             android:configChanges="orientation|screenSize|smallestScreenSize|keyboard|keyboardHidden|navigation"
-            android:screenOrientation="portrait">
-
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name="com_t.macvision.mv_078.ui.VideoDetail.VideoDetails_Activiey"
             android:configChanges="orientation|screenSize|smallestScreenSize|keyboard|keyboardHidden|navigation" />
@@ -50,17 +48,56 @@
             android:name="com_t.macvision.mv_078.ui.Upload.UploadActivity"
             android:configChanges="orientation|screenSize|smallestScreenSize|keyboard|keyboardHidden|navigation"
             android:screenOrientation="portrait" />
-        <activity android:name="com_t.macvision.mv_078.ui.Device.StreamPlayerActivity" />
-        <activity android:name="com_t.macvision.mv_078.ui.Device.SDFile_Activity" />
-        <activity android:name="com_t.macvision.mv_078.ui.person_main.PersionHome_Activity" />
-        <activity android:name="com_t.macvision.mv_078.ui.VideoList.TypeVideoList_Activity"></activity>
+        <activity
+            android:name="com_t.macvision.mv_078.ui.Device.StreamPlayerActivity"
+            android:configChanges="orientation|screenSize|smallestScreenSize|keyboard|keyboardHidden|navigation" />
+        <activity
+            android:name="com_t.macvision.mv_078.ui.Device.SDFile_Activity"
+            android:configChanges="orientation|screenSize|smallestScreenSize|keyboard|keyboardHidden|navigation"
+            android:label="" />
+        <activity
+            android:name="com_t.macvision.mv_078.ui.person_main.PersionHome_Activity"
+            android:configChanges="orientation|screenSize|smallestScreenSize|keyboard|keyboardHidden|navigation" />
+        <activity
+            android:name="com_t.macvision.mv_078.ui.VideoList.TypeVideoList_Activity"
+            android:configChanges="orientation|screenSize|smallestScreenSize|keyboard|keyboardHidden|navigation" />
+        <activity
+            android:name="com_t.macvision.mv_078.ui.CloudDog.LocationActivity"
+            android:configChanges="orientation|screenSize|smallestScreenSize|keyboard|keyboardHidden|navigation" />
         <activity
             android:name="com_t.macvision.mv_078.ui.WBShareActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity
+            android:name="com_t.macvision.mv_078.ui.Device.WIFIConnect_Activity"
+            android:configChanges="orientation|screenSize|smallestScreenSize|keyboard|keyboardHidden|navigation" />
+        android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity
+            android:name="com_t.macvision.mv_078.ui.CloudDog.TrackActivity"
+            android:configChanges="orientation|screenSize|smallestScreenSize|keyboard|keyboardHidden|navigation" />
+        android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity
+            android:name="com_t.macvision.mv_078.ui.WelcomeActivity"
+            android:configChanges="orientation|screenSize|smallestScreenSize|keyboard|keyboardHidden|navigation">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name="com_t.macvision.mv_078.ui.Person.EditProfileActivity" />
+        <activity android:name="com_t.macvision.mv_078.ui.Person.FansActivity"></activity>
+
+        <activity
+            android:name="cn.finalteam.rxgalleryfinal.ui.activity.MediaActivity"
+            android:screenOrientation="portrait"
+            android:exported="true"
+       />
+        <activity
+            android:name="com.yalantis.ucrop.UCropActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

@@ -3,17 +3,12 @@ package com_t.macvision.mv_078.ui.adapter;/**
  */
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.graphics.Typeface;
-import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -22,25 +17,19 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.macvision.mv_078.R;
 
-import com_t.macvision.mv_078.Constant;
+import com_t.macvision.mv_078.core.Constant;
 import com_t.macvision.mv_078.model.entity.VideoEntity;
 import com_t.macvision.mv_078.ui.VideoList.FragmentMenu1;
-import com_t.macvision.mv_078.ui.VideoList.FragmentTab1;
 import com_t.macvision.mv_078.util.CircleImageView;
 import com_t.macvision.mv_078.util.ImageFromFileCache;
-import com_t.macvision.mv_078.util.ScreenUtils;
-import com_t.macvision.mv_078.util.TaskUtils;
 
 import com.orhanobut.logger.Logger;
-import com.squareup.picasso.LruCache;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import com_t.macvision.mv_078.util.link_builder.Link;
-import com_t.macvision.mv_078.util.link_builder.LinkBuilder;
 
 /**
  * 作者：LiangXiong on 2016/8/4 0004 21:49
@@ -48,24 +37,24 @@ import com_t.macvision.mv_078.util.link_builder.LinkBuilder;
  * QQ  ：294894105
  */
 public class MainVideoListAdapter extends RecyclerView.Adapter<MainVideoListAdapter.ViewHolderItem> {
-    private List<VideoEntity.VideolistEntity> mVideoList;
+    private List<VideoEntity> mVideoList;
     private Context mContext;
     private static IClickMainItem mIClickItem;
 
-    public MainVideoListAdapter(Context mContext, List<VideoEntity.VideolistEntity> mVideoList) {
+    public MainVideoListAdapter(Context mContext, List<VideoEntity> mVideoList) {
         this.mContext = mContext;
         mVideoList = new ArrayList<>();
         this.mVideoList = mVideoList;
 
     }
 
-    public void update(List<VideoEntity.VideolistEntity> data) {
+    public void update(List<VideoEntity> data) {
         mVideoList.addAll(data);
         Logger.i("列表现有: " + mVideoList.size() + "条");
         notifyDataSetChanged();
     }
 
-    public void updateWithClear(List<VideoEntity.VideolistEntity> data) {
+    public void updateWithClear(List<VideoEntity> data) {
         mVideoList.clear();
         update(data);
     }
@@ -111,7 +100,7 @@ public class MainVideoListAdapter extends RecyclerView.Adapter<MainVideoListAdap
             super(itemView);
         }
 
-        abstract void bindItem(Context context, VideoEntity.VideolistEntity videolistEntity);
+        abstract void bindItem(Context context, VideoEntity videolistEntity);
     }
 
     class ViewHoderItemImage extends ViewHolderItem {
@@ -131,7 +120,7 @@ public class MainVideoListAdapter extends RecyclerView.Adapter<MainVideoListAdap
         }
 
         @Override
-        void bindItem(Context context, VideoEntity.VideolistEntity videolistEntity) {
+        void bindItem(Context context, VideoEntity videolistEntity) {
 
         }
     }
@@ -140,7 +129,7 @@ public class MainVideoListAdapter extends RecyclerView.Adapter<MainVideoListAdap
         @Bind(R.id.tv_videoid)
         TextView tv_videoid;
         @Bind(R.id.btn_zan)
-        TextView btn_zan;
+        CheckBox btn_zan;
         @Bind(R.id.linear_parent)
         LinearLayout FrameLayout;
         @Bind(R.id.image_thumb)
@@ -174,30 +163,36 @@ public class MainVideoListAdapter extends RecyclerView.Adapter<MainVideoListAdap
         }
 
         @Override
-        void bindItem(Context context, VideoEntity.VideolistEntity videoEntity) {
-            tv_videoid.setText(videoEntity.getVideoId());
+        void bindItem(Context context, VideoEntity videoEntity) {
+            tv_videoid.setText(videoEntity.getVideoCaption());
             tv_PlayCount.setText(videoEntity.getVideoViewNumber());
             tv_username.setText(videoEntity.getUserName());
             tv_pingCount.setText(videoEntity.getVideoCommentNumber());
             tv_zanCount.setText(videoEntity.getVideoLikesNumber());
             tv_ReleaseAddress.setText(videoEntity.getVideoReleaseAddress());
-            tv_type.setText("#" + FragmentMenu1.entity.getData().get(Integer.parseInt(videoEntity.getVideoType()) - 1).getVTypeName());
+            Logger.i("type: " + FragmentMenu1.entity.getData().size() + "条");
+           try{
+               tv_type.setText("#" + FragmentMenu1.entity.getData().get(Integer.parseInt(videoEntity.getVideoType())-2).getVTypeName());
+
+           }catch (Exception e){
+               e.printStackTrace();
+               tv_type.setText("type提示异常");
+           }
 
             Glide.with(mContext).load(ImageFromFileCache.base64ToBitmap(videoEntity.getAvatarLocation())).into(image_head);
 
             if (videoEntity.getCategory().equals("image"))
-                Glide.with(mContext).load(Constant.BaseVideoPlayUrl + videoEntity.getVideoLocation()).
-                        override(ScreenUtils.getScreenWidth(mContext), ScreenUtils.getScreenHeight(mContext) / 3).centerCrop().into(image_thumb);
+                Glide.with(mContext).load(Constant.BaseVideoPlayUrl + videoEntity.getVideoLocation()).centerCrop().into(image_thumb);
             else
                 Glide.with(mContext).load(Constant.BaseVideoPlayUrl + videoEntity.getFirstFrameLocation()).centerCrop().into(image_thumb);
 
             btn_zan.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mIClickItem.onClickZan(v, videoEntity);
-
+                    mIClickItem.onClickZan(btn_zan, videoEntity);
                 }
             });
+            btn_zan.setChecked(videoEntity.getIsLike());
 
             details_layout.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -241,15 +236,15 @@ public class MainVideoListAdapter extends RecyclerView.Adapter<MainVideoListAdap
     }
 
     public interface IClickMainItem {
-        void onClickItemDetail(View view, VideoEntity.VideolistEntity videoEntity);
+        void onClickItemDetail(View view, VideoEntity videoEntity);
 
-        void onClickTitle(View view, VideoEntity.VideolistEntity videoEntity);
+        void onClickTitle(View view, VideoEntity videoEntity);
 
-        void onClickZan(View view, VideoEntity.VideolistEntity videoEntity);
+        void onClickZan(CheckBox checkBox, VideoEntity videoEntity);
 
-        void onClickPing(View view, VideoEntity.VideolistEntity videoEntity);
+        void onClickPing(View view, VideoEntity videoEntity);
 
-        void onClickFen(View view, VideoEntity.VideolistEntity videoEntity);
-        void onClickLinks(View view,VideoEntity.VideolistEntity  videolistEntity);
+        void onClickFen(View view, VideoEntity videoEntity);
+        void onClickLinks(View view,VideoEntity videolistEntity);
     }
 }

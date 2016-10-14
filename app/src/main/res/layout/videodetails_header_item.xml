@@ -43,6 +43,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="#tag1"
+            android:layout_marginRight="15dp"
             android:textColor="@color/videoList_Tag_textColor"
             android:textSize="@dimen/videoList_Item_tv_count_size" />
     </LinearLayout>
@@ -58,6 +59,7 @@
             android:id="@+id/tv_pingCount2_detail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
             android:text="全部99条评论"
             android:textSize="@dimen/videoList_Item_tv_count_size" />
     </LinearLayout>

@@ -44,11 +44,12 @@ public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.ViewHo
     private List<ViewHolderItemVideo> mViewHolderItemVideos = new ArrayList<>();
     private static IClickMainItem mIClickItem;
     public List<FileEntity> selectList = new ArrayList<>();
+    boolean islocalfile=true;
 
-
-    public FileListAdapter(Context context, List<FileEntity> mFileList) {
+    public FileListAdapter(Context context, List<FileEntity> mFileList,boolean islocalfile) {
         this.mContext = context;
         this.mFileList = mFileList;
+        this.islocalfile= islocalfile;
     }
 
     public void update(List<FileEntity> data) {
@@ -145,14 +146,18 @@ public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.ViewHo
             ButterKnife.bind(this, itemView);
             mSlideRelativeLayout = (SlideRelativeLayout) itemView.findViewById(R.id.item_root);
             mCheckBox = (CheckBox) itemView.findViewById(R.id.item_checkbox);
-
         }
 
         @Override
         void bindItem(Context context, FileEntity fileEntity,int position) {
-            tv_name.setText(fileEntity.getNaame());
+            tv_name.setText(fileEntity.getName());
             tv_time.setText(fileEntity.getCreateTime());
-            Glide.with(mContext).load(new File(fileEntity.getPath())).centerCrop().into(image_thumb);
+            tv_size.setText(fileEntity.getSize());
+            if (islocalfile)
+                Glide.with(mContext).load(fileEntity.getPath()).centerCrop().into(image_thumb);
+            else
+                Glide.with(mContext).load(R.mipmap.video_default_logo).centerCrop().into(image_thumb);
+
 
 
             mCheckBox.setChecked(fileEntity.isChecked());

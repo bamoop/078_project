@@ -2,23 +2,15 @@ package com_t.macvision.mv_078.model.entity;/**
  * Created by bzmoop on 2016/8/16 0016.
  */
 
-import java.util.List;
+import com_t.macvision.mv_078.base.BaseModel;
 
 /**
  * 作者：LiangXiong on 2016/8/16 0016 14:23
  * 邮箱：liangxiong.sz@foxmail.com
  * QQ  ：294894105
  */
-public class CommentEntity {
+public class CommentEntity extends BaseModel{
 
-    /**
-     * errno : 0
-     * msg : ok
-     * data : [{"beReplyUserId":0,"beReplyUserName":"","cmContent":"就急急急急急急的大师的发生的发生","cmCreateTime":"2016-08-12 01:53:13.0","cmId":100057,"cmUserId":99999999,"cmVideoId":100039}]
-     */
-
-    private String errno;
-    private String msg;
     /**
      * beReplyUserId : 0
      * beReplyUserName :
@@ -29,33 +21,6 @@ public class CommentEntity {
      * cmVideoId : 100039
      */
 
-    private List<DataBean> data;
-
-    public String getErrno() {
-        return errno;
-    }
-
-    public void setErrno(String errno) {
-        this.errno = errno;
-    }
-
-    public String getMsg() {
-        return msg;
-    }
-
-    public void setMsg(String msg) {
-        this.msg = msg;
-    }
-
-    public List<DataBean> getData() {
-        return data;
-    }
-
-    public void setData(List<DataBean> data) {
-        this.data = data;
-    }
-
-    public static class DataBean {
         private int beReplyUserId; //被回复者ID
         private String beReplyUserName; //被回复者name
         private String cmContent;       //回复内容
@@ -147,5 +112,5 @@ public class CommentEntity {
         public void setCmVideoId(int cmVideoId) {
             this.cmVideoId = cmVideoId;
         }
-    }
+
 }

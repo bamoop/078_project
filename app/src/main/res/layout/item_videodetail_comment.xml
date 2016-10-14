@@ -12,14 +12,14 @@
     <com_t.macvision.mv_078.util.CircleImageView
         android:id="@+id/image_comment_head"
         android:layout_width="36dp"
-        android:layout_height="36dp"
-        android:background="#ff11"/>
+        android:layout_height="36dp" />
     <TextView
         android:id="@+id/tv_comment_time"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:layout_marginTop="6dp"
+        android:layout_gravity="center_horizontal"
         android:textSize="9sp"
         android:text="刚刚"/>
     </LinearLayout>
@@ -29,7 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/linear_comment_hand"
         android:textSize="12sp"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="15dp"
         android:textColor="@color/textGrey"
         android:text="老王:" />
     <LinearLayout
@@ -48,6 +48,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
+        android:textColor="@color/textBlack"
         android:textSize="14sp"
         android:text="评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论" />
     </LinearLayout>

@@ -29,6 +29,7 @@
                 android:textSize="12sp" />
 
             <TextView
+                android:id="@+id/tv_imei"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -52,12 +53,14 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/tv_linkStatus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/state"
                 android:textSize="12sp" />
 
             <TextView
+                android:id="@+id/tv_comment_status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -79,18 +82,22 @@
             android:layout_weight="1">
 
             <Button
+                android:id="@+id/location"
                 style="@style/cloudDog_item_icon"
                 android:drawableTop="@mipmap/icon_location"
                 android:text="@string/location"
                 android:textColor="@color/textGrey" />
 
             <Button
+                android:id="@+id/btn_track"
                 style="@style/cloudDog_item_icon"
                 android:drawableTop="@mipmap/icon_track"
                 android:text="@string/track"
                 android:textColor="@color/textGrey" />
 
             <Button
+                android:id="@+id/btn_longSnap"
+
                 style="@style/cloudDog_item_icon"
                 android:drawableTop="@mipmap/icon_remote_capture"
                 android:text="@string/long_snapshot"
@@ -109,6 +116,7 @@
             android:layout_weight="1">
 
             <Button
+                android:id="@+id/btn_setting"
                 style="@style/cloudDog_item_icon"
                 android:drawableTop="@mipmap/icon_setting"
                 android:text="@string/setting"

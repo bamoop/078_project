@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_edit_profile"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com_t.macvision.mv_078.ui.Person.EditProfileActivity"
+    android:background="@color/theme_fragment_bgColor">
+
+    <include
+        layout="@layout/layout_toolbar"
+        android:id="@+id/toolbar" />
+<RelativeLayout
+    android:id="@+id/head_layout"
+    android:layout_width="match_parent"
+    android:layout_height="94dp"
+    android:layout_below="@id/toolbar"
+    android:paddingLeft="15dp"
+    android:paddingRight="10dp"
+    android:background="@android:color/white">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:text="@string/changeHead"
+        android:layout_centerVertical="true"
+        android:textColor="@color/textBlack"/>
+    <ImageView
+        android:id="@+id/headPortrait"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="28dp"
+        />
+    <ImageView style="@style/person_item_icon_right" />
+
+</RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/mid_layout"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_below="@id/head_layout"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/petName"
+            android:textSize="14sp"
+            android:textColor="@color/textBlack"
+            android:layout_centerVertical="true"/>
+        <EditText
+            android:id="@+id/edit_petName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="互联视讯"
+            android:textSize="14sp"
+            android:textColor="@color/textGrey"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"/>
+        <View
+            style="@style/cut_off_rule"
+            android:layout_alignParentBottom="true"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/mid_layout"
+        android:background="@color/white"
+        android:padding="15dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/personSignature"
+            android:textSize="14sp"
+            android:textColor="@color/textBlack"/>
+        <EditText
+            android:id="@+id/edit_personSignature"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="@color/textGrey"
+            android:layout_marginLeft="93dp"/>
+    </RelativeLayout>
+</RelativeLayout>

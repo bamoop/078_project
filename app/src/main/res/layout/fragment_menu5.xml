@@ -16,9 +16,10 @@
         android:paddingBottom="15dp"
         android:paddingLeft="20dp"
         android:paddingRight="10dp"
-        android:paddingTop="15dp">
+        android:paddingTop="15dp"
+        android:id="@+id/item_me_head">
 
-        <com_t.macvision.mv_078.util.CircleImageView
+        <ImageView
             android:id="@+id/image_hand"
             android:layout_width="64dp"
             android:layout_height="64dp"
@@ -69,7 +70,8 @@
 
     <RelativeLayout
         style="@style/person_item_layout"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="10dp"
+        android:id="@+id/item_massage">
 
         <ImageView
             android:id="@+id/icon_massage"
@@ -93,7 +95,8 @@
         android:layout_alignParentBottom="true"
         android:background="@color/theme_fragment_bgColor" />
 
-    <RelativeLayout style="@style/person_item_layout">
+    <RelativeLayout style="@style/person_item_layout"
+        android:id="@+id/item_iLike">
 
         <ImageView
             android:id="@+id/icon_iLike"
@@ -112,7 +115,8 @@
 
     <RelativeLayout
         style="@style/person_item_layout"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="10dp"
+        android:id="@+id/item_me_setting">
 
         <ImageView
             android:id="@+id/icon_setting"
@@ -135,7 +139,8 @@
         android:layout_alignParentBottom="true"
         android:background="@color/theme_fragment_bgColor" />
 
-    <RelativeLayout style="@style/person_item_layout">
+    <RelativeLayout style="@style/person_item_layout"
+        android:id="@+id/item_me_tips">
 
         <ImageView
             android:id="@+id/icon_skill"
@@ -158,7 +163,9 @@
         android:layout_alignParentBottom="true"
         android:background="@color/theme_fragment_bgColor" />
 
-    <RelativeLayout style="@style/person_item_layout">
+    <RelativeLayout style="@style/person_item_layout"
+        android:id="@+id/item_me_version"
+        >
 
         <ImageView
             android:id="@+id/icon_version"

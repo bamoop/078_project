@@ -5,22 +5,18 @@ package com_t.macvision.mv_078.ui.Upload;/**
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.util.Linkify;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TableLayout;
 import android.widget.TextView;
 
-import com_t.macvision.mv_078.Constant;
+import com_t.macvision.mv_078.core.Constant;
 
 import com.macvision.mv_078.R;
 
 import com_t.macvision.mv_078.base.BaseActivity;
-import com_t.macvision.mv_078.base.OnItemClickListener;
 import com_t.macvision.mv_078.model.entity.FileEntity;
 import com_t.macvision.mv_078.presenter.UploadPresenter;
 import com_t.macvision.mv_078.ui.VideoList.FragmentMenu1;
@@ -33,7 +29,6 @@ import com.orhanobut.logger.Logger;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import cn.com.video.venvy.param.JjVideoRelativeLayout;
 import cn.com.video.venvy.param.JjVideoView;
@@ -50,10 +45,9 @@ import cn.com.video.venvy.widget.UsetMediaContoller;
  * 邮箱：liangxiong.sz@foxmail.com
  * QQ  ：294894105
  */
-public class UploadActivity extends BaseActivity implements UploadContract.View {
+public class UploadActivity extends BaseActivity implements UploadView {
 
     private FileEntity fileEntity;
-    private UploadContract.Presenter mPresenter;
     private HashMap<String, String> upMap = new HashMap<>();
 
     private JjVideoView PlayVideoView;
@@ -71,15 +65,18 @@ public class UploadActivity extends BaseActivity implements UploadContract.View 
     private TagCloudView mContainer;
     private List<String> mList = new ArrayList<>();
     private HashMap<Integer, Boolean> map = new HashMap<>(0);//记录选择的位置
+    UploadPresenter mPresenter;
+
 
     @Override
-    public void onCreate(Bundle savedInstanceStat) {
-        super.onCreate(savedInstanceStat);
-        setContentView(R.layout.activity_upload);
-        mContext = this;
-        initData();
-        initView();
-        initVideo();
+    public int getLayout() {
+        return R.layout.activity_upload;
+    }
+
+    @Override
+    public void initPresenter() {
+        super.initPresenter();
+        mPresenter = new UploadPresenter(this,this);
     }
 
     @Override
@@ -87,15 +84,16 @@ public class UploadActivity extends BaseActivity implements UploadContract.View 
         super.onResume();
         PlayVideoView.setResourceVideo(fileEntity.getPath());
     }
-
-    private void initData() {
+    @Override
+    public void initData() {
         Intent intent = this.getIntent();
         fileEntity = (FileEntity) intent.getSerializableExtra("FileEntity");
-        mPresenter = new UploadPresenter(this);
+        mContext = this;
+
 
     }
-
-    private void initView() {
+    @Override
+    public void initView(View view) {
         PlayVideoView = (JjVideoView) findViewById(R.id.video);
         mLoadBufferView = findViewById(R.id.sdk_load_layout);
         mLoadView = findViewById(R.id.sdk_ijk_progress_bar_layout);
@@ -123,7 +121,9 @@ public class UploadActivity extends BaseActivity implements UploadContract.View 
             @Override
             public void onTagClick(int position) {
                 bindPositionView(position);
-                upMap.put(Constant.videoType, String.valueOf(position + 1));
+                upMap.put(Constant.videoType, String.valueOf(position + 2));
+//                Logger.d("type=" + position);
+
             }
         });
         btn_upload = (LinearLayout) findViewById(R.id.btn_upload);
@@ -147,6 +147,7 @@ public class UploadActivity extends BaseActivity implements UploadContract.View 
         });
 
         bindPositionView(0);
+        initVideo();
 
     }
 

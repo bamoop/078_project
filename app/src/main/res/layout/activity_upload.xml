@@ -1,23 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/upload_parent_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:background="@color/theme_fragment_bgColor"
-    android:id="@+id/upload_parent_layout">
+    android:background="@color/white"
+    android:orientation="vertical">
 
     <include
         android:id="@+id/toolbar"
         layout="@layout/layout_toolbar" />
 
-
     <cn.com.video.venvy.param.JjVideoRelativeLayout
         android:id="@+id/jjlayout"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:layout_below="@id/toolbar"
-        >
+        android:layout_below="@id/toolbar">
 
         <cn.com.video.venvy.param.JjVideoView
             android:id="@+id/video"
@@ -46,42 +44,40 @@
         android:id="@+id/UPMassage_layout"
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:padding="15dp"
-        android:layout_below="@id/jjlayout">
-        <TextView
-            android:id="@+id/tv_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="视频标题:"/>
+        android:layout_below="@id/jjlayout"
+        android:padding="15dp">
+
         <EditText
-            android:layout_toRightOf="@id/tv_title"
             android:id="@+id/edit_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
             android:background="@color/transparency"
-            android:textSize="14sp"
-            android:layout_marginLeft="5dp"
+            android:hint="添加标题"
             android:textColor="@color/black"
-            android:hint="这里是标题"/>
-        <EditText
-            android:layout_marginTop="5dp"
-            android:layout_below="@id/edit_title"
-            android:id="@+id/ed_state"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:hint="说点什么吧..."
-            android:background="@color/transparency"
-            android:textColor="@color/black"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="（100个汉字以内）"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="4dp"
-            />
+            android:textSize="14sp" />
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_below="@id/edit_title">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/view_linear" />
+
+            <EditText
+                android:id="@+id/ed_state"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@color/transparency"
+                android:hint="说点什么吧..."
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+        </RelativeLayout>
+
     </RelativeLayout>
 
     <LinearLayout
@@ -89,46 +85,72 @@
         android:layout_width="match_parent"
         android:layout_height="44dp"
         android:layout_alignParentBottom="true"
-        android:background="#777bb5"
-        android:orientation="horizontal"
-        android:gravity="center_horizontal|center_vertical">
+        android:background="#009bfe"
+        android:gravity="center_horizontal|center_vertical"
+        android:orientation="horizontal">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="上传社区"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white" />
     </LinearLayout>
-    <LinearLayout
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/UPMassage_layout"
-        android:padding="15dp"
+        android:background="@color/theme_fragment_bgColor"
         android:orientation="vertical"
-        android:background="@color/theme_fragment_bgColor">
+        android:padding="15dp">
+
         <com_t.macvision.mv_078.ui.customView.TagCloudView
             android:id="@+id/container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:tagSpacing="15dp"
-            app:lineSpacing="10dp" />
+            android:layout_marginBottom="25dp"
+            app:lineSpacing="10dp"
+            app:tagSpacing="15dp" />
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/container">
 
-        <TextView
-            android:id="@+id/tv_cityName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="# tag2"
-            android:textSize="12sp"
-            android:layout_marginLeft="20dp"/>
-        <Button
-            android:id="@+id/btn_againLocation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="重新定位"/>
+            <TextView
+                android:id="@+id/tv_cityTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="当前定位"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tv_cityName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:layout_toRightOf="@id/tv_cityTitle"
+                android:text="深圳"
+                android:textSize="12sp" />
+
+            <Button
+                android:id="@+id/btn_againLocation"
+                android:layout_width="75dp"
+                android:layout_height="24dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@mipmap/btn_upload_bg"
+                android:text="重新定位"
+                android:textColor="#009bfe"
+                android:textSize="12sp" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
     </LinearLayout>
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
-</LinearLayout>
 </RelativeLayout>

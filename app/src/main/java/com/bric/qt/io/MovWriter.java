@@ -46,7 +46,7 @@ import java.util.Vector;
  * implications that come with the MPEG-4 standard. (And
  * it is worlds easier to implement.)
  * <P>This actually writes to a movie file in 2 passes:
- * the first pass writes all the video and audio data to a 
+ * the first pass writes all the video and audio data to a
  * <code>FileOutputStream</code>. When <code>close()</code> is called, 
  * the movie structure is added and a <code>RandomAccessFile</code> is
  * used to correctly set the size headers.
@@ -384,7 +384,7 @@ public abstract class MovWriter {
 		Atom.write32Int(out, 0);
 	}
 	
-	/** Add an AudioInputStream to this movie. The audio data will be 
+	/** Add an AudioInputStream to this movie. The audio data will be
 	 * interleaved with the visual data in the output movie.
 	 * <p>This method must be called before adding frames. In a future version
 	 * of this class it would be nice if audio could be inserted at any time 
@@ -405,7 +405,7 @@ public abstract class MovWriter {
 		addAudioTrack(audio, startTime, Float.POSITIVE_INFINITY);
 	}
 	
-	/** Add an AudioInputStream to this movie. The audio data will be 
+	/** Add an AudioInputStream to this movie. The audio data will be
 	 * interleaved with the visual data in the output movie.
 	 * <p>This method must be called before adding frames. In a future version
 	 * of this class it would be nice if audio could be inserted at any time 
@@ -446,7 +446,7 @@ public abstract class MovWriter {
 		
 		/** The QT File Format says:
 		 * In order to overcome any latencies in sound playback, at least one 
-		 * second of sound data is placed at the beginning of the interleaved 
+		 * second of sound data is placed at the beginning of the interleaved
 		 * data. This means that the sound and video data are offset from each
 		 * other in the file by one second. 
 		 */

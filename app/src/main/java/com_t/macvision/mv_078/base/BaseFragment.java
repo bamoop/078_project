@@ -1,7 +1,4 @@
 package com_t.macvision.mv_078.base;
-/**
- * Created by bzmoop on 2016/8/3 0003.
- */
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -11,49 +8,46 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.orhanobut.logger.Logger;
-
 import butterknife.ButterKnife;
+import rx.subscriptions.CompositeSubscription;
 
 /**
- * 作者：LiangXiong on 2016/8/3 0003 13:54
- * 邮箱：liangxiong.sz@foxmail.com
- * QQ  ：294894105
+ * Created by bzmoop on 2016/9/9 0009.
  */
-public abstract class BaseFragment<P extends BasePresenter> extends Fragment {
+public class BaseFragment<T extends BasePresonter> extends Fragment implements IBaseView {
+
     public Activity currentContext;
     public View view;
-
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        Logger.init(this.getClass().getCanonicalName());
-
-    }
-
+    protected T mPresenter;
+    private boolean isFirstLoadData = true;
     /**
      * Fragment当前状态是否可见
      */
     protected boolean isVisible;
 
-    @Nullable
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        initData();
+
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        currentContext = getActivity();
+        super.onCreateView(inflater, container, savedInstanceState);
         if (view == null) {
-            view = inflater.inflate(getLayout(), null);
+            view = inflater.inflate(getLayout(), container, false);
             ButterKnife.bind(this, view);
+            if (mPresenter == null)
+                initPresenter();
             initView(view);
         }
         return view;
     }
 
-
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-
         if (getUserVisibleHint()) {
             isVisible = true;
             onVisible();
@@ -63,11 +57,27 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment {
         }
     }
 
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+    }
+
+    /**
+     * 子类实现加载数据的方法
+     */
+    public void loadData() {
+        isFirstLoadData = false;
+    }
+
     /**
      * 可见
      */
     protected void onVisible() {
-        lazyLoad();
+        if (mPresenter == null)
+            initPresenter();
+        if (isFirstLoadData)
+            loadData();
     }
 
     /**
@@ -75,34 +85,58 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment {
      */
     protected void onInvisible() {
 
+
     }
 
-    /**
-     * 设置布局文件
-     */
-    protected abstract int getLayout();
-
-    /**
-     * 初始化View
-     */
-    protected abstract void initView(View view);
-
-    /**
-     * 延迟加载
-     */
-    protected abstract void lazyLoad();
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        ButterKnife.unbind(this);
-    }
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         this.currentContext = activity;
     }
+
     public Activity getMyActivity() {
         return currentContext;
     }
+
+    private CompositeSubscription mCompositeSubscription;
+
+    public void onUnsubscribe() {
+        //取消注册，以避免内存泄露
+        if (mCompositeSubscription != null) {
+            mCompositeSubscription.unsubscribe();
+        }
+    }
+
+    @Override
+    public void initView(View view) {
+
+    }
+
+    @Override
+    public void initData() {
+    }
+
+    @Override
+    public int getLayout() {
+        return 0;
+    }
+
+    protected T getPresenter() {
+        return null;
+    }
+
+    public void initPresenter() {
+        if (mPresenter == null)
+            mPresenter = getPresenter();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        ButterKnife.unbind(this);
+        if (mPresenter != null)
+            onUnsubscribe();
+    }
+
+
 }

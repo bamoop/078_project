@@ -1,5 +1,11 @@
 package com_t.macvision.mv_078.util;
 
+import android.util.Log;
+
+import com.orhanobut.logger.Logger;
+
+import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -45,7 +51,11 @@ public class DateUtil {
      **/
     private static final String TAG = DateUtil.class.getSimpleName();
 
-
+    public static Date stringFmort(String time) throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat(DF_YYYY_MM_DD_HH_MM_SS);
+        Date date = sdf.parse(time);
+        return date;
+    }
     /**
      * 将日期格式化成友好的字符串：几分钟前、几小时前、几天前、几月前、几年前、刚刚
      *
@@ -64,7 +74,7 @@ public class DateUtil {
         }
         if (diff > month) {
             r = (diff / month);
-            return r + "个月前";
+            return r + "月前";
         }
         if (diff > day) {
             r = (diff / day);
@@ -72,13 +82,27 @@ public class DateUtil {
         }
         if (diff > hour) {
             r = (diff / hour);
-            return r + "个小时前";
+            return r + "小时前";
         }
         if (diff > minute) {
             r = (diff / minute);
             return r + "分钟前";
         }
         return "刚刚";
+    }
+    public static String FormetFileSize(long fileS) {// 转换文件大小
+        DecimalFormat df = new DecimalFormat("#.000");
+        String fileSizeString = "";
+        if (fileS < 1024) {
+            fileSizeString = df.format((double) fileS) + "B";
+        } else if (fileS < 1048576) {
+            fileSizeString = df.format((double) fileS / 1024) + "K";
+        } else if (fileS < 1073741824) {
+            fileSizeString = df.format((double) fileS / 1048576) + "M";
+        } else {
+            fileSizeString = df.format((double) fileS / 1073741824) + "G";
+        }
+        return fileSizeString;
     }
 
 }

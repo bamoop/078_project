@@ -18,6 +18,30 @@
         app:layout_scrollFlags="scroll|enterAlways"
         app:theme="@style/ToolbarColoredBackArrow"
         app:titleTextColor="@color/textWhite">
+        <TextView
+            android:id="@+id/toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:singleLine="true"
+            android:textColor="@color/white"
+            android:text="记录仪"
+            android:textSize="18sp"
+            android:textStyle="bold"/>
+    <TextView
+        android:id="@+id/btn_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="断开"
+        android:textColor="@color/textWhite"
+        android:textSize="16sp"/>
+        <ImageView
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_gravity="right"
+            android:layout_marginRight="15dp"
+            android:src="@mipmap/icon_setting_topbar"
+             />
 
     </android.support.v7.widget.Toolbar>
 

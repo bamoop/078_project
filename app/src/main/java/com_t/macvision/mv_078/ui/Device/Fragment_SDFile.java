@@ -3,6 +3,7 @@ package com_t.macvision.mv_078.ui.Device;/**
  */
 
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -10,21 +11,22 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.macvision.mv_078.R;
+import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
 import com_t.macvision.mv_078.base.BaseFragment;
-import com_t.macvision.mv_078.ui.File.FileChildFragment;
+import com_t.macvision.mv_078.base.BaseToolbarFragment;
 import com_t.macvision.mv_078.ui.File.MenuClickListener;
+import com_t.macvision.mv_078.ui.VideoList.FragmentTab1;
 import com_t.macvision.mv_078.ui.adapter.FragmentTableAdapter;
 
 /**
@@ -32,7 +34,7 @@ import com_t.macvision.mv_078.ui.adapter.FragmentTableAdapter;
  * 邮箱：liangxiong.sz@foxmail.com
  * QQ  ：294894105
  */
-public class Fragment_SDFile extends BaseFragment {
+public class Fragment_SDFile extends BaseToolbarFragment {
     @Bind(R.id.tab_selector)
     TabLayout mTableLayout;
     @Bind(R.id.vp_file)
@@ -46,10 +48,11 @@ public class Fragment_SDFile extends BaseFragment {
     protected Toolbar mToolbar;
     static MenuClickListener menuClickListener;
     public MenuItem items;
-    List<String> mTitle=new ArrayList<>();
+    List<String> mTitle = new ArrayList<>();
+    static ArrayList<MenuClickListener> menuClickListenerList = new ArrayList<>();
 
     @Override
-    protected int getLayout() {
+    public int getLayout() {
         return R.layout.fragment_file;
     }
 
@@ -59,15 +62,37 @@ public class Fragment_SDFile extends BaseFragment {
         super.onViewCreated(view, savedInstanceState);
     }
 
+    @Override
+    public void initData() {
+        ArrayList<Bundle> bundles = new ArrayList<>();
+        mTitle.add("循环视频");
+        mTitle.add("紧急视频");
+        mTitle.add("照片");
+        fragmentArrayList.clear();
+        for (int i = 0; i < mTitle.size(); i++) {
+            Bundle bundle = new Bundle();
+            bundle.putInt("type", i);
+
+            fragmentArrayList.add(SDFileChildFragment.Tab1Instance(bundle));
+        }
+
+        mFragmentTableAdapter.notifyDataSetChanged();
+    }
 
     @Override
-    protected void initView(View view) {
-        initData();
+    protected String setTitle() {
+        toolbar.setTitle("");
+        return "视频/照片";
+    }
+
+    @Override
+    public void initView(View view) {
+        super.initView(view);
         mFragmentTableAdapter = new FragmentTableAdapter(getChildFragmentManager(), fragmentArrayList, mTitle);
         mViewPager.setAdapter(mFragmentTableAdapter);
         mTableLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         mTableLayout.setupWithViewPager(mViewPager);
-        mViewPager.setOffscreenPageLimit(1);
+        mViewPager.setOffscreenPageLimit(5);
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -75,9 +100,10 @@ public class Fragment_SDFile extends BaseFragment {
 
             @Override
             public void onPageSelected(int position) {
-                mIsEditState = false;
-                if (items != null)
+                if (items != null) {
+                    mIsEditState = false;
                     updateMenuTitle(items);
+                }
             }
 
             @Override
@@ -88,7 +114,6 @@ public class Fragment_SDFile extends BaseFragment {
 
         mToolbar = (Toolbar) view.findViewById(R.id.toolbar);
         setHasOptionsMenu(true);
-        mToolbar.setTitle("视频/照片");
         ((AppCompatActivity) getActivity()).setSupportActionBar(mToolbar);
         mToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
@@ -102,27 +127,12 @@ public class Fragment_SDFile extends BaseFragment {
                 return false;
             }
         });
-    }
 
-    @Override
-    protected void lazyLoad() {
 
-    }
-
-    private void initData() {
-        mTitle.add("前视频");
-        mTitle.add("后视频");
-        mTitle.add("前照片");
-        mTitle.add("后照片");
-        fragmentArrayList.clear();
-        for (int i = 0; i < mTitle.size(); i++) {
-            Bundle bundle = new Bundle();
-            fragmentArrayList.add(SDFileChildFragment.Tab1Instance(bundle));
-        }
     }
 
     public void setMenuClickListener(MenuClickListener menuClickListener) {
-        this.menuClickListener = menuClickListener;
+        this.menuClickListenerList.add(menuClickListener);
     }
 
     @Override
@@ -133,11 +143,19 @@ public class Fragment_SDFile extends BaseFragment {
 
     protected void updateMenuTitle(MenuItem item) {
         if (mIsEditState) {
-            item.setTitle("取消");
-            this.menuClickListener.onClickCancel();
+            item.setTitle(R.string.cancel);
+            if (0 == mViewPager.getCurrentItem()) {
+                this.menuClickListenerList.get(mTitle.size() - 1).onClickCancel();
+            } else
+                this.menuClickListenerList.get(mViewPager.getCurrentItem() - 1).onClickCancel();
+
         } else {
-            item.setTitle("编辑");
-            this.menuClickListener.onClickEdit();
+            item.setTitle(R.string.edit);
+            if (0 == mViewPager.getCurrentItem()) {
+                this.menuClickListenerList.get(mTitle.size() - 1).onClickEdit();
+            } else
+                this.menuClickListenerList.get(mViewPager.getCurrentItem() - 1).onClickEdit();
+
         }
     }
 

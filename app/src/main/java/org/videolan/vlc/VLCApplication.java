@@ -75,8 +75,8 @@ public class VLCApplication extends Application {
         return instance.getResources();
     }
     {
-        PlatformConfig.setWeixin("wx967daebe835fbeac", "5bb696d9ccd75a38c8a0bfe0675559b3");
-        PlatformConfig.setSinaWeibo("3921700954", "04b48b094faeb16683c32669824ebdad");
-        PlatformConfig.setQQZone("100424468", "c7394704798a158208a74ab60104f0ba");
+        PlatformConfig.setWeixin("wx986a3a717d18855a", "c8bb02988513e8b3e9e21111aef5363f");
+        PlatformConfig.setSinaWeibo("2834008422", "0e37da8ca0b7a0977eec746ca06d147b");
+        PlatformConfig.setQQZone("1105678086", "Dlh83UQ2I5aroPEc");
     }
 }

@@ -36,8 +36,7 @@
             android:id="@+id/image_fileThumb"
             android:layout_width="@dimen/fileList_Item_img_thumb_W"
             android:layout_height="@dimen/fileList_Item_img_thumb_H"
-            android:layout_marginRight="@dimen/FileList_Item_paddingTop"
-            android:background="#052" />
+            android:layout_marginRight="@dimen/FileList_Item_paddingTop" />
 
         <TextView
             android:id="@+id/tv_fileName"

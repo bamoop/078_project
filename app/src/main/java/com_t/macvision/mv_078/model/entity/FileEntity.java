@@ -10,22 +10,36 @@ import java.io.Serializable;
  * QQ  ：294894105
  */
 public class FileEntity implements Serializable {
-    String naame;
+    String name;
     String path;
     String size;
     String format;
     String createTime;
-    boolean mSelected;
+    String attr;
     int position;
 
     private boolean isChecked;
 
-    public String getNaame() {
-        return naame;
+    @Override
+    public String toString() {
+        return "FileEntity{" +
+                "name='" + name + '\'' +
+                ", path='" + path + '\'' +
+                ", size='" + size + '\'' +
+                ", format='" + format + '\'' +
+                ", createTime='" + createTime + '\'' +
+                ", attr='" + attr + '\'' +
+                ", position=" + position +
+                ", isChecked=" + isChecked +
+                '}';
     }
 
-    public void setNaame(String naame) {
-        this.naame = naame;
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getPath() {
@@ -75,4 +89,14 @@ public class FileEntity implements Serializable {
     public void setPosition(int position) {
         this.position = position;
     }
+
+    public String getAttr() {
+        return attr;
+    }
+
+    public void setAttr(String attr) {
+        this.attr = attr;
+    }
+
+
 }

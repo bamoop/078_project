@@ -1,21 +1,17 @@
 package com_t.macvision.mv_078.ui.VideoDetail;
 
-import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
-import android.os.Bundle;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.MotionEvent;
+import android.view.KeyEvent;
 import android.view.View;
-import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -23,10 +19,10 @@ import com.bumptech.glide.Glide;
 import com.macvision.mv_078.R;
 import com.orhanobut.logger.Logger;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.Bind;
 import cn.com.video.venvy.param.JjVideoRelativeLayout;
 import cn.com.video.venvy.param.JjVideoView;
 import cn.com.video.venvy.param.OnJjBufferCompleteListener;
@@ -36,172 +32,178 @@ import cn.com.video.venvy.param.OnJjOpenStartListener;
 import cn.com.video.venvy.param.OnJjOpenSuccessListener;
 import cn.com.video.venvy.param.OnJjOutsideLinkClickListener;
 import cn.com.video.venvy.widget.UsetMediaContoller;
-import com_t.macvision.mv_078.Constant;
-import com_t.macvision.mv_078.base.BaseActivity;
+import com_t.macvision.mv_078.core.Constant;
+import com_t.macvision.mv_078.base.BaseSwipeRefreshActivity;
 import com_t.macvision.mv_078.model.entity.CommentEntity;
-import com_t.macvision.mv_078.model.entity.VideoDetailEntity;
 import com_t.macvision.mv_078.model.entity.VideoEntity;
-import com_t.macvision.mv_078.presenter.VideoDetailPresenter;
+import com_t.macvision.mv_078.ui.View.CommentView;
 import com_t.macvision.mv_078.ui.adapter.VideoDetailAdapter;
 import com_t.macvision.mv_078.ui.person_main.PersionHome_Activity;
 import com_t.macvision.mv_078.util.CircleImageView;
+import com_t.macvision.mv_078.util.ImageFromFileCache;
 import com_t.macvision.mv_078.util.KeyBoardUtils;
 import com_t.macvision.mv_078.util.ScreenUtils;
 
-public class VideoDetails_Activiey extends BaseActivity implements VideoDetailContract.View, VideoDetailAdapter.ItemOnclick {
+public class VideoDetails_Activiey extends BaseSwipeRefreshActivity<VideoDetailPresenter> implements CommentView<CommentEntity>, VideoDetailAdapter.ItemOnclick {
     String videoLocation;
     int videoID;
     private VideoDetailPresenter mPresenter;
     private String videoURL;
-    JjVideoView PlayVideoView;
-    View mLoadBufferView;
-    View mLoadView;
-    TextView mLoadBufferTextView;
-    TextView mLoadText;
-    RelativeLayout detail_handLayout;
-    RecyclerView recyclerView;
     EditText edit_ping;
     Button btn_send;
-    protected SwipeRefreshLayout mSwipeRefreshLayout;
-    public int currentPage = 1;
     private boolean mHasMoreData = true;
     LinearLayoutManager layoutManager;
     VideoDetailAdapter mVideoDetailAdapter;
-    List<CommentEntity.DataBean> mCommentEntity = new ArrayList<>();
-    VideoEntity.VideolistEntity videolistEntity;
-    ImageView image;
-    Toolbar toobar;
+    List<CommentEntity> mCommentEntity = new ArrayList<>();
+    VideoEntity videolistEntity;
+    @Bind(R.id.tv_username)
     TextView tv_username;
+    @Bind(R.id.tv_PlayCount)
     TextView tv_count;
-    CircleImageView image_head;
+    @Bind(R.id.toolbar)
+    Toolbar toobar;
+    @Bind(R.id.video)
+    JjVideoView PlayVideoView;
+    @Bind(R.id.sdk_load_layout)
+    View mLoadBufferView;
+    @Bind(R.id.sdk_ijk_progress_bar_layout)
+    View mLoadView;
+    @Bind(R.id.sdk_sdk_ijk_load_buffer_text)
+    TextView mLoadBufferTextView;
+    @Bind(R.id.sdk_ijk_progress_bar_text)
+    TextView mLoadText;
+    @Bind(R.id.jjlayout)
     JjVideoRelativeLayout mJjVideoRelativeLayout;
+    @Bind(R.id.details_parent_layout)
+    RelativeLayout details_parent_layout;
+    @Bind(R.id.rv_videoDetail)
+    RecyclerView recyclerView;
+    @Bind(R.id.image)
+    ImageView image;
+    @Bind(R.id.detail_handLayout)
+    RelativeLayout detail_handLayout;
+    @Bind(R.id.toolbar_title)
+    TextView toolbar_title;
+    @Bind(R.id.Screen)
+    LinearLayout Screen;
+    @Bind(R.id.image_head)
+    CircleImageView image_head;
+    @Bind(R.id.video_view_layout)
+    RelativeLayout video_view_layout;
+    @Bind(R.id.comment_layout)
+    LinearLayout comment_layout;
+
     String comment;//评论内容
     String beReplyUserId = "";
-    RelativeLayout details_parent_layout;
+    String beReplyUserName = "";
+    RelativeLayout.LayoutParams layoutParams ;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_video_details);
-        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
-        initData();
-        initView();
-        if (!videolistEntity.getCategory().equals("image"))
-            initVideo();
-        toobar.setTitle(videolistEntity.getVideoTitle());
-
+    public int getLayout() {
+        return R.layout.activity_video_details;
     }
 
+    @Override
     public void initData() {
         Intent intent = this.getIntent();
-        videolistEntity = (VideoEntity.VideolistEntity) intent.getSerializableExtra("VideoEntity");
+        videolistEntity = (VideoEntity) intent.getSerializableExtra("VideoEntity");
         videoLocation = videolistEntity.getVideoLocation();
         videoID = Integer.parseInt(videolistEntity.getVideoId());
         videoURL = Constant.BaseVideoPlayUrl + videoLocation;
-        mPresenter = new VideoDetailPresenter(this);
 //        mPresenter.getVideoDetail(videoID);
-        mPresenter.getComment(videoID, currentPage, false);
+        mPresenter.getCommentList(videoID, false);
 
         Logger.i("videoLocation: " + videoLocation);
     }
 
-    public void initView() {
-        toobar = (Toolbar) findViewById(R.id.toolbar);
-        PlayVideoView = (JjVideoView) findViewById(R.id.video);
-        mLoadBufferView = findViewById(R.id.sdk_load_layout);
-        mLoadView = findViewById(R.id.sdk_ijk_progress_bar_layout);
-        mLoadBufferTextView = (TextView) findViewById(R.id.sdk_sdk_ijk_load_buffer_text);
-        mLoadText = (TextView) findViewById(R.id.sdk_ijk_progress_bar_text);
-        mJjVideoRelativeLayout = (JjVideoRelativeLayout) findViewById(R.id.jjlayout);
-        details_parent_layout = (RelativeLayout) findViewById(R.id.details_parent_layout);
+    @Override
+    public void initPresenter() {
+        super.initPresenter();
+        mPresenter = new VideoDetailPresenter(this, this);
+
+    }
+
+    @Override
+    public void initView(View view) {
+        super.initView(view);
+        if (videolistEntity.getCategory().equals("image")) {
+            image.setVisibility(View.VISIBLE);
+            Glide.with(this).load(Constant.BaseVideoPlayUrl + videolistEntity.getVideoLocation()).centerCrop().into(image);
+//            Glide.with(this).load( ImageFromFileCache.base64ToBitmap(videolistEntity.getAvatarLocation())).into(image);
+
+            mJjVideoRelativeLayout.setVisibility(View.GONE);
+        } else {
+            initVideo();
+            mJjVideoRelativeLayout.setVisibility(View.VISIBLE);
+            image.setVisibility(View.GONE);
+            PlayVideoView.setResourceVideo(videoURL);
+        }
+        Glide.with(this).load(ImageFromFileCache.base64ToBitmap(videolistEntity.getAvatarLocation())).centerCrop().into(image_head);
+        toolbar_title.setText(videolistEntity.getVideoTitle());
+        tv_count.setText(videolistEntity.getVideoViewNumber());
+        tv_username.setText(videolistEntity.getUserName());
 
         mVideoDetailAdapter = new VideoDetailAdapter(this, mCommentEntity, videolistEntity);
-        recyclerView = (RecyclerView) findViewById(R.id.rv_videoDetail);
-        image = (ImageView) findViewById(R.id.image);
         layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        detail_handLayout = (RelativeLayout) findViewById(R.id.detail_handLayout);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(mVideoDetailAdapter);
-        tv_username = (TextView) findViewById(R.id.tv_username);
-        tv_count = (TextView) findViewById(R.id.tv_PlayCount);
-        tv_count.setText(videolistEntity.getVideoViewNumber());
-        tv_username.setText(videolistEntity.getUserId());
         btn_send = (Button) findViewById(R.id.btn_send);
         edit_ping = (EditText) findViewById(R.id.edit_ping);
         mVideoDetailAdapter.setClickItem(this);
+
         initSwipeLayout();
-        showRefresh();
-        edit_ping.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    // 此处为得到焦点时的处理内容
-                } else {
-                    beReplyUserId = "";
-                    edit_ping.setText(null);
-                    // 此处为失去焦点时的处理内容
-                }
-            }
-        });
+        lostEditFocus();
+
         btn_send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 comment = edit_ping.getText().toString();
                 if (edit_ping.getText().toString().length() > 3) {
-                    mPresenter.saveComment("abcdefghijklmn", comment, "7000001", String.valueOf(videoID), beReplyUserId);
+                    mPresenter.saveComment("abcdefghijklmn", comment, "7000001", String.valueOf(videoID), beReplyUserId, beReplyUserName);
                     Logger.i("beReplyUserId=" + beReplyUserId);
                 }
-                KeyBoardUtils.closeKeybord(edit_ping, VideoDetails_Activiey.this);
-
+                lostEditFocus();
+            }
+        });
+        edit_ping.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getEditTextFocus();
+            }
+        });
+        Screen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                lostEditFocus();
             }
         });
     }
 
-    @Override
-    public boolean dispatchTouchEvent(MotionEvent ev) {
-        if (ev.getAction() == MotionEvent.ACTION_DOWN) {
-            View v = getCurrentFocus();
-            if (isShouldHideInput(v, ev)) {
-                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                if (imm != null) {
-                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
-                    edit_ping.setHint(getString(R.string.comment_hint));
-//                    beReplyUserId = "";
-                }
-            }
-            return super.dispatchTouchEvent(ev);
-        }
-        // 必不可少，否则所有的组件都不会有TouchEvent了
-        if (getWindow().superDispatchTouchEvent(ev)) {
-            return true;
-        }
-        return onTouchEvent(ev);
+    void getEditTextFocus() {
+        Screen.setVisibility(View.VISIBLE);
+        KeyBoardUtils.openKeybord(edit_ping, VideoDetails_Activiey.this);
+        edit_ping.setFocusable(true);
+        edit_ping.setFocusableInTouchMode(true);
+        edit_ping.requestFocus();
     }
 
-    public boolean isShouldHideInput(View v, MotionEvent event) {
-        if (v != null && (v instanceof EditText)) {
-            int[] leftTop = {0, 0};
-            //获取输入框当前的location位置
-            v.getLocationInWindow(leftTop);
-            int left = leftTop[0];
-            int top = leftTop[1];
-            int bottom = top + v.getHeight();
-            int right = left + v.getWidth();
-            if (event.getRawX() > left && event.getRawX() < right
-                    && event.getRawY() > top && event.getRawY() < bottom) {
-                // 点击的是输入框区域，保留点击EditText的事件
-                return false;
-            } else {
-                return true;
-            }
-        }
-        return false;
+    void lostEditFocus() {
+        Screen.setVisibility(View.GONE);
+        edit_ping.clearFocus();
+        edit_ping.setFocusable(false);
+        edit_ping.setHint("说点什么吧....");
+        beReplyUserId = "";
+        beReplyUserName = "";
+        KeyBoardUtils.closeKeybord(edit_ping, VideoDetails_Activiey.this);
     }
 
     /**
      * 初始化播放器
      */
     public void initVideo() {
+        layoutParams = (RelativeLayout.LayoutParams) video_view_layout.getLayoutParams();
+        layoutParams.height = (int) (ScreenUtils.getScreenWidth(this) * 0.5625);
+        video_view_layout.setLayoutParams(layoutParams);
 
         PlayVideoView.setOnJjOutsideLinkClickListener(new OnJjOutsideLinkClickListener() {
 
@@ -216,6 +218,7 @@ public class VideoDetails_Activiey extends BaseActivity implements VideoDetailCo
 
             }
         });
+
         PlayVideoView.setMediaBufferingView(mLoadBufferView);
         PlayVideoView.setOnJjOpenStart(new OnJjOpenStartListener() {
 
@@ -272,31 +275,31 @@ public class VideoDetails_Activiey extends BaseActivity implements VideoDetailCo
 
         mJjVideoRelativeLayout.setJjToFront(details_parent_layout);// 设置此方法
         PlayVideoView.setMediaController(new UsetMediaContoller(this));
-
     }
+
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         if (detail_handLayout.getVisibility() == View.GONE) {
             detail_handLayout.setVisibility(View.VISIBLE);
-        } else
+            comment_layout.setVisibility(View.VISIBLE);
+            mSwipeRefreshLayout.setVisibility(View.VISIBLE);
+            toobar.setVisibility(View.VISIBLE);
+            layoutParams.height = (int) (ScreenUtils.getScreenWidth(this) * 0.5625);
+        } else {
             detail_handLayout.setVisibility(View.GONE);
+            comment_layout.setVisibility(View.GONE);
+            mSwipeRefreshLayout.setVisibility(View.GONE);
+            toobar.setVisibility(View.GONE);
+            layoutParams.height = (ScreenUtils.getScreenHeight(this));
+        }
+        video_view_layout.setLayoutParams(layoutParams);
 
     }
 
     private void initSwipeLayout() {
-        mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary, R.color.colorPrimaryDark, R.color.colorAccent);
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                currentPage = 1;
-                showRefresh();
-                mHasMoreData = true;
-                mPresenter.getComment(videoID, currentPage, false);
-                Logger.i("onRefresh: 下拉刷新");
-            }
-        });
+
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
@@ -304,83 +307,31 @@ public class VideoDetails_Activiey extends BaseActivity implements VideoDetailCo
                 boolean isBottom =
                         layoutManager.findLastCompletelyVisibleItemPosition() >= mVideoDetailAdapter.getItemCount() - 1;
                 if (!mSwipeRefreshLayout.isRefreshing() && isBottom && mHasMoreData) {
-                    Logger.i("onScrolled: 上滑" + "page=" + currentPage);
-                    mPresenter.getComment(videoID, currentPage, true);
+                    mPresenter.getCommentList(videoID, true);
                     showRefresh();
                 }
             }
         });
     }
 
-    /**
-     * 隐藏刷新动画
-     */
-    public void hideRefresh() {
-        // 防止刷新消失太快，让子弹飞一会儿. do not use lambda!!
-        mSwipeRefreshLayout.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (mSwipeRefreshLayout != null) {
-                    mSwipeRefreshLayout.setRefreshing(false);
-                }
-            }
-        }, 1000);
-    }
-
-    /**
-     * 显示刷新动画
-     */
-    public void showRefresh() {
-        mSwipeRefreshLayout.setRefreshing(true);
-    }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        if (videolistEntity.getCategory().equals("")) {
-            image.setVisibility(View.VISIBLE);
-            Glide.with(this).load(Constant.BaseVideoPlayUrl + videolistEntity.getVideoLocation()).
-                    override(ScreenUtils.getScreenWidth(this), ScreenUtils.getScreenHeight(this) / 3).centerCrop().into(image);
-//            Glide.with(this).load( ImageFromFileCache.base64ToBitmap(videolistEntity.getAvatarLocation())).into(image);
-
-            mJjVideoRelativeLayout.setVisibility(View.GONE);
-        } else {
-            mJjVideoRelativeLayout.setVisibility(View.VISIBLE);
-            image.setVisibility(View.GONE);
-            PlayVideoView.setResourceVideo(videoURL);
-
-        }
+    public void fillData(ArrayList<CommentEntity> data) {
+        mCommentEntity.clear();
+        mVideoDetailAdapter.updateWithClear(data);
 
     }
 
     @Override
-    public void fillData(VideoDetailEntity entity) {
-        Logger.i("getVideoReleaseAddress=" + entity.getData().getVideoReleaseAddress());
-
-    }
-
-    @Override
-    public void fillCommentData(CommentEntity entity) {
-        currentPage++;
-
-        if (currentPage == 1) {
-            mCommentEntity.clear();
-        }
-        mVideoDetailAdapter.updateWithClear(entity.getData());
-
+    public void appendMoreDataToView(ArrayList<CommentEntity> data) {
+        mVideoDetailAdapter.update(data);
     }
 
     @Override
     public void hasNoMoreData() {
         mHasMoreData = false;
-
     }
 
-    @Override
-    public void appendMoreDataToView(CommentEntity entity) {
-        int i = currentPage++;
-        mVideoDetailAdapter.update(entity.getData());
-    }
 
     @Override
     public void getDataFinish() {
@@ -388,47 +339,77 @@ public class VideoDetails_Activiey extends BaseActivity implements VideoDetailCo
     }
 
     @Override
-    public void saveCommentFinish() {
-        currentPage = 1;
-        showRefresh();
+    protected void onRefreshStarted() {
+        Logger.i("刷新请求数据");
+        mPresenter.resetCurrentPage();
         mHasMoreData = true;
-        mPresenter.getComment(videoID, currentPage, false);
+        mPresenter.getCommentList(videoID, false);
+
+    }
+
+    @Override
+    public void saveCommentSucceed() {
+        showRefresh();
+        mPresenter.resetCurrentPage();
+        mHasMoreData = true;
+        mPresenter.getCommentList(videoID, false);
         edit_ping.setText(null);
         edit_ping.clearFocus();
         edit_ping.setHint(getString(R.string.comment_hint));
     }
 
     @Override
-    public void saveCommentFill(Throwable e) {
-        Logger.i("错误=" + e);
+    public void saveCommentFail() {
 
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public void destroy() {
+        super.destroy();
         if (PlayVideoView != null)
             PlayVideoView.onDestroy();
     }
 
+
     @Override
-    public void onClick_comment(CommentEntity.DataBean commentEntity) {
+    public void onClick_comment(CommentEntity commentEntity) {
         edit_ping.setHint(getString(R.string.reply) + commentEntity.getUserName());
         beReplyUserId = String.valueOf(commentEntity.getCmUserId());
+        beReplyUserName = String.valueOf(commentEntity.getUserName());
         Logger.i("beReplyUserId99=" + beReplyUserId);
-
-        KeyBoardUtils.openKeybord(edit_ping, this);
+        getEditTextFocus();
     }
 
     @Override
-    public void onClick_header(CommentEntity.DataBean commentEntity) {
+    public void onClick_header(CommentEntity commentEntity) {
         Intent intent = new Intent(VideoDetails_Activiey.this, PersionHome_Activity.class);
         Logger.i("getCmUserId" + commentEntity.getCmUserId());
 
         intent.putExtra("userID", commentEntity.getCmUserId());
         intent.putExtra("userName", commentEntity.getUserName());
         startActivity(intent);
+    }
+
+    @Override
+    public void onClick_CommentLink(CommentEntity commentEntity) {
 
     }
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if (this.getRequestedOrientation() != ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE) {
+                finish();
+            } else {
+                this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);// 设置为竖屏
+            }
+        }
+        return true;
+    }
+
 }
 

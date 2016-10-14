@@ -2,19 +2,27 @@ package com_t.macvision.mv_078.util;/**
  * Created by bzmoop on 2016/8/19 0019.
  */
 
+import android.app.Activity;
+import android.content.DialogInterface;
 import android.util.Log;
 
-import com_t.macvision.mv_078.Constant;
+import cn.pedant.SweetAlert.SweetAlertDialog;
+import com_t.macvision.mv_078.core.Constant;
 
 import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.callback.Callback;
+import com.zhy.http.okhttp.callback.FileCallBack;
 import com.zhy.http.okhttp.callback.StringCallback;
 
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
+import com_t.macvision.mv_078.core.MainActivity;
+import com_t.macvision.mv_078.ui.Upload.UploadActivity;
 import okhttp3.Call;
 import okhttp3.Request;
+import okhttp3.Response;
 
 /**
  * 作者：LiangXiong on 2016/8/19 0019 13:44
@@ -24,6 +32,7 @@ import okhttp3.Request;
 public class UploadUtil {
     private static final String TAG = "UploadUtil";
     UploadStatu mUploadStatus;
+
     public class MyStringCallback extends StringCallback {
         @Override
         public void onBefore(Request request, int id) {
@@ -69,9 +78,13 @@ public class UploadUtil {
         }
     }
 
-    public void uploadFile(File file, HashMap<String, String> map, String url) {
-        Log.i(TAG, (map.get(Constant.userId) == "") + "-" + Constant.userId + "-" + map.get(Constant.videoTitle) + "---" + map.get(Constant.videoReleaseAddress) + "====" + map.get(Constant.userId) + "======" + (map.get(Constant.userId) == ""));
+    public void uploadFile(File file, HashMap<String, String> map, String url, Activity context) {
 
+        SweetAlertDialog wattingDialog = new SweetAlertDialog(context, SweetAlertDialog.PROGRESS_TYPE)
+                .setTitleText("正在上传中");
+        wattingDialog.show();
+
+        Log.i(TAG, (map.get(Constant.userId) == "") + "-" + Constant.userId + "-" + map.get(Constant.videoTitle) + "---" + map.get(Constant.videoReleaseAddress) + "====" + map.get(Constant.userId) + "======" + (map.get(Constant.userId) == ""));
         if (map.get(Constant.userId) == "" || map.get(Constant.userId) == null) {
             map.put(Constant.userId, "7000001");
             Log.i(TAG, "uploadFile: userID为空，上传失败");
@@ -88,7 +101,7 @@ public class UploadUtil {
         if (map.get(Constant.videoType) == "" || map.get(Constant.videoType) == null)
             map.put(Constant.videoType, "1");
 
-            map.put("token","abcdefghijklmn");
+        map.put("token", "abcdefghijklmn");
         if (!file.exists()) {
             //文件不存在
             Log.i(TAG, "uploadFile: 文件不存在");
@@ -104,16 +117,55 @@ public class UploadUtil {
                 .params(map)//
                 .headers(headers)//
                 .build()//
-                .execute(new MyStringCallback());
+                .execute(new StringCallback() {
+
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+
+                    }
+
+                    @Override
+                    public void onResponse(String response, int id) {
+
+                    }
+
+                    @Override
+                    public void inProgress(float progress, long total, int id) {
+                        super.inProgress(progress, total, id);
+                        Log.e(TAG, "inProgress:" + progress);
+                        if ((int) (100 * progress) == 100) {
+                            wattingDialog.setTitleText("上传完成!")
+                                    .setConfirmText("确定")
+                                    .changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
+                            wattingDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                                @Override
+                                public void onCancel(DialogInterface dialog) {
+                                    context.finish();
+                                }
+                            });
+                        }
+                    }
+                });
     }
 
     interface UploadStatu {
         void UploadStart();
-        /**上传成功**/
+
+        /**
+         * 上传成功
+         **/
         void UploadSucceed();
-        /**上传失败**/
+
+        /**
+         * 上传失败
+         **/
         void UploadFail(Exception e);
-        /**上传进度**/
+
+        /**
+         * 上传进度
+         **/
         void UploadProgress(float progress, long total, int id);
     }
+
+
 }

@@ -3,6 +3,7 @@ package com_t.macvision.mv_078.ui.adapter;/**
  */
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,9 +12,11 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.macvision.mv_078.R;
 import com.orhanobut.logger.Logger;
 
+import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
 
@@ -23,6 +26,10 @@ import com_t.macvision.mv_078.model.entity.CommentEntity;
 import com_t.macvision.mv_078.model.entity.VideoEntity;
 import com_t.macvision.mv_078.ui.VideoList.FragmentMenu1;
 import com_t.macvision.mv_078.util.CircleImageView;
+import com_t.macvision.mv_078.util.DateUtil;
+import com_t.macvision.mv_078.util.ImageFromFileCache;
+import com_t.macvision.mv_078.util.link_builder.Link;
+import com_t.macvision.mv_078.util.link_builder.LinkBuilder;
 
 /**
  * 作者：LiangXiong on 2016/8/16 0016 13:54
@@ -31,27 +38,27 @@ import com_t.macvision.mv_078.util.CircleImageView;
  */
 public class VideoDetailAdapter extends RecyclerView.Adapter<VideoDetailAdapter.ViewHolderItem> {
     private Map<String, List> map;
-    List<CommentEntity.DataBean> mCommentEntity;
-    VideoEntity.VideolistEntity mVideoList;
+    List<CommentEntity> mCommentEntity;
+    VideoEntity mVideoList;
     public static ItemOnclick mItemOnclick;
 
     private Context context;
     int viewType;
     public static int position;
 
-    public VideoDetailAdapter(Context context, List<CommentEntity.DataBean> mCommentEntity, VideoEntity.VideolistEntity mVideoList) {
+    public VideoDetailAdapter(Context context, List<CommentEntity> mCommentEntity, VideoEntity mVideoList) {
         this.mCommentEntity = mCommentEntity;
         this.context = context;
         this.mVideoList = mVideoList;
     }
 
-    public void update(List<CommentEntity.DataBean> data) {
+    public void update(List<CommentEntity> data) {
         mCommentEntity.addAll(data);
         Logger.i("列表现有: " + mCommentEntity.size() + "条");
         notifyDataSetChanged();
     }
 
-    public void updateWithClear(List<CommentEntity.DataBean> data) {
+    public void updateWithClear(List<CommentEntity> data) {
         mCommentEntity.clear();
         update(data);
     }
@@ -96,7 +103,7 @@ public class VideoDetailAdapter extends RecyclerView.Adapter<VideoDetailAdapter.
             super(itemView);
         }
 
-        abstract void bindItem(Context context, CommentEntity.DataBean commentEntity, VideoEntity.VideolistEntity mVideoList);
+        abstract void bindItem(Context context, CommentEntity commentEntity, VideoEntity mVideoList);
     }
 
     static class ViewHolderItemDetailHead extends ViewHolderItem {
@@ -122,15 +129,14 @@ public class VideoDetailAdapter extends RecyclerView.Adapter<VideoDetailAdapter.
         }
 
         @Override
-        void bindItem(Context context, CommentEntity.DataBean commentEntity, VideoEntity.VideolistEntity mVideoList) {
+        void bindItem(Context context, CommentEntity commentEntity, VideoEntity mVideoList) {
             ButterKnife.bind(this, itemView);
 
             tv_pingCount.setText(mVideoList.getVideoCommentNumber());
             tv_zanCount.setText(mVideoList.getVideoLikesNumber());
             tv_videoState.setText(mVideoList.getVideoCaption());
-            tv_pingCount2.setText(mVideoList.getVideoCommentNumber());
-            tv_type.setText("#" + FragmentMenu1.entity.getData().get(Integer.parseInt(mVideoList.getVideoType()) - 1).getVTypeName());
-//            tv_type.setText(mVideoList.getVideoType());
+            tv_pingCount2.setText("全部"+mVideoList.getVideoCommentNumber()+"条评论");
+            tv_type.setText("#" + FragmentMenu1.entity.getData().get(Integer.parseInt(mVideoList.getVideoType())-2).getVTypeName());
         }
     }
 
@@ -145,21 +151,42 @@ public class VideoDetailAdapter extends RecyclerView.Adapter<VideoDetailAdapter.
         TextView tv_comment_time;
         @Bind(R.id.comment_layout)
         LinearLayout comment_layout;
-
+        Link link;
         public ViewHolderItemComment(View itemView) {
-
             super(itemView);
             ButterKnife.bind(this, itemView);
-        }
 
+        }
         @Override
-        void bindItem(Context context, CommentEntity.DataBean commentEntity, VideoEntity.VideolistEntity mVideoList) {
+        void bindItem(Context context, CommentEntity commentEntity, VideoEntity mVideoList) {
             if (commentEntity.getBeReplyUserId() != 0) {
-                tv_comment.setText(commentEntity.getBeReplyUserName() + "-回复-" + commentEntity.getCmContent());
+
+                tv_comment.setText("回复 " + commentEntity.getBeReplyUserName() + ":" + commentEntity.getCmContent());
+                link = new Link(commentEntity.getBeReplyUserName());
+                link.setTextColor(Color.parseColor("#006EB4"));
+                link.setUnderlined(false);
+                LinkBuilder.on(tv_comment)
+                        .addLink(link)
+                        .build();
+                link.setOnClickListener(new Link.OnClickListener() {
+                    @Override
+                    public void onClick(String clickedText) {
+                        mItemOnclick.onClick_CommentLink(commentEntity);
+                    }
+                });
+
             } else
                 tv_comment.setText(commentEntity.getCmContent());
+
             tv_name.setText(commentEntity.getUserName());
-            tv_comment_time.setText(commentEntity.getCmCreateTime());
+
+            try {
+                tv_comment_time.setText(DateUtil.formatFriendly(DateUtil.stringFmort(commentEntity.getCmCreateTime())));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            Glide.with(context).load(ImageFromFileCache.base64ToBitmap(commentEntity.getAvatarLocation())).centerCrop().into(image_comment_head);
+
 
             comment_layout.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -182,8 +209,10 @@ public class VideoDetailAdapter extends RecyclerView.Adapter<VideoDetailAdapter.
     }
 
     public interface ItemOnclick {
-        void onClick_comment(CommentEntity.DataBean commentEntity);
+        void onClick_comment(CommentEntity commentEntity);
 
-        void onClick_header(CommentEntity.DataBean commentEntity);
+        void onClick_header(CommentEntity commentEntity);
+
+        void onClick_CommentLink(CommentEntity commentEntity);
     }
 }

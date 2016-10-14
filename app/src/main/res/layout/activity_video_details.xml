@@ -5,7 +5,12 @@
     android:layout_height="match_parent"
     android:background="@color/theme_fragment_bgColor"
     android:orientation="vertical">
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
     <LinearLayout
+        android:id="@+id/comment_layout"
         android:layout_width="match_parent"
         android:layout_height="44dp"
         android:layout_alignParentBottom="true"
@@ -97,7 +102,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/player_window">
 
-
         <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/swipe_refresh_layout"
             android:layout_width="match_parent"
@@ -113,5 +117,13 @@
 
 
     </FrameLayout>
-
+</RelativeLayout>
+    <LinearLayout
+        android:id="@+id/Screen"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#490e0e0e"
+        android:layout_marginBottom="44dp"
+        android:orientation="vertical"
+        android:visibility="gone"></LinearLayout>
 </RelativeLayout>

@@ -354,7 +354,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name cn.com.video.venvy:VideoJjAppKay
         */
-        public static final int VideoJjCofInfo_VideoJjAppKay = 0;
+        public static int VideoJjCofInfo_VideoJjAppKay = 0;
         /**
           <p>This symbol is the offset where the {@link cn.com.video.venvy.R.attr#VideoJjPageName}
           attribute's value can be found in the {@link #VideoJjCofInfo} array.
@@ -368,6 +368,6 @@ theme attribute (in the form
 containing a value of this type.
           @attr name cn.com.video.venvy:VideoJjPageName
         */
-        public static final int VideoJjCofInfo_VideoJjPageName = 1;
+        public static int VideoJjCofInfo_VideoJjPageName = 1;
     };
 }

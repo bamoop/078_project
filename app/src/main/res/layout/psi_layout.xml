@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -37,6 +37,7 @@
             android:layout_height="16dp"
             android:layout_alignParentRight="true"
             android:src="@mipmap/air_quality_3" />
+
         <TextView
             android:id="@+id/tv_AQI"
             android:layout_width="wrap_content"
@@ -67,122 +68,124 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:gravity="center"
-            android:text="车轮概况"
-            />
+            android:text="车轮概况" />
+
         <ImageView
+            android:layout_width="113dp"
+            android:layout_height="188dp"
             android:layout_below="@id/title_psi"
-            android:layout_width="130dp"
-            android:layout_height="155dp"
-            android:background="@mipmap/psi_bg"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
-            />
+            android:background="@mipmap/psi_car" />
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_centerVertical="true"
-            >
-        <LinearLayout
-            android:id="@+id/layout_leftFront"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:layout_marginBottom="52dp"
-            >
+            android:layout_marginTop="57dp"
+            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tv_psi_leftFront_title"
+            <LinearLayout
+                android:id="@+id/layout_leftFront"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="左前" />
+                android:layout_marginBottom="52dp"
+                android:gravity="center_vertical">
 
-            <TextView
-                android:id="@+id/tv_psi_leftFront"
+                <TextView
+                    android:id="@+id/tv_psi_leftFront_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="左前" />
+
+                <TextView
+                    android:id="@+id/tv_psi_leftFront"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="2.1"
+                    android:textColor="#FF7505"
+                    android:textSize="24sp" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:text="2.1"
-                android:textColor="@color/red"
-                android:textSize="24sp" />
+                android:layout_below="@id/layout_leftFront"
+                android:layout_marginTop="20dp"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/tv_psi_leftBack_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="左后" />
+
+                <TextView
+                    android:id="@+id/tv_psi_leftBack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="2.1"
+                    android:textColor="#FF7505"
+                    android:textSize="24sp" />
+            </LinearLayout>
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/layout_leftFront"
-            android:gravity="center"
-
-            >
-            <TextView
-                android:id="@+id/tv_psi_leftBack_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="左后" />
-
-            <TextView
-                android:id="@+id/tv_psi_leftBack"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:text="2.1"
-                android:textColor="@color/red"
-                android:textSize="24sp" />
-        </LinearLayout>
-</LinearLayout>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true">
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:gravity="center_vertical"
-            android:layout_marginBottom="52dp">
+            android:layout_marginTop="57dp"
+            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tv_psi_rightFront"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="2.1"
-                android:textColor="@color/red"
-                android:textSize="24sp" />
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="52dp"
+                android:gravity="center_vertical">
 
-            <TextView
-                android:id="@+id/tv_psi_rightFront_title"
+                <TextView
+                    android:id="@+id/tv_psi_rightFront"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2.1"
+                    android:textColor="#FF7505"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/tv_psi_rightFront_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="右前" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:text="右前" />
-        </LinearLayout>
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="20dp"
+                android:gravity="center_vertical">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:gravity="center_vertical">
+                <TextView
+                    android:id="@+id/tv_psi_rightBack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2.1"
+                    android:textColor="#FF7505"
+                    android:textSize="24sp" />
 
-            <TextView
-                android:id="@+id/tv_psi_rightBack"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="2.1"
-                android:textColor="@color/red"
-                android:textSize="24sp" />
-
-            <TextView
-                android:id="@+id/tv_psi_rightBack_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:text="右后" />
+                <TextView
+                    android:id="@+id/tv_psi_rightBack_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="右后" />
 
 
-        </LinearLayout>
+            </LinearLayout>
         </LinearLayout>
     </RelativeLayout>
 

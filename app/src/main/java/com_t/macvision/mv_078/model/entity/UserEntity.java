@@ -2,61 +2,28 @@ package com_t.macvision.mv_078.model.entity;/**
  * Created by bzmoop on 2016/8/26 0026.
  */
 
+import com_t.macvision.mv_078.base.BaseModel;
+
 /**
  * 作者：LiangXiong on 2016/8/26 0026 14:17
  * 邮箱：liangxiong.sz@foxmail.com
  * QQ  ：294894105
  */
-public class UserEntity {
+public class UserEntity extends BaseModel {
 
-    /**
-     * errno : 0
-     * msg : ok
-     * data : {"userId":7000001,"userName":"user_01","phone":"13111111111","fansNumber":0,"followNumber":0,"vReleaseNumber":0,"avatarLocation":"upload/avatar/tx01.jpg","userAutograph":"个性签名撒币","userCreateTime":1472181457000,"userToken":"abcdefghijklmn"}
-     */
-
-    private String errno;
-    private String msg;
     /**
      * userId : 7000001
      * userName : user_01
      * phone : 13111111111
      * fansNumber : 0
      * followNumber : 0
-     * vReleaseNumber : 0
-     * avatarLocation : upload/avatar/tx01.jpg
+     * vReleaseNumber : 1
+     * avatarLocation : 6464646464646
      * userAutograph : 个性签名撒币
-     * userCreateTime : 1472181457000
+     * userCreateTime : 1473164350000
      * userToken : abcdefghijklmn
      */
 
-    private DataBean data;
-
-    public String getErrno() {
-        return errno;
-    }
-
-    public void setErrno(String errno) {
-        this.errno = errno;
-    }
-
-    public String getMsg() {
-        return msg;
-    }
-
-    public void setMsg(String msg) {
-        this.msg = msg;
-    }
-
-    public DataBean getData() {
-        return data;
-    }
-
-    public void setData(DataBean data) {
-        this.data = data;
-    }
-
-    public static class DataBean {
         private String userId;
         private String userName;
         private String phone;
@@ -147,5 +114,4 @@ public class UserEntity {
         public void setUserToken(String userToken) {
             this.userToken = userToken;
         }
-    }
 }

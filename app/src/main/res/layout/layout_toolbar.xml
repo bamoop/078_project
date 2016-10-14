@@ -7,10 +7,17 @@
     android:layout_marginBottom="10dp"
     android:background="@color/bg_toolbar"
     android:minHeight="?attr/actionBarSize"
+    android:titleTextColor="@color/bg_toolbar"
     app:layout_scrollFlags="scroll|enterAlways"
-    app:theme="@style/ToolbarColoredBackArrow"
-    app:titleTextColor="@color/textWhite">
-
-
-
+    app:theme="@style/ToolbarColoredBackArrow">
+    <TextView
+        android:id="@+id/toolbar_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:singleLine="true"
+        android:textColor="@color/white"
+        android:text="标题"
+        android:textSize="18sp"
+        android:textStyle="bold"/>
 </android.support.v7.widget.Toolbar>

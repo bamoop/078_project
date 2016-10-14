@@ -1,59 +1,51 @@
-package com_t.macvision.mv_078.presenter;/**
- * Created by bzmoop on 2016/8/26 0026.
- */
+package com_t.macvision.mv_078.presenter;
 
-import android.text.TextUtils;
-import android.util.Log;
-
+import android.app.Activity;
 import com.orhanobut.logger.Logger;
-
+import com_t.macvision.mv_078.core.RxResultHelper;
+import com_t.macvision.mv_078.core.RxRetrofitCache;
+import com_t.macvision.mv_078.core.RxSubscribe;
 import com_t.macvision.mv_078.model.entity.UserEntity;
-import com_t.macvision.mv_078.model.entity.VideoEntity;
-import com_t.macvision.mv_078.model.impl.BusinessTask;
-import com_t.macvision.mv_078.ui.person_main.PersonHomeContract;
-import com_t.macvision.mv_078.util.GsonUtil;
-import rx.Subscriber;
+import com_t.macvision.mv_078.base.BasePresonter;
+import com_t.macvision.mv_078.ui.View.PersonHomeView;
+import rx.Observable;
 
 /**
  * 作者：LiangXiong on 2016/8/26 0026 10:46
  * 邮箱：liangxiong.sz@foxmail.com
  * QQ  ：294894105
  */
-public class PersonHomePresenter implements PersonHomeContract.Presenter {
-    private PersonHomeContract.View mView;
-    private BusinessTask mTask;
+public class PersonHomePresenter extends BasePresonter<PersonHomeView> {
+    private static final String TAG = "PersonHomePresenter";
 
-    public PersonHomePresenter(PersonHomeContract.View view) {
-        this.mView = view;
-        mTask = new BusinessTask();
+    public PersonHomePresenter(Activity context, PersonHomeView mFileView) {
+        super(context, mFileView);
     }
 
-    @Override
     public void getData(int userId) {
         getPersonHomeData(userId);
     }
 
     private void getPersonHomeData(int userId) {
-        mTask.getPersonHome(new Subscriber<String>() {
-            @Override
-            public void onCompleted() {
+        Observable<UserEntity> fromNetwrok = mZH.userDetail(userId).
+                compose(RxResultHelper.handleServerResult());
 
-            }
+        RxRetrofitCache.load(mContext, "cacheKey_user", 10 * 60 * 60, fromNetwrok, false)
+                .subscribe(new RxSubscribe<UserEntity>(mContext, "正在加载中..") {
 
-            @Override
-            public void onError(Throwable e) {
-                Logger.i("onError: " + e);
+                               @Override
+                               protected void _onNext(UserEntity userEntities) {
+                                   Logger.i("用户信息"+userEntities.toString());
+                                   mView.fillData(userEntities);
+                                   mView.getDataFinish();
+                               }
 
-            }
+                               @Override
+                               protected void _onError(String message) {
+                                   Logger.i("用户信息请求失败："+message);
 
-            @Override
-            public void onNext(String s) {
-                Logger.i( "onNext: " + s);
-                if (!TextUtils.isEmpty(s)) {
-                    mView.fillData(GsonUtil.changeGsonToBean(s, UserEntity.class));
-                }
-                mView.getDataFinish();
-            }
-        }, userId);
+                               }
+                });
+
     }
 }

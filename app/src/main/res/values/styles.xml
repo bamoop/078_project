@@ -11,8 +11,11 @@
 
     <style name="ToolbarColoredBackArrow" parent="AppTheme">
         <item name="android:textColorSecondary">@color/white</item>
-        <item name="actionMenuTextColor">#ec6060</item>
+        <item name="actionMenuTextColor">@color/white</item>
+        <item name="android:labelTextSize">18sp</item>
+        <item name="android:titleTextColor">@color/bg_toolbar</item>
         <item name="actionMenuTextAppearance">@style/ToolbarMenuTextStyle</item>
+
     </style>
 
     <style name="ToolbarMenuTextStyle">
@@ -20,6 +23,7 @@
     </style>
 
     <style name="AppThemeNoo" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:name">""</item>
         <!-- Customize your theme here. -->
     </style>
     <!--通用-->
@@ -50,6 +54,11 @@
         <item name="android:layout_weight">1</item>
         <item name="android:textColor">@color/bottom_tab_text_bg</item>
         <item name="android:gravity">center</item>
+    </style>
+    <style name="cut_off_rule">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">@color/theme_fragment_bgColor</item>
     </style>
 
     <style name="person_count_layout_title">
@@ -98,5 +107,9 @@
         <item name="android:textSize">14sp</item>
         <item name="android:background">@color/white</item>
     </style>
-
+    <style name="MyTabLayoutTextAppearanceInverse"
+        parent="TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@android:color/holo_red_light</item>
+    </style>
 </resources>

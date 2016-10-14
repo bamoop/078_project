@@ -1,49 +1,66 @@
-package com_t.macvision.mv_078.ui.Device;/**
- * Created by bzmoop on 2016/8/3 0003.
- */
+package com_t.macvision.mv_078.ui.Device;
 
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.Button;
 import android.widget.RelativeLayout;
 
 import com.macvision.mv_078.R;
-import com_t.macvision.mv_078.base.BaseFragment;
+import com.orhanobut.logger.Logger;
+
 import com_t.macvision.mv_078.core.MainActivity;
 
 import butterknife.Bind;
+import com_t.macvision.mv_078.base.BaseToolbarFragment;
+import com_t.macvision.mv_078.util.SharedPreferencesUtils;
+import com_t.macvision.mv_078.util.WIFIUtil;
 
 /**
  * 作者：LiangXiong on 2016/8/3 0003 19:33
  * 邮箱：liangxiong.sz@foxmail.com
  * QQ  ：294894105
  */
-public class FragmentMenu3 extends BaseFragment {
+public class FragmentMenu3 extends BaseToolbarFragment {
     @Bind(R.id.play_stream)
     RelativeLayout play_stream;
-    @Bind(R.id.toolbar)
-    Toolbar toolbar;
+    private WIFIUtil mWIFIUtil;
+
     @Override
-    protected int getLayout() {
+    public int getLayout() {
         return R.layout.fragment_menu3;
     }
 
-    @Override
-    protected void lazyLoad() {
-
-    }
 
     @Override
-    protected void initView(View view) {
-        toolbar.setTitle("连接记录仪");
+    public void initView(View view) {
+        super.initView(view);
         play_stream.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
-                MainActivity.startActivity(getMyActivity(), bundle, StreamPlayerActivity.class);
+                MainActivity.startActivity(getMyActivity(), bundle, WIFIConnect_Activity.class);
 
             }
         });
+    }
+
+    @Override
+    protected String setTitle() {
+        return "连接记录仪";
+    }
+
+    @Override
+    public void initData() {
+        super.initData();
+        mWIFIUtil = new WIFIUtil(currentContext);
+        int wifiNetId=mWIFIUtil.getNetworkId();
+        Logger.i("getNetworkId=" + wifiNetId);
+        Logger.i("getIPAddress=" + mWIFIUtil.getIPAddress());
+        Logger.i("getWifiInfo=" + mWIFIUtil.getWifiInfo());
+        Logger.i("checkState=" + mWIFIUtil.checkState());
+        if (wifiNetId >= 0)
+            SharedPreferencesUtils.setParam(currentContext, "wifiNetId", wifiNetId);
+        else
+            SharedPreferencesUtils.setParam(currentContext, "wifiNetId", "-1");
+
     }
 }

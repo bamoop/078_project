@@ -6,14 +6,18 @@
     android:orientation="horizontal"
     android:background="@color/white">
 
-    <ImageView
+    <Button
+        android:id="@+id/btn_minVideo"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:background="@color/red"
-        android:layout_marginRight="58dp"/>
+        android:layout_marginRight="58dp"
+        android:background="@mipmap/recorder_video"/>
 
-    <ImageView
+    <Button
+        android:id="@+id/btn_snapshot"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:background="@color/red" />
+        android:background="@mipmap/recorder_capture"
+        />
+
 </LinearLayout>

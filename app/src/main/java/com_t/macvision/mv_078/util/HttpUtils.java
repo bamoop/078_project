@@ -1,8 +1,10 @@
-package com_t.macvision.mv_078.util;/**
+package com_t.macvision.mv_078.util;
+
+/**
  * Created by bzmoop on 2016/8/11 0011.
  */
 
-import com_t.macvision.mv_078.Constant;
+import com_t.macvision.mv_078.core.Constant;
 import com_t.macvision.mv_078.util.scalars.ScalarsConverterFactory;
 
 import retrofit2.Retrofit;

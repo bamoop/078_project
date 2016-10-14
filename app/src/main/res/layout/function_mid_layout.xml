@@ -19,12 +19,14 @@
         android:textSize="@dimen/videoList_Item_tv_count_size"
         android:layout_marginLeft="5dp"/>
 
-    <Button
+    <CheckBox
         android:id="@+id/btn_zan"
         android:layout_width="@dimen/videoList_Item_btn_size"
         android:layout_height="@dimen/videoList_Item_btn_size"
         android:layout_marginLeft="20dp"
-        android:background="@drawable/selector_like" />
+        android:background="@android:color/transparent"
+        android:button="@drawable/selector_like"
+        />
 
     <TextView
         android:id="@+id/tv_zanCount"

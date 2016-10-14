@@ -13,8 +13,8 @@ import com.macvision.mv_078.R;
 
 import com_t.macvision.mv_078.model.entity.TypeEntity;
 import com_t.macvision.mv_078.model.impl.BusinessTask;
-import com_t.macvision.mv_078.ui.adapter.FragmentTableAdapter;
 import com_t.macvision.mv_078.base.BaseFragment;
+import com_t.macvision.mv_078.ui.adapter.FragmentTableAdapter;
 import com_t.macvision.mv_078.util.GsonUtil;
 
 import java.util.ArrayList;
@@ -37,23 +37,30 @@ public class FragmentMenu1 extends BaseFragment {
     ArrayList<Fragment> mFragmentlist = new ArrayList<>();
     FragmentTableAdapter mFragmentTableAdapter;
     public static TypeEntity entity;
-    List<String>mTitle=new ArrayList<>();
+    List<String> mTitle = new ArrayList<>();
 
-    private void initData(List<TypeEntity.DataBean> entityList) {
+    private void initType(List<TypeEntity.DataBean> entityList) {
 
-        for (int i = 0; i < entityList.size(); i++) {
+        Log.i(TAG, "type size: " + entityList.size());
+        for (int i = 0; i < entityList.size() + 2; i++) {
             Bundle bundle = new Bundle();
-            bundle.putInt("type", i +1);
-            mTitle.add(entityList.get(i).getVTypeName());
+            if (i == 0) {
+                mTitle.add("最新");
+            } else if (i == 1) {
+                mTitle.add("精选");
+            } else {
+                mTitle.add(entityList.get(i-2).getVTypeName());
+            }
+            bundle.putInt("type", i );
+
             mFragmentlist.add(FragmentTab1.Tab1Instance(bundle));
         }
         mFragmentTableAdapter.notifyDataSetChanged();
-
     }
 
     @Override
-    public void initView(View view) {
-        getType();
+    public void initData() {
+        super.initData();
         mFragmentTableAdapter = new FragmentTableAdapter(getChildFragmentManager(), mFragmentlist, mTitle);
         mViewPager.setAdapter(mFragmentTableAdapter);
         mTableLayout.setTabGravity(TabLayout.GRAVITY_FILL);
@@ -62,12 +69,14 @@ public class FragmentMenu1 extends BaseFragment {
     }
 
     @Override
-    protected void lazyLoad() {
+    public void initView(View view) {
+        getType();
 
     }
 
+
     @Override
-    protected int getLayout() {
+    public int getLayout() {
         return R.layout.fragment_menu1;
     }
 
@@ -80,15 +89,16 @@ public class FragmentMenu1 extends BaseFragment {
 
             @Override
             public void onError(Throwable e) {
-                Log.i(TAG, "onError: "+e);
+                e.printStackTrace();
+                Log.i(TAG, "onError: " + e);
             }
-
 
             @Override
             public void onNext(String s) {
+
                 if (!TextUtils.isEmpty(s)) {
-                    entity= GsonUtil.changeGsonToBean(s, TypeEntity.class);
-                    initData(entity.getData());
+                    entity = GsonUtil.changeGsonToBean(s, TypeEntity.class);
+                    initType(entity.getData());
                 }
             }
         });

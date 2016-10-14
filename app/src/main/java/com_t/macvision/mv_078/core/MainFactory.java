@@ -6,22 +6,37 @@ package com_t.macvision.mv_078.core;
  * Created by bzmoop on 2016/7/28 0028.
  */
 public class MainFactory {
-    /**
-     * 数据主机地址
-    * */
-    public static final String HOST = "http://192.168.1.123";
-//    public static final String HOST = "http://gank.io/api";
-    private static VideoListService mVideolistService;
+
+    private static ZHService mZHService;
+    private static DeviceService mDVService;
+    private static CloudService mCloudService;
+
     protected static final Object monitor = new Object();
 
-    public static final VideoListService getVideoInstance(){
+    public static final ZHService getZHInstance(){
         synchronized (monitor){
-            if (mVideolistService == null) {
-                mVideolistService = new MainRetrofit().getmService();
+            if (mZHService == null) {
+                mZHService = new MainRetrofit().getmService();
             }
-            return mVideolistService;
+            return mZHService;
         }
     }
 
+    public static final DeviceService getDVInstance(){
+        synchronized (monitor){
+            if (mDVService == null) {
+                mDVService = new MainRetrofit().getmDvService();
+            }
+        }
+        return mDVService;
+    }
+    public static final CloudService getCloudInstance(){
+        synchronized (monitor){
+            if (mCloudService == null) {
+                mCloudService = new MainRetrofit().getCloudService();
+            }
+        }
+        return mCloudService;
+    }
 
 }

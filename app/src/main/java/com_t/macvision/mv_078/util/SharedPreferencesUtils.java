@@ -20,7 +20,7 @@ public class SharedPreferencesUtils {
     /**
      * 保存在手机里面的文件名
      */
-    private static final String FILE_NAME = "share_date";
+    private static final String FILE_NAME = "ZhiHui_date";
 
 
     /**

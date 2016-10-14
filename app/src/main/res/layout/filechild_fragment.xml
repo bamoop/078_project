@@ -4,59 +4,106 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:orientation="vertical">
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:layout_weight="11">
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_filelist"
+
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-</LinearLayout>
+        android:layout_height="0dp"
+        android:layout_weight="10">
+
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_refresh_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/theme_fragment_bgColor">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_filelist"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </android.support.v4.widget.SwipeRefreshLayout>
+    </LinearLayout>
+
     <LinearLayout
         android:id="@+id/file_menu_layout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="2"
         android:gravity="center_vertical|center_horizontal"
-        android:visibility="gone"
-        >
+        android:orientation="horizontal"
+        android:paddingLeft="60dp"
+        android:paddingRight="60dp"
+        android:visibility="gone">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:id="@+id/play_layout"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
             android:orientation="vertical"
             >
+
             <ImageView
-                android:id="@+id/image_save"
+                android:id="@+id/image_play"
                 android:layout_width="44dp"
                 android:layout_height="44dp"
-                android:background="@mipmap/local_file_save"/>
+                android:background="@mipmap/recorder_list_play" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/selectAll"
+                android:layout_marginTop="5dp"
                 android:gravity="center"
-                android:textSize="12sp"
-                android:layout_marginTop="5dp"/>
+                android:text="播放"
+                android:textSize="12sp" />
         </LinearLayout>
+
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
             android:orientation="vertical"
-            android:layout_marginLeft="93dp">
+            >
+
+            <ImageView
+                android:id="@+id/image_download"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:background="@mipmap/recorder_list_download" />
+
+            <TextView
+                android:id="@+id/tv_download"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:text="下载"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            >
+
             <ImageView
                 android:id="@+id/image_delete"
                 android:layout_width="44dp"
                 android:layout_height="44dp"
-                android:background="@mipmap/recorder_list_delete"/>
+                android:background="@mipmap/recorder_list_delete" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/delete"
+                android:layout_marginTop="5dp"
                 android:gravity="center"
-                android:textSize="12sp"
-                android:layout_marginTop="5dp"/>
+                android:text="@string/delete"
+                android:textSize="12sp" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

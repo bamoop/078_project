@@ -5,10 +5,8 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -20,16 +18,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
-import com_t.macvision.mv_078.base.BaseActivity;
+import com_t.macvision.mv_078.base.BaseToolbarActivity;
 import com_t.macvision.mv_078.model.entity.UserEntity;
-import com_t.macvision.mv_078.model.entity.VideoEntity;
 import com_t.macvision.mv_078.presenter.PersonHomePresenter;
+import com_t.macvision.mv_078.ui.View.PersonHomeView;
 import com_t.macvision.mv_078.ui.adapter.FragmentTableAdapter;
 import com_t.macvision.mv_078.util.CircleImageView;
 import com_t.macvision.mv_078.util.ImageFromFileCache;
 
-public class PersionHome_Activity extends BaseActivity implements PersonHomeContract.View {
+public class PersionHome_Activity extends BaseToolbarActivity<PersonHomePresenter> implements PersonHomeView {
     @Bind(R.id.tab_selector)
     TabLayout mTableLayout;
     @Bind(R.id.vp_file)
@@ -51,51 +48,62 @@ public class PersionHome_Activity extends BaseActivity implements PersonHomeCont
     @Bind(R.id.person_parent_layout)
     RelativeLayout person_parent_layout;
     private View mRoot;
-    @Bind(R.id.toolbar)
-    Toolbar mToolbar;
-    //    @Bind(R.id.mStickyNavLayout)
-//    StickyNavLayout mStickyNavLayout;
+    @Bind(R.id.tv_userName)
+    TextView tv_userName;
+    String userName="--";
     public static final String TAG = "PersionHome_Activity";
+
     ArrayList<Fragment> fragmentArrayList = new ArrayList<>();
     FragmentTableAdapter mFragmentTableAdapter;
     List<String> mTitle = new ArrayList<>();
-    private PersonHomePresenter mPresenter;
-    VideoEntity.VideolistEntity videolistEntity;
-    static int userId;
+    public static int userId;
+
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_persion_home);
-        ButterKnife.bind(this);
-        intiData();
-        initView();
+    public int getLayout() {
+        return R.layout.activity_persion_home;
     }
 
-    private void intiData() {
+
+    @Override
+    public void initPresenter() {
+        super.initPresenter();
+        mPresenter = new PersonHomePresenter(this,this);
+    }
+
+    @Override
+    public void initData() {
+        super.initData();
         mTitle.add("动态");
         mTitle.add("视频");
         mTitle.add("照片");
         fragmentArrayList.clear();
         for (int i = 0; i < mTitle.size(); i++) {
             Bundle bundle = new Bundle();
-            fragmentArrayList.add(i, Fragment_Dynamic.DynamicInstance(bundle));
+            fragmentArrayList.add(i, Fragment_Comment.DynamicInstance(bundle));
         }
         Intent intent = this.getIntent();
-        userId = intent.getIntExtra("userId",0);
-        Logger.i("userId="+intent.getIntExtra("userId",0)+"userName="+intent.getStringExtra("userName"));
-        mToolbar.setTitle(intent.getStringExtra("userName"));
-        mPresenter = new PersonHomePresenter(this);
+        userId = intent.getIntExtra("userId", 0);
+        Logger.i("userId=" + intent.getIntExtra("userId", 0) + "userName=" + intent.getStringExtra("userName"));
+        userName=intent.getStringExtra("userName");
+        tv_userName.setText(intent.getStringExtra("userName"));
         mPresenter.getData(userId);
     }
 
-    private void initView() {
-        LinearLayout heard_layout = (LinearLayout) findViewById(R.id.hand_layout);
+    @Override
+    public void initView(View view) {
+        super.initView(view);
         mFragmentTableAdapter = new FragmentTableAdapter(getSupportFragmentManager(), fragmentArrayList, mTitle);
         mViewPager.setAdapter(mFragmentTableAdapter);
         mTableLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         mTableLayout.setupWithViewPager(mViewPager);
-        mViewPager.setOffscreenPageLimit(1);
+        mViewPager.setOffscreenPageLimit(2);
+    }
+
+
+    @Override
+    public void showEmptyView() {
+
     }
 
     @Override
@@ -103,17 +111,19 @@ public class PersionHome_Activity extends BaseActivity implements PersonHomeCont
 
     }
 
-    @Override
-    public void getDataFail() {
 
+    @Override
+    public void fillData(UserEntity entitys) {
+        tv_vReleaseNumber.setText(entitys.getVReleaseNumber());
+        tv_followNumber.setText(entitys.getFollowNumber());
+        tv_fansNumber.setText(entitys.getFansNumber());
+        tv_userAutograph.setText(entitys.getUserAutograph());
+        Glide.with(this).load(ImageFromFileCache.base64ToBitmap(entitys.getAvatarLocation())).into(image_hand);
     }
 
     @Override
-    public void fillData(UserEntity entity) {
-        tv_vReleaseNumber.setText(entity.getData().getVReleaseNumber());
-        tv_followNumber.setText(entity.getData().getFollowNumber());
-        tv_fansNumber.setText(entity.getData().getFansNumber());
-        tv_userAutograph.setText(entity.getData().getUserAutograph());
-        Glide.with(this).load(ImageFromFileCache.base64ToBitmap(entity.getData().getAvatarLocation())).into(image_hand);
+    protected String setTitle() {
+        Logger.i("个人设置标题="+userName);
+        return userName;
     }
 }

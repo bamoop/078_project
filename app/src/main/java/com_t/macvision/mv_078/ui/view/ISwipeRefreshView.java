@@ -1,12 +1,12 @@
-package com_t.macvision.mv_078.ui.view;
+package com_t.macvision.mv_078.ui.View;
 
-import com_t.macvision.mv_078.base.BaseView;
+import com_t.macvision.mv_078.base.IBaseView;
 
 /**
  * ListVie列表刷新
  * Created by bzmoop on 2016/7/29 0029.
  */
-public interface ISwipeRefreshView extends BaseView {
+public interface ISwipeRefreshView extends IBaseView {
     /**
      *加载数据完成
      * */
@@ -18,7 +18,7 @@ public interface ISwipeRefreshView extends BaseView {
     /**
      * 显示错误提示的view
      */
-    void showErrorView(Throwable throwable);
+    void showErrorView(String massage);
     /**
      * 显示刷新
      */

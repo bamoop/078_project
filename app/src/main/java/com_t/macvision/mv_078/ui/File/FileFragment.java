@@ -17,9 +17,10 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.macvision.mv_078.R;
+import com.orhanobut.logger.Logger;
 
+import com_t.macvision.mv_078.base.BaseToolbarFragment;
 import com_t.macvision.mv_078.ui.adapter.FragmentTableAdapter;
-import com_t.macvision.mv_078.base.BaseFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,24 +32,23 @@ import butterknife.Bind;
  * 邮箱：liangxiong.sz@foxmail.com
  * QQ  ：294894105
  */
-public class FileFragment extends BaseFragment {
+public class FileFragment extends BaseToolbarFragment {
     @Bind(R.id.tab_selector)
     TabLayout mTableLayout;
     @Bind(R.id.vp_file)
     ViewPager mViewPager;
     protected static boolean mIsEditState = false;
 
+
     ArrayList<Fragment> fragmentArrayList = new ArrayList<>();
-    //    private String[] mTitle;
     FragmentTableAdapter mFragmentTableAdapter;
     LinearLayoutManager layoutManager;
-    protected Toolbar mToolbar;
-    static MenuClickListener menuClickListener;
+    static ArrayList<MenuClickListener> menuClickListenerList=new ArrayList<>();
     public MenuItem items;
     List<String> mTitle = new ArrayList<>();
 
     @Override
-    protected int getLayout() {
+    public int getLayout() {
         return R.layout.fragment_file;
     }
 
@@ -58,15 +58,37 @@ public class FileFragment extends BaseFragment {
         super.onViewCreated(view, savedInstanceState);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+    }
+
 
     @Override
-    protected void initView(View view) {
-        initData();
+    public void initData() {
+        super.initData();
+        Log.i("moop","授权访问SD卡申请");
+        fragmentArrayList.clear();
+        mTitle.add(currentContext.getString(R.string.frontVideo));
+        mTitle.add(currentContext.getString(R.string.minVideo));
+        mTitle.add(currentContext.getString(R.string.photo));
+        for (int i = 0; i < mTitle.size(); i++) {
+            Bundle bundle = new Bundle();
+            bundle.putInt("type", i);
+            fragmentArrayList.add(FileChildFragment.Tab1Instance(bundle));
+        }
+        mFragmentTableAdapter.notifyDataSetChanged();
+
+    }
+
+    @Override
+    public void initView(View view) {
+        super.initView(view);
         mFragmentTableAdapter = new FragmentTableAdapter(getChildFragmentManager(), fragmentArrayList, mTitle);
         mViewPager.setAdapter(mFragmentTableAdapter);
         mTableLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         mTableLayout.setupWithViewPager(mViewPager);
-        mViewPager.setOffscreenPageLimit(3);
 
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -78,8 +100,8 @@ public class FileFragment extends BaseFragment {
                 if (items != null) {
                     mIsEditState = false;
                     updateMenuTitle(items);
-                }
 
+                }
             }
 
             @Override
@@ -88,11 +110,10 @@ public class FileFragment extends BaseFragment {
             }
         });
 
-        mToolbar = (Toolbar) view.findViewById(R.id.toolbar);
+        toolbar = (Toolbar) view.findViewById(R.id.toolbar);
         setHasOptionsMenu(true);
-        mToolbar.setTitle(R.string.localFile);
-        ((AppCompatActivity) getActivity()).setSupportActionBar(mToolbar);
-        mToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 int menuItemId = item.getItemId();
@@ -107,24 +128,16 @@ public class FileFragment extends BaseFragment {
     }
 
     @Override
-    protected void lazyLoad() {
-
+    protected String setTitle() {
+        return "本地文件";
     }
 
-    private void initData() {
-//        mTitle = new String[]{"前视频", "小视频", "照片"};
-        mTitle.add(currentContext.getString(R.string.frontVideo));
-        mTitle.add(currentContext.getString(R.string.minVideo));
-        mTitle.add(currentContext.getString(R.string.photo));
-        fragmentArrayList.clear();
-        for (int i = 0; i < mTitle.size(); i++) {
-            Bundle bundle = new Bundle();
-            fragmentArrayList.add(FileChildFragment.Tab1Instance(bundle));
-        }
-    }
 
     public void setMenuClickListener(MenuClickListener menuClickListener) {
-        this.menuClickListener = menuClickListener;
+//        this.menuClickListenerList.add(menuClickListener);
+        this.menuClickListenerList.add(menuClickListener);
+        Logger.i("setMenuClickListener-----------"+menuClickListener);
+
     }
 
     @Override
@@ -136,10 +149,37 @@ public class FileFragment extends BaseFragment {
     protected void updateMenuTitle(MenuItem item) {
         if (mIsEditState) {
             item.setTitle(R.string.cancel);
-            this.menuClickListener.onClickCancel();
+            switch (mViewPager.getCurrentItem()){
+                case 0:
+                    this.menuClickListenerList.get(2).onClickCancel();
+
+                    break;
+                case 1:
+                    this.menuClickListenerList.get(0).onClickCancel();
+                    break;
+                case 2:
+                    this.menuClickListenerList.get(1).onClickCancel();
+                default:
+                    break;
+            }
+
+            Logger.i("updateMenuTitleNo-----------"+mViewPager.getCurrentItem()+"---setMenuClickListener="+this.menuClickListenerList.get(mViewPager.getCurrentItem())+"menuClickListenerList.size="+menuClickListenerList.size());
         } else {
             item.setTitle(R.string.edit);
-            this.menuClickListener.onClickEdit();
+//            this.menuClickListenerList.get(mViewPager.getCurrentItem()).onClickEdit();
+            Logger.i("updateMenuTitleOff");
+            switch (mViewPager.getCurrentItem()){
+                case 0:
+                    this.menuClickListenerList.get(2).onClickEdit();
+                    break;
+                case 1:
+                    this.menuClickListenerList.get(0).onClickEdit();
+                    break;
+                case 2:
+                    this.menuClickListenerList.get(1).onClickEdit();
+                default:
+                    break;
+            }
         }
     }
 

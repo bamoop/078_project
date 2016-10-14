@@ -1,1 +1,1 @@
-include ':app', ':sharelib', ':videoJjlibrary'
+include ':app', ':sharelib', ':videoJjlibrary', ':calendar_library'

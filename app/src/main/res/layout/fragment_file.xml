@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/FileList_TabLayout_Height"
         app:tabIndicatorHeight="3dp"
-
+        
         android:layout_marginTop="@dimen/FileList_Item_paddingTop"
         android:layout_marginBottom="@dimen/FileList_Item_paddingTop"
         />
